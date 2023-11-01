@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/10/31 19:27:50 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/01 17:10:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void    ft_debug(t_tokens *nodes)
         printf("cmd[%d] = ---%s---\n", j, nodes->cmd);
         printf("in_file %d = ---%s---\n", j, nodes->i_file);
         printf("in_fd %d = ---\'%d\'---\n", j, nodes->i_fd);
+        printf("delimiter %d = ---\'%s\'---\n", j, nodes->dlmtr);
         j++;
         i = 0;
         while (nodes->options[i])
@@ -74,36 +75,80 @@ void    ft_get_in_file(t_tokens **cmdline)
         while (nodes->options[i])
         {
             if (nodes->options[i][0] == '<' && nodes->options[i][1] == '<')
-            {
-                if (nodes->options[i + 1])
-                {
-                    nodes->dlmtr = nodes->options[i + 1];
-                    nodes->type = in_heredoc;
-                }
-                else
-                    nodes->type = error;
-            }
+                ft_get_in_file1(&nodes, i);
+            else if (nodes->options[i][0] == '<' && nodes->options[i][1] && nodes->options[i][1] != '<')
+                ft_get_in_file2(&nodes, i);
             else if (nodes->options[i][0] == '<')
-            {
-                if (nodes->options[i + 1])
-                {
-                    nodes->i_file = nodes->options[i + 1];
-                    nodes->i_fd = open(nodes->options[i + 1], O_RDONLY);
-                    if (nodes->i_fd <= 0)
-                    {
-                        nodes->i_fd = -2;
-                        printf("%s: No such file or directory", nodes->options[i + 1]);
-                        break;
-                    }
-                    else
-                        nodes->type = in_file;
-                }
-                else
-                    nodes->type = error;
-            }
+                ft_get_in_file3(&nodes, i);
             i++;
         }
         nodes = nodes->next;
     }
     nodes = *cmdline;
+}
+
+void    ft_get_in_file1(t_tokens **nodes, int i)
+{
+    if ((*nodes)->options[i + 1])
+    {
+        (*nodes)->dlmtr = (*nodes)->options[i + 1];
+        (*nodes)->type = in_heredoc;
+    }
+    else
+    {
+        (*nodes)->type = error;
+        printf("minishell: syntax error near unexpected token `newline'\n");
+        return ;
+    }
+}
+
+void    ft_get_in_file2(t_tokens **nodes, int i)
+{
+    (*nodes)->options[i]++;
+    if ((*nodes)->options[i + 1] && (*nodes)->options[i + 1][0] == '<')
+    {
+        printf("minishell: syntax error near unexpected token `<'\n");
+        return ;
+    }
+    else if ((*nodes)->options[i])
+    {
+        (*nodes)->i_file = (*nodes)->options[i];
+        (*nodes)->i_fd = open((*nodes)->options[i], O_RDONLY);
+        if ((*nodes)->i_fd < 0)
+        {
+            (*nodes)->i_fd = -2;
+            printf("minishell: %s: No such file or directory\n", (*nodes)->options[i]);
+            return ;
+        }
+        else
+            (*nodes)->type = in_file;
+        (*nodes)->options[i]--;
+    }
+}
+
+void    ft_get_in_file3(t_tokens **nodes, int i)
+{
+    if ((*nodes)->options[i + 1] && (*nodes)->options[i + 1][0] == '<')
+    {
+        printf("minishell: syntax error near unexpected token `<'\n");
+        return ;
+    }
+    else if ((*nodes)->options[i + 1])
+    {
+        (*nodes)->i_file = (*nodes)->options[i + 1];
+        (*nodes)->i_fd = open((*nodes)->options[i + 1], O_RDONLY);
+        if ((*nodes)->i_fd < 0)
+        {
+            (*nodes)->i_fd = -2;
+            printf("minishell: %s: No such file or directory\n", (*nodes)->options[i + 1]);
+            return ;
+        }
+        else
+            (*nodes)->type = in_file;
+    }
+    else
+    {
+        (*nodes)->type = error;
+        printf("minishell: syntax error near unexpected token `newline'\n");
+    }
 }

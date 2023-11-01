@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/10/31 18:34:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/01 13:16:20 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,8 @@ void            ft_get_in_file(t_tokens **cmdline);
 int				ft_lstsize(t_tokens *lst);
 t_tokens		*ft_lstlast(t_tokens *lst);
 t_tokens        *ft_lstnew(char *str);
+void    ft_get_in_file1(t_tokens **nodes, int i);
+void    ft_get_in_file2(t_tokens **nodes, int i);
+void    ft_get_in_file3(t_tokens **nodes, int i);
 
 #endif

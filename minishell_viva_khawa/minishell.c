@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/10/31 15:47:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/10/31 23:36:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main()
         add_history(cmdline->input);
         cmdline = ft_lstnew(cmdline->input);
         ft_get_real_args(&cmdline);
-        printf("--->>  %s  <<---\n", cmdline->input);
+        // printf("--->>  %s  <<---\n", cmdline->input);
     }
     return(0);
 }
