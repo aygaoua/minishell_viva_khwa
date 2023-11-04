@@ -6,10 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:48:55 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/10/26 19:55:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/04 16:20:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
 int	ft_lstsize(t_tokens *lst)
 {

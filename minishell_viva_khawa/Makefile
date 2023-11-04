@@ -6,15 +6,15 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 20:42:57 by azgaoua           #+#    #+#              #
-#    Updated: 2023/11/02 13:04:17 by azgaoua          ###   ########.fr        #
+#    Updated: 2023/11/04 16:35:21 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-OBJS = minishell.o ft_lst_tools.o parssing.o
+OBJS = minishell.o ft_lst_tools.o parssing.o parssing1.o
 
-FILES = minishell.c ft_lst_tools.c parssing.c
+FILES = minishell.c ft_lst_tools.c parssing.c parssing1.c
 
 CC = cc
 
