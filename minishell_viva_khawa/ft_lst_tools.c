@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/10/31 21:51:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/02 22:51:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ t_tokens	*ft_lstnew(char *str)
 	new->cmd = ft_split(str, '|')[0];
     new->input = str;
     new->i_file = NULL;
+    new->options = NULL;
     new->dlmtr = NULL;
     new->i_fd = 0;
+    new->type = 0;
 	new->next = NULL;
 	return (new);
 }
