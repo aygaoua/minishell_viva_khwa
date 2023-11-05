@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/04 16:34:58 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/05 16:22:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ t_tokens		*ft_lstnew(char *str);
 int				ft_get_in_file1(t_tokens **nodes, int i);
 int				ft_get_in_file2(t_tokens **nodes, int i);
 int				ft_get_in_file3(t_tokens **nodes, int i);
-int				ft_infile_while(t_tokens **nodes, int i);
+int				ft_infile_while(t_tokens **nodes, int *i);
 
 #endif

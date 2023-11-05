@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/04 16:32:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/05 17:45:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_get_in_file(t_tokens **cmdline)
 	while (nodes)
 	{
 		i = 0;
-		if (ft_infile_while(&nodes, i))
+		if (ft_infile_while(&nodes, &i))
 			break ;
 		nodes = nodes->next;
 	}
