@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/05 17:45:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/07 14:51:37 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,30 @@ void	ft_debug(t_tokens *nodes)
 void	ft_get_real_args(t_tokens **cmdline)
 {
 	t_tokens	*nodes;
-	char		**splt;
-	int			i;
 	int			j;
 
-	i = 0;
 	j = 0;
 	nodes = NULL;
 	nodes = *cmdline;
-	splt = ft_split(nodes->input, '|');
-	if (ft_strchr(nodes->input, '|'))
+	if (ft_get_cmd_pipe_elems(&nodes) == 0)
 	{
-		while (splt[i])
+		nodes = *cmdline;
+		while (nodes)
 		{
-			ft_lstadd_back(&nodes, ft_lstnew(splt[i]));
-			i++;
+			nodes->options = ft_split(nodes->cmd, ' ');
+			nodes = nodes->next;
 		}
+		nodes = *cmdline;
+		ft_get_in_files(cmdline);
+		nodes = *cmdline;
+		ft_get_out_files(cmdline);
+		// ft_lstclear(cmdline);
+		// nodes = *cmdline;
+		// ft_debug(nodes);
 	}
-	nodes = *cmdline;
-	while (nodes)
-	{
-		nodes->options = ft_split(nodes->cmd, ' ');
-		nodes = nodes->next;
-	}
-	ft_get_in_file(cmdline);
-	nodes = *cmdline;
-	ft_debug(nodes);
 }
 
-void	ft_get_in_file(t_tokens **cmdline)
+void	ft_get_in_files(t_tokens **cmdline)
 {
 	t_tokens	*nodes;
 	int			i;
