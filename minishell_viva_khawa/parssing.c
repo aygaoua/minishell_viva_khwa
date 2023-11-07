@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/07 14:51:37 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/07 15:52:35 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	ft_debug(t_tokens *nodes)
 		printf ("cmd[%d] = ---%s---\n", j, nodes->cmd);
 		printf ("in_file %d = ---%s---\n", j, nodes->i_file);
 		printf ("in_fd %d = ---\'%d\'---\n", j, nodes->i_fd);
+		printf ("in_file %d = ---%s---\n", j, nodes->o_file);
+		printf ("in_fd %d = ---\'%d\'---\n", j, nodes->o_fd);
 		printf ("delimiter %d = ---\'%s\'---\n", j, nodes->dlmtr);
 		j++;
 		i = 0;
@@ -58,8 +60,8 @@ void	ft_get_real_args(t_tokens **cmdline)
 		nodes = *cmdline;
 		ft_get_out_files(cmdline);
 		// ft_lstclear(cmdline);
-		// nodes = *cmdline;
-		// ft_debug(nodes);
+		nodes = *cmdline;
+		ft_debug(nodes);
 	}
 }
 
@@ -81,7 +83,7 @@ void	ft_get_in_files(t_tokens **cmdline)
 
 int    ft_get_in_file1(t_tokens **nodes, int i)
 {
-	if ((*nodes)->options[i + 1] != NULL)
+	if ((*nodes)->options[i + 1] != NULL && (*nodes)->options[i + 1][0] != '<')
 	{
 		(*nodes)->dlmtr = (*nodes)->options[i + 1];
 		(*nodes)->type = in_heredoc;
