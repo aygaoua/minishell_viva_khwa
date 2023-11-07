@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/07 15:52:35 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/07 17:13:00 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_get_real_args(t_tokens **cmdline)
 		ft_get_in_files(cmdline);
 		nodes = *cmdline;
 		ft_get_out_files(cmdline);
-		// ft_lstclear(cmdline);
 		nodes = *cmdline;
 		ft_debug(nodes);
 	}
@@ -81,23 +80,23 @@ void	ft_get_in_files(t_tokens **cmdline)
 	nodes = *cmdline;
 }
 
-int    ft_get_in_file1(t_tokens **nodes, int i)
+int	ft_get_in_file1(t_tokens **nodes, int i)
 {
 	if ((*nodes)->options[i + 1] != NULL && (*nodes)->options[i + 1][0] != '<')
 	{
 		(*nodes)->dlmtr = (*nodes)->options[i + 1];
-		(*nodes)->type = in_heredoc;
+		(*nodes)->type = IN_HERDOC;
 	}
 	else
 	{
-		(*nodes)->type = error;
+		(*nodes)->type = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
 		return (1);
 	}
 	return (0);
 }
 
-int    ft_get_in_file2(t_tokens **nodes, int i)
+int	ft_get_in_file2(t_tokens **nodes, int i)
 {
 	(*nodes)->options[i]++;
 	if ((*nodes)->options[i] && (*nodes)->options[i][0] == '<')
@@ -112,19 +111,20 @@ int    ft_get_in_file2(t_tokens **nodes, int i)
 		(*nodes)->i_fd = open((*nodes)->options[i], O_RDONLY);
 		if ((*nodes)->i_fd < 0)
 		{
-			(*nodes)->type = -2;
-			(*nodes)->i_fd = -2;
-			printf("minishell: %s: No such file or directory\n", (*nodes)->options[i]);
+			(*nodes)->type = ERROR;
+			(*nodes)->i_fd = ERROR;
+			printf("minishell: %s: No such file or directory\n", \
+			(*nodes)->options[i]);
 			return (1);
 		}
 		else
-			(*nodes)->type = in_file;
+			(*nodes)->type = IN_FILE;
 	}
 	(*nodes)->options[i]--;
-	return(0);
+	return (0);
 }
 
-int    ft_get_in_file3(t_tokens **nodes, int i)
+int	ft_get_in_file3(t_tokens **nodes, int i)
 {
 	if ((*nodes)->options[i + 1] && (*nodes)->options[i + 1][0] == '<')
 	{
@@ -137,17 +137,15 @@ int    ft_get_in_file3(t_tokens **nodes, int i)
 		(*nodes)->i_file = (*nodes)->options[i + 1];
 		(*nodes)->i_fd = open((*nodes)->options[i + 1], O_RDONLY);
 		if ((*nodes)->i_fd < 0)
-		{
-			(*nodes)->i_fd = -2;
-			printf("minishell: %s: No such file or directory\n", (*nodes)->options[i + 1]);
-			return (1);
-		}
+			return ((*nodes)->i_fd = -2, \
+					printf("minishell: %s: No such file or directory\n", \
+					(*nodes)->options[i + 1]), 1);
 		else
-			(*nodes)->type = in_file;
+			(*nodes)->type = IN_FILE;
 	}
 	else
 	{
-		(*nodes)->type = error;
+		(*nodes)->type = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
 	}
 	return (0);

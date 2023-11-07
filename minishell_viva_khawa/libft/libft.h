@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:45:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/10/26 20:15:50 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/05 21:05:07 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ char							*ft_strnstr(const char *haystack,
 char							**ft_split(char const *s, char c);
 size_t							lignes(const char *s, char c);
 void							ft_lstadd_front(t_list **lst, t_list *new);
-void							ft_lstclear(t_list **lst, void (*del)(void *));
 char							*get_next_line(int fd);
 char							*rdwr_and_search(int fd, char *helper);
 char							*ft_strjoin_gnl(char *s1, char *s2);
