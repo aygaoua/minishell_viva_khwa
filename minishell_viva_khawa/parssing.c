@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/07 17:13:00 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/10 18:14:10 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_debug(t_tokens *nodes)
 		printf ("cmd[%d] = ---%s---\n", j, nodes->cmd);
 		printf ("in_file %d = ---%s---\n", j, nodes->i_file);
 		printf ("in_fd %d = ---\'%d\'---\n", j, nodes->i_fd);
-		printf ("in_file %d = ---%s---\n", j, nodes->o_file);
-		printf ("in_fd %d = ---\'%d\'---\n", j, nodes->o_fd);
+		printf ("out_file %d = ---%s---\n", j, nodes->o_file);
+		printf ("out_fd %d = ---\'%d\'---\n", j, nodes->o_fd);
 		printf ("delimiter %d = ---\'%s\'---\n", j, nodes->dlmtr);
 		j++;
 		i = 0;
@@ -59,6 +59,8 @@ void	ft_get_real_args(t_tokens **cmdline)
 		ft_get_in_files(cmdline);
 		nodes = *cmdline;
 		ft_get_out_files(cmdline);
+		nodes = *cmdline;
+		ft_expand_check(cmdline);
 		nodes = *cmdline;
 		ft_debug(nodes);
 	}
