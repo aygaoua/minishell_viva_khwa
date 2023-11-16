@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/07 17:01:58 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/16 14:45:19 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*ft_convert_line(t_tokens **cmdline)
 	j = 0;
 	len = ft_nbr_of_elem((*cmdline)->input);
 	s = malloc (ft_strlen((*cmdline)->input) + (len * 2) + 1);
+	// allocation done!!
 	while ((*cmdline)->input[i])
 	{
 		if (s[j] != ' ')
@@ -86,12 +87,17 @@ int	main(void)
 	while (0 == 0)
 	{
 		cmdline->input = readline("minishell-1$ ");
-		cmdline->cmd = ft_convert_line(&cmdline);
-		add_history(cmdline->input);
-		cmdline = ft_lstnew(cmdline->cmd);
-		ft_get_real_args(&cmdline);
-		if (ft_strncmp(cmdline->input, "exit", 5) == 0)
-			exit(0);
+		if (cmdline->input && cmdline->input[0])
+		{
+			cmdline->cmd = ft_convert_line(&cmdline);
+			add_history(cmdline->input);
+			cmdline = ft_lstnew(cmdline->cmd);
+			ft_get_real_args(&cmdline);
+			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
+				exit(0);
+		}
+		else
+			continue ;
 	}
 	return (0);
 }

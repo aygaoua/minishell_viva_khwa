@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/10 18:14:10 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/16 15:15:06 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ void	ft_get_real_args(t_tokens **cmdline)
 			nodes = nodes->next;
 		}
 		nodes = *cmdline;
-		ft_get_in_files(cmdline);
+		if (ft_quots(&nodes) == 1)
+			printf("minishell: syntax error near unexpected token \'\n");
 		nodes = *cmdline;
-		ft_get_out_files(cmdline);
+		ft_get_in_files(&nodes);
+		nodes = *cmdline;
+		ft_get_out_files(&nodes);
 		nodes = *cmdline;
 		ft_expand_check(cmdline);
 		nodes = *cmdline;

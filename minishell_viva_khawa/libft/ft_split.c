@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:04:20 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/10/02 02:37:39 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/16 14:44:26 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	**freeme(char **s, size_t i)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -59,6 +59,7 @@ char	**ft_split(char const *s, char c)
 	sp = malloc(8 * lignes(s, c));
 	if (!sp)
 		return (0);
+	// allocation done!!
 	while (*s)
 	{
 		while (*s && *s == c)
@@ -72,6 +73,5 @@ char	**ft_split(char const *s, char c)
 			return (freeme(sp, i - 1));
 		s += j;
 	}
-	sp[i] = NULL;
-	return (sp);
+	return (sp[i] = NULL, sp);
 }

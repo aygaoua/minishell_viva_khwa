@@ -6,21 +6,23 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 20:42:57 by azgaoua           #+#    #+#              #
-#    Updated: 2023/11/05 21:50:56 by azgaoua          ###   ########.fr        #
+#    Updated: 2023/11/16 15:15:42 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-OBJS = minishell.o ft_lst_tools.o parssing.o parssing1.o ft_lst_tools1.o
+OBJS = minishell.o ft_lst_tools.o parssing.o parssing1.o ft_lst_tools1.o \
+		quots.o expand.o
 
-FILES = minishell.c ft_lst_tools.c parssing.c parssing1.c ft_lst_tools1.c
+FILES = minishell.c ft_lst_tools.c parssing.c parssing1.c ft_lst_tools1.c \
+		quots.c expand.c
 
 CC = cc
 
 RM = rm -rf
 
-FLGS = -Wall -Wextra -Werror #-g -fsanitize=address
+FLGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 all :  $(NAME)
 

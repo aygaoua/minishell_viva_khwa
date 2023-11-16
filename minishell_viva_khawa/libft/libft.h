@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:45:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/05 21:05:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/14 15:07:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char							*ft_strchr(const char *s, int c);
 char							*ft_strrchr(const char *s, int c);
 char							*ft_strnstr(const char *haystack,
 									const char *needle, size_t len);
-char							**ft_split(char const *s, char c);
+char							**ft_split(char *s, char c);
 size_t							lignes(const char *s, char c);
 void							ft_lstadd_front(t_list **lst, t_list *new);
 char							*get_next_line(int fd);
