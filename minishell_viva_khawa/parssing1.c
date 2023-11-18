@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:29:52 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/07 17:22:05 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/18 20:53:58 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	ft_get_out_file1(t_tokens **nodes, int i)
 		{
 			(*nodes)->o_file = (*nodes)->options[i + 1];
 			(*nodes)->o_fd = open((*nodes)->options[i + 1], \
-								O_WRONLY | O_CREAT | O_EXCL, 0666);
+									O_CREAT | O_RDWR, 0644);
 		}
 	}
 	else
@@ -121,53 +121,6 @@ int	ft_get_out_file1(t_tokens **nodes, int i)
 		(*nodes)->type = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
 		return (1);
-	}
-	return (0);
-}
-
-int	ft_get_out_file2(t_tokens **nodes, int i)
-{
-	(*nodes)->options[i]++;
-	if ((*nodes)->options[i] && (*nodes)->options[i][0] == '>')
-	{
-		(*nodes)->type = -2;
-		printf("minishell: syntax error near unexpected token `>'\n");
-		return (1);
-	}
-	else if ((*nodes)->options[i])
-	{
-		if ((*nodes)->type == IN_FILE || (*nodes)->type == IN_HERDOC)
-		{
-			(*nodes)->o_file = (*nodes)->options[i];
-			(*nodes)->o_fd = open((*nodes)->options[i], \
-								O_WRONLY | O_CREAT | O_EXCL, 0666);
-		}
-	}
-	(*nodes)->options[i]--;
-	return (0);
-}
-
-int	ft_get_out_file3(t_tokens **nodes, int i)
-{
-	if ((*nodes)->options[i + 1] && (*nodes)->options[i + 1][0] == '>')
-	{
-		(*nodes)->o_fd = -2;
-		printf("minishell: syntax error near unexpected token `>'\n");
-		return (1);
-	}
-	else if ((*nodes)->options[i + 1])
-	{
-		if ((*nodes)->type == IN_FILE || (*nodes)->type == IN_HERDOC)
-		{
-			(*nodes)->o_file = (*nodes)->options[i + 1];
-			(*nodes)->o_fd = open((*nodes)->options[i + 1], \
-								O_WRONLY | O_CREAT | O_EXCL, 0666);
-		}
-	}
-	else
-	{
-		(*nodes)->type = ERROR;
-		printf("minishell: syntax error near unexpected token `newline'\n");
 	}
 	return (0);
 }

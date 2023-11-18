@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:04:20 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/16 14:44:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/18 21:31:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	**ft_split(char *s, char c)
 	sp = malloc(8 * lignes(s, c));
 	if (!sp)
 		return (0);
-	// allocation done!!
 	while (*s)
 	{
 		while (*s && *s == c)

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/16 14:45:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/18 21:02:27 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,36 +42,40 @@ char	*ft_convert_line(t_tokens **cmdline)
 	j = 0;
 	len = ft_nbr_of_elem((*cmdline)->input);
 	s = malloc (ft_strlen((*cmdline)->input) + (len * 2) + 1);
-	// allocation done!!
 	while ((*cmdline)->input[i])
 	{
-		if (s[j] != ' ')
-			s[j] = (*cmdline)->input[i];
-		else
-			s[++j] = (*cmdline)->input[i];
-		if (((*cmdline)->input[i] == '<' && \
-			(*cmdline)->input[i + 1] == '<') || \
-			((*cmdline)->input[i] == '>' && (*cmdline)->input[i + 1] == '>'))
-		{
-			j++;
-			i++;
-			s[j] = (*cmdline)->input[i];
-		}
-		if (((*cmdline)->input[i] && (*cmdline)->input[i + 1] == '>') || \
-			((*cmdline)->input[i] && (*cmdline)->input[i + 1] == '<') || \
-			((*cmdline)->input[i] == '<' && (*cmdline)->input[i + 1] && \
-			(*cmdline)->input[i + 1] != '<') || \
-			((*cmdline)->input[i] == '>' && (*cmdline)->input[i + 1] && \
-			(*cmdline)->input[i + 1] != '>') || (*cmdline)->input[i] == '|')
-		{
-			j++;
-			s[j] = ' ';
-		}
+		ft_convert_line_1(cmdline, &s, &j, &i);
 		i++;
 		j++;
 	}
 	s[j] = '\0';
 	return (s);
+}
+
+void	ft_convert_line_1(t_tokens **cmdline, char **s, int *j, int *i)
+{
+	if ((*s)[*j] != ' ')
+		(*s)[*j] = (*cmdline)->input[*i];
+	else
+		(*s)[++(*j)] = (*cmdline)->input[*i];
+	if (((*cmdline)->input[*i] == '<' && \
+		(*cmdline)->input[*i + 1] == '<') || \
+		((*cmdline)->input[*i] == '>' && (*cmdline)->input[*i + 1] == '>'))
+	{
+		(*j)++;
+		(*i)++;
+		(*s)[*j] = (*cmdline)->input[*i];
+	}
+	if (((*cmdline)->input[*i] && (*cmdline)->input[*i + 1] == '>') || \
+		((*cmdline)->input[*i] && (*cmdline)->input[*i + 1] == '<') || \
+		((*cmdline)->input[*i] == '<' && (*cmdline)->input[*i + 1] && \
+		(*cmdline)->input[*i + 1] != '<') || \
+		((*cmdline)->input[*i] == '>' && (*cmdline)->input[*i + 1] && \
+		(*cmdline)->input[*i + 1] != '>') || (*cmdline)->input[*i] == '|')
+	{
+		(*j)++;
+		(*s)[*j] = ' ';
+	}
 }
 
 int	main(void)

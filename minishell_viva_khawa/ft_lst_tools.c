@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/16 14:45:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/18 21:34:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_tokens	*ft_lstnew(char *str)
 	new = malloc(sizeof(t_tokens));
 	if (!new)
 		return (0);
-	// allocation done!!
 	new->cmd = ft_split(str, '|')[0];
 	new->input = str;
 	new->i_file = NULL;

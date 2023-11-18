@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/16 15:15:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/18 20:52:28 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ void	ft_get_real_args(t_tokens **cmdline)
 			nodes = nodes->next;
 		}
 		nodes = *cmdline;
+		ft_expand_check(cmdline);
+		nodes = *cmdline;
 		if (ft_quots(&nodes) == 1)
 			printf("minishell: syntax error near unexpected token \'\n");
 		nodes = *cmdline;
 		ft_get_in_files(&nodes);
 		nodes = *cmdline;
 		ft_get_out_files(&nodes);
-		nodes = *cmdline;
-		ft_expand_check(cmdline);
 		nodes = *cmdline;
 		ft_debug(nodes);
 	}
@@ -126,32 +126,5 @@ int	ft_get_in_file2(t_tokens **nodes, int i)
 			(*nodes)->type = IN_FILE;
 	}
 	(*nodes)->options[i]--;
-	return (0);
-}
-
-int	ft_get_in_file3(t_tokens **nodes, int i)
-{
-	if ((*nodes)->options[i + 1] && (*nodes)->options[i + 1][0] == '<')
-	{
-		(*nodes)->i_fd = -2;
-		printf("minishell: syntax error near unexpected token `<'\n");
-		return (1);
-	}
-	else if ((*nodes)->options[i + 1])
-	{
-		(*nodes)->i_file = (*nodes)->options[i + 1];
-		(*nodes)->i_fd = open((*nodes)->options[i + 1], O_RDONLY);
-		if ((*nodes)->i_fd < 0)
-			return ((*nodes)->i_fd = -2, \
-					printf("minishell: %s: No such file or directory\n", \
-					(*nodes)->options[i + 1]), 1);
-		else
-			(*nodes)->type = IN_FILE;
-	}
-	else
-	{
-		(*nodes)->type = ERROR;
-		printf("minishell: syntax error near unexpected token `newline'\n");
-	}
 	return (0);
 }
