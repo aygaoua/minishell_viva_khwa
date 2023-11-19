@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:49:44 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/18 21:32:04 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/19 00:40:37 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ char	**ft_s_quots(char *cmd, int *i)
 		return (NULL);
 	if (ft_elem_count(cmd, '\''))
 	{
-		while (cmd[*i] && j < (ft_elem_count(cmd, '\'')))
+		while (cmd[*i] && j < (ft_elem_count(cmd, '\'')) / 2)
 		{
-			while (cmd[*i] != '\'' && cmd[*i + 1] != '\'')
+			while (cmd[*i] != '\'')
 				(*i)++;
 			ft_s_quots_1(&cmd, &s, &j, i);
 			(*i)++;
@@ -84,16 +84,20 @@ void	ft_s_quots_1(char **cmd, char ***s, int *j, int *i)
 	if ((*cmd)[*i] == '\'')
 	{
 		(*i)++;
+		if ((*cmd)[*i] == '\'')
+			(*i)++;
 		k = (*i);
-		while ((*cmd)[k] != '\'')
+		while ((*cmd)[k] != '\'' || !(*cmd)[k])
 			k++;
 		(*s)[*j] = malloc(k + 1);
 		k = 0;
-		while ((*cmd)[*i] != '\'')
+		while ((*cmd)[*i] != '\'' || !(*cmd)[*i])
 		{
 			(*s)[*j][k] = (*cmd)[*i];
 			k++;
 			(*i)++;
+			if ((*cmd)[*i] == '\'' && (*cmd)[*i + 1] == '\'')
+				(*i) += 2;
 		}
 		(*s)[*j][k] = '\0';
 		printf("qouts == \"%s\"\n", (*s)[*j]);

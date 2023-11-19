@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/18 21:34:42 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/18 23:56:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_tokens		*ft_lstlast(t_tokens *lst);
 t_tokens		*ft_lstnew(char *str);
 char			**ft_s_quots(char *cmd, int *i);
 char			**ft_expand_check(t_tokens **cmdline);
-void			ft_lstclear(t_tokens **lst);
 void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
 void			ft_get_real_args(t_tokens **cmdline);
 void			ft_lstdelone(t_tokens *lst, void (*del)(void *));

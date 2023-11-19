@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:14:35 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/18 21:28:43 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/19 00:08:50 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_expand_check_1(t_tokens **cmdline, int *i, char ***s, int *j)
 			(*i)++;
 		}
 		(*s)[*j][k] = '\0';
+		printf("$----->%s\n", (*s)[*j]);
 	}
 	(*j)++;
 }
