@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:49:44 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/19 00:40:37 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/19 17:52:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ char	**ft_s_quots(char *cmd, int *i)
 		{
 			while (cmd[*i] != '\'')
 				(*i)++;
-			ft_s_quots_1(&cmd, &s, &j, i);
+			// ft_s_quots_1(&cmd, &s, &j, i);
 			(*i)++;
 			j++;
 		}
+		printf("-----------\\\\\\\\\\\\---------\n");
 		s[j] = NULL;
 	}
 	return (s);
@@ -84,22 +85,26 @@ void	ft_s_quots_1(char **cmd, char ***s, int *j, int *i)
 	if ((*cmd)[*i] == '\'')
 	{
 		(*i)++;
-		if ((*cmd)[*i] == '\'')
+		while ((*cmd)[*i] == '\'')
 			(*i)++;
-		k = (*i);
-		while ((*cmd)[k] != '\'' || !(*cmd)[k])
+		k = (*i) - 1;
+		while ((*cmd)[k] && (*cmd)[k] != '\'')
 			k++;
-		(*s)[*j] = malloc(k + 1);
-		k = 0;
-		while ((*cmd)[*i] != '\'' || !(*cmd)[*i])
+		(*s)[*j] = ft_calloc(k + 2, 1);
+		if ((*cmd)[k] == '\0')
+			(*s)[*j][0] = '\0';
+		else
 		{
-			(*s)[*j][k] = (*cmd)[*i];
-			k++;
-			(*i)++;
-			if ((*cmd)[*i] == '\'' && (*cmd)[*i + 1] == '\'')
-				(*i) += 2;
+			k = 0;
+			while ((*cmd)[*i] && (*cmd)[*i] != '\'')
+			{
+				(*s)[*j][k] = (*cmd)[*i];
+				k++;
+				(*i)++;
+				while ((*cmd)[*i - 1] == '\'')
+					(*i)++;
+			}
+			printf("qouts == \"%s\"\n", (*s)[*j]);
 		}
-		(*s)[*j][k] = '\0';
-		printf("qouts == \"%s\"\n", (*s)[*j]);
 	}
 }

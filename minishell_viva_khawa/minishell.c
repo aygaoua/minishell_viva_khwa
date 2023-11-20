@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/18 21:02:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/19 21:37:22 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,11 @@ void	ft_convert_line_1(t_tokens **cmdline, char **s, int *j, int *i)
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
+	(void) ac;
+	(void) av;
+	// (void) env;
 	t_tokens	*cmdline;
 	char		*str;
 
@@ -99,6 +102,12 @@ int	main(void)
 			ft_get_real_args(&cmdline);
 			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
 				exit(0);
+			else if (ft_strncmp(cmdline->input, "echo", 4) == 0)
+				my_echo_n((cmdline->options + 1));
+			else if (ft_strncmp(cmdline->input, "cd", 2) == 0)
+				cd_command (take_env (env), cmdline->options + 1);
+			else if (ft_strncmp(cmdline->input, "pwd", 3) == 0)
+				my_pdw();
 		}
 		else
 			continue ;
