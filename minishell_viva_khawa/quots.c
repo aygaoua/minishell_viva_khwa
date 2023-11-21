@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:49:44 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/20 22:03:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/19 17:52:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**ft_s_quots(char *cmd, int *i)
 	char	**s;
 
 	j = 0;
-	s = ft_calloc((ft_elem_count(cmd, '\'') + 1) , 8);
+	s = malloc((ft_elem_count(cmd, '\'') + 1) * 8);
 	if (!s)
 		return (NULL);
 	if (ft_elem_count(cmd, '\''))
@@ -67,7 +67,7 @@ char	**ft_s_quots(char *cmd, int *i)
 		{
 			while (cmd[*i] != '\'')
 				(*i)++;
-			ft_s_quots_1(&cmd, &s, &j, i);
+			// ft_s_quots_1(&cmd, &s, &j, i);
 			(*i)++;
 			j++;
 		}
@@ -85,8 +85,6 @@ void	ft_s_quots_1(char **cmd, char ***s, int *j, int *i)
 	if ((*cmd)[*i] == '\'')
 	{
 		(*i)++;
-		if ((*cmd)[*i] == '\'')
-			return ;
 		while ((*cmd)[*i] == '\'')
 			(*i)++;
 		k = (*i) - 1;

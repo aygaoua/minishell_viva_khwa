@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/19 18:24:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/20 21:40:17 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,47 @@ void			my_pdw(void);
 char			*ft_frontcpy(char *dst, char *src, char del);
 char			*go_home(t_node **my_env);
 char			*ft_backcpy(char *dst, char *src, char del);
+void	intial(t_node *new, char *str);
+void	export_command(t_node **my_env, char **arg);
+void	print_export(t_node **list);
+char	*ft_frontcpy_p(char *dst, char *src, char del);
+void	swap_nodes(t_node **my_env);
+t_node	*check_is_exist(t_node **list, char *var);
+void	take_out(char *str);
+t_node	*take_key_vlu(char *str);
+int	is_num_sp(char c);
+
+int	whitout_plus(char c);
+void	error_export(char *key, char *val);
+int	key_error(t_node *test);
+int	how_alpha(char *str);
+int	is_ther_plus(char *str);
+void	make_out(t_node *node);
+int	is_equal(char *str);
+void	export_remplass(t_node *list, t_node *one);
+void	remplace(t_node *list, t_node *one);
+void	export_conca(t_node *list, t_node *one);
+
+void	take_last_link(t_node **env, t_node *new);
+void	check_link(t_node **my_env, t_node *new);
+int	check_nil(t_node **env, char **matrix);
+void	ft_free_only_one_node(t_node *node);
+int	uneset_head(t_node **env, char *str);
+int	empty_list(t_node **list);
+void	unset_key(t_node **env, char *str);
+void	unset_command(t_node **env, char **str);
+void	unset_out_error(char *str);
+int	unset_error(char *test);
+
+
+
+
+
+
+
+
+
+
 
 
 #endif
