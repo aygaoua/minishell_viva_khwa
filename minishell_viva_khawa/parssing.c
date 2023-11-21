@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/20 21:42:13 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/21 19:04:55 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	ft_get_real_args(t_tokens **cmdline)
 		ft_get_in_files(&nodes);
 		nodes = *cmdline;
 		ft_get_out_files(&nodes);
-		nodes = *cmdline;
-		ft_debug(nodes);
+		// nodes = *cmdline;
+		// ft_debug(nodes);
 	}
 }
 

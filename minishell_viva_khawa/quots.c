@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:49:44 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/20 22:03:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/21 19:59:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,68 +45,69 @@ int	ft_quots(t_tokens **cmdline)
 			return (1);
 		else
 		{
-			ft_s_quots((*cmdline)->input, &i);
+			// ft_s_quots((*cmdline)->input, &i);
 			return (0);
 		}
 	}
 	return (0);
 }
 
-char	**ft_s_quots(char *cmd, int *i)
-{
-	int		j;
-	char	**s;
+// char	**ft_s_quots(char *cmd, int *i)
+// {
+// 	int		j;
+// 	char	**s;
 
-	j = 0;
-	s = ft_calloc((ft_elem_count(cmd, '\'') + 1) , 8);
-	if (!s)
-		return (NULL);
-	if (ft_elem_count(cmd, '\''))
-	{
-		while (cmd[*i] && j < (ft_elem_count(cmd, '\'')) / 2)
-		{
-			while (cmd[*i] != '\'')
-				(*i)++;
-			ft_s_quots_1(&cmd, &s, &j, i);
-			(*i)++;
-			j++;
-		}
-		printf("-----------\\\\\\\\\\\\---------\n");
-		s[j] = NULL;
-	}
-	return (s);
-}
+// 	j = 0;
+// 	s = malloc((ft_elem_count(cmd, '\'') + 1) * 8);
+// 	if (!s)
+// 		return (NULL);
+// 	if (ft_elem_count(cmd, '\''))
+// 	{
+// 		while (cmd[*i] && j < (ft_elem_count(cmd, '\'')) / 2)
+// 		{
+// 			while (cmd[*i] != '\'')
+// 				(*i)++;
+// 			ft_s_quots_1(&cmd, &s, &j, i);
+// 			// printf("--qouts--> %s\n", s[j]);
+// 			if (cmd[*i])
+// 				(*i)++;
+// 			// return (s);
+// 			j++;
+// 		}
+// 		printf("-----------\\\\\\\\\\\\---------\n");
+// 		s[j] = NULL;
+// 	}
+// 	return (s);
+// }
 
-void	ft_s_quots_1(char **cmd, char ***s, int *j, int *i)
-{
-	int	k;
+// void	ft_s_quots_1(char **cmd, char ***s, int *j, int *i)
+// {
+// 	int	k;
 
-	k = 0;
-	if ((*cmd)[*i] == '\'')
-	{
-		(*i)++;
-		if ((*cmd)[*i] == '\'')
-			return ;
-		while ((*cmd)[*i] == '\'')
-			(*i)++;
-		k = (*i) - 1;
-		while ((*cmd)[k] && (*cmd)[k] != '\'')
-			k++;
-		(*s)[*j] = ft_calloc(k + 2, 1);
-		if ((*cmd)[k] == '\0')
-			(*s)[*j][0] = '\0';
-		else
-		{
-			k = 0;
-			while ((*cmd)[*i] && (*cmd)[*i] != '\'')
-			{
-				(*s)[*j][k] = (*cmd)[*i];
-				k++;
-				(*i)++;
-				while ((*cmd)[*i - 1] == '\'')
-					(*i)++;
-			}
-			printf("qouts == \"%s\"\n", (*s)[*j]);
-		}
-	}
-}
+// 	k = 0;
+// 	if ((*cmd)[*i] == '\'')
+// 	{
+// 		(*i)++;
+// 		while ((*cmd)[*i] == '\'')
+// 			(*i)++;
+// 		k = (*i) - 1;
+// 		while ((*cmd)[k] && (*cmd)[k] != '\'')
+// 			k++;
+// 		(*s)[*j] = ft_calloc(k + 2, 1);
+// 		if ((*cmd)[k] == '\0')
+// 			(*s)[*j][0] = '\0';
+// 		else
+// 		{
+// 			k = 0;
+// 			while ((*cmd)[*i] && (*cmd)[*i] != '\'')
+// 			{
+// 				(*s)[*j][k] = (*cmd)[*i];
+// 				k++;
+// 				(*i)++;
+// 				while ((*cmd)[*i - 1] == '\'')
+// 					(*i)++;
+// 				// if ()
+// 			}
+// 		}
+// 	}
+// }

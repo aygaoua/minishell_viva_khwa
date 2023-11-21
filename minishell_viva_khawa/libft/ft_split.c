@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:04:20 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/18 21:31:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/21 18:16:11 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,26 @@ char	**ft_split(char *s, char c)
 		return (0);
 	while (*s)
 	{
+		j = 0;
+		if (*s && *s == '\'')
+			s++;
 		while (*s && *s == c)
 			s++;
-		j = 0;
-		while (s[j] && s[j] != c)
+		if (*s && *s == '\'')
+		{
+			s++;
 			j++;
+		}
+		if (j != 0)
+		{
+			while (s[j] && s[j] != '\'')
+				j++;
+		}
+		else
+		{
+			while (s[j] && (s[j] != c))
+				j++;
+		}
 		if (j != 0)
 			sp[i++] = ft_substr(s, 0, j);
 		if (j != 0 && !sp[i - 1])
