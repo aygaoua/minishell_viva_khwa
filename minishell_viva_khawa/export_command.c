@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:22:37 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/20 21:12:29 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:17:26 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	export_command(t_node **my_env, char **arg)
 	int		row;
 
 	row = -1;
+// ---------------aygaoua protection----------------------- //
+	//<<----------still not  working------------>>     
+//      (test "---->>export var='ll kk''<<----")
+// ---------------aygaoua protection----------------------- //
 	if (check_nil (my_env, arg) == 1)
 		return ;
 	while (arg[++row])

@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   split_p.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:04:20 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/22 17:10:10 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/22 19:18:39 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-size_t	lignes(const char *s, char c)
+char	*ft_substr_p(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
-	size_t	l;
+	char	*p;
 
-	i = 0;
-	l = 0;
 	if (!s)
+		return ((void *)0);
+	if (start >= ft_strlen(s))
+		return (ft_strdup("\0"));
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	p = malloc(len + 1);
+	if (!p)
 		return (0);
-	while (s[i] != '\0')
+	i = 0;
+	while (i < len)
 	{
-		if (s[i] != c)
-		{
-			i++;
-			l++;
-			while (s[i] != c && s[i] != '\0')
-				i++;
-		}
-		else
-			i++;
+		if (s[start] == '\'')
+            start++;
+		p[i++] = s[start++];
 	}
-	return (l + 1);
+	p[i] = '\0';
+	return (p);
 }
 
 static char	**freeme(char **s, size_t i)
@@ -47,7 +48,7 @@ static char	**freeme(char **s, size_t i)
 	return (NULL);
 }
 
-char	**ft_split(char *s, char c)
+char	**ft_split_p(char *s, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -61,17 +62,34 @@ char	**ft_split(char *s, char c)
 		return (0);
 	while (*s)
 	{
+		j = 0;
+		while (*s && *s == '\'')
+			s++;
 		while (*s && *s == c)
 			s++;
-		j = 0;
-		while (s[j] && s[j] != c)
+		if (*s && *s == '\'')
+		{
+			s++;
 			j++;
+		}
 		if (j != 0)
-			sp[i++] = ft_substr(s, 0, j);
+		{
+            j = 0;
+			while (s[j] && s[j] != '\'')
+				j++;
+		}
+		if (j == 0)
+		{
+			while (s[j] && (s[j] != c))
+				j++;
+		}
+		if (j != 0)
+			sp[i++] = ft_substr_p(s, 0, j);
 		if (j != 0 && !sp[i - 1])
 			return (freeme(sp, i - 1));
-		s += j;
+        s += j;
+        while (*s && *s == '\'')
+			s++;
 	}
-	sp[i] = NULL;
-	return (sp);
+	return (sp[i] = NULL, sp);
 }

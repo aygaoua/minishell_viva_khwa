@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/21 23:01:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/22 18:34:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_nbr_of_elem(char *s)
 		if ((s[i] == '<' && s[i + 1] == '<') || (s[i] == '>' && \
 			s[i + 1] == '>') || (s[i] == '<' && s[i + 1] && \
 			s[i + 1] != '<') || (s[i] == '>' && s[i + 1] && \
-			s[i + 1] != '>') || s[i] == '|')
+			s[i + 1] != '>') || s[i] == '|' || s[i] == '\'')
 			len++;
 		i++;
 	}
@@ -98,8 +98,9 @@ int	main(int ac, char **av, char **env)
 		{
 			cmdline->cmd = ft_convert_line(&cmdline);
 			add_history(cmdline->input);
+			printf ("---1----> %s <--------\n", (cmdline)->cmd);
 			cmdline = ft_lstnew(cmdline->cmd);
-			ft_get_real_args(&cmdline);			
+			ft_get_real_args(&cmdline);
 			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
 				exit(0);
 			else if (ft_strncmp(cmdline->input, "echo", 4) == 0)
