@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:49:44 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/21 19:59:29 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/22 05:49:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_quots(t_tokens **cmdline)
 // 		{
 // 			while (cmd[*i] != '\'')
 // 				(*i)++;
-// 			ft_s_quots_1(&cmd, &s, &j, i);
+// 			// ft_s_quots_1(&cmd, &s, &j, i);
 // 			// printf("--qouts--> %s\n", s[j]);
 // 			if (cmd[*i])
 // 				(*i)++;
@@ -106,7 +106,6 @@ int	ft_quots(t_tokens **cmdline)
 // 				(*i)++;
 // 				while ((*cmd)[*i - 1] == '\'')
 // 					(*i)++;
-// 				// if ()
 // 			}
 // 		}
 // 	}

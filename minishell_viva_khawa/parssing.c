@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/22 03:07:37 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/22 06:10:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,28 @@ void	ft_get_real_args(t_tokens **cmdline)
 	if (ft_get_cmd_pipe_elems(&nodes) == 0)
 	{
 		nodes = *cmdline;
-		while (nodes)
+		if (ft_quots(&nodes) == 1)
 		{
-			nodes->options = ft_split(nodes->cmd, ' ');
-			nodes = nodes->next;
+			printf("minishell: syntax error near unexpected token \'\n");
+			return ;
+		}
+		else
+		{
+			while (nodes)
+			{
+				nodes->options = ft_split(nodes->cmd, ' ');
+				nodes = nodes->next;
+			}
+			nodes = *cmdline;
+			ft_expand_check(cmdline);
+			nodes = *cmdline;
+			nodes = *cmdline;
+			ft_get_in_files(&nodes);
+			nodes = *cmdline;
+			ft_get_out_files(&nodes);
 		}
 		nodes = *cmdline;
-		ft_expand_check(cmdline);
-		nodes = *cmdline;
-		if (ft_quots(&nodes) == 1)
-			printf("minishell: syntax error near unexpected token \'\n");
-		nodes = *cmdline;
-		ft_get_in_files(&nodes);
-		nodes = *cmdline;
-		ft_get_out_files(&nodes);
-		// nodes = *cmdline;
-		// ft_debug(nodes);
+		ft_debug(nodes);
 	}
 }
 
