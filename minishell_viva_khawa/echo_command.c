@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:04:15 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/19 17:49:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/22 05:59:48 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	my_echo_n(char **argum)
 {
 	int	row;
 
-	if (!argum || !argum[0])
+	if (!argum || !argum[0]) //aygaoua tester : echo '
 		printf ("\n");
 	row = 0;
 	while (argum[row])
