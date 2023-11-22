@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:29:52 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/21 16:24:13 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/22 18:33:24 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ int	ft_get_cmd_pipe_elems(t_tokens **nodes)
 			i++;
 		}
 	}
-	// while (splt[i])
-	// {
-	// 	if (splt[i])
-	// 		free(*(splt + i));
-	// 	i++;
-	// 	printf("ls la------>\n");
-	// }
-	// free(splt);
+	while (splt[i])
+	{
+		if (splt[i])
+			free(*(splt + i));
+		i++;
+		printf("ls la------>\n");
+	}
+	free(splt);
 	return (0);
 }
 
