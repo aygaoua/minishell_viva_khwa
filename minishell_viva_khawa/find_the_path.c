@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/21 19:33:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/21 20:30:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void    let_exec_command(char **path, char **command, char **envment)
 	char	*cmd_path;
 	int		row;
 
+	if (!command || !command[0])
+		return ;
 	row = 0;
 	slash = add_slash (command[row]);
 	cmd_path = NULL;
@@ -64,7 +66,7 @@ void    let_exec_command(char **path, char **command, char **envment)
 			pid = fork ();
 			if (pid == 0)
 				execve (cmd_path, command, envment);
-			usleep(100000);
+			wait(&pid);
 		}
 		row++;
 	}
