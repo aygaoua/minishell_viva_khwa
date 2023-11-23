@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/22 17:05:32 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 03:53:41 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void			ft_get_real_args(t_tokens **cmdline);
 void			ft_lstdelone(t_tokens *lst, void (*del)(void *));
 void			ft_get_in_files(t_tokens **cmdline);
 void			ft_get_out_files(t_tokens **cmdline);
+void			ft_swap_and_null(char ***array, int row);
 // void			ft_s_quots_1(char **cmd, char ***s, int *j, int *i);
 void			ft_convert_line_1(t_tokens **cmdline, char **s, int *j, \
 									int *i);

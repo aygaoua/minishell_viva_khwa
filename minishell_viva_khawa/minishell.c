@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 00:02:40 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 04:31:11 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_convert_line(t_tokens **cmdline)
 	i = 0;
 	j = 0;
 	len = ft_nbr_of_elem((*cmdline)->input);
-	s = malloc (ft_strlen((*cmdline)->input) + (len * 2) + 1);
+	s = malloc (ft_strlen((*cmdline)->input) + ((len +  1) * 2));
 	while ((*cmdline)->input[i])
 	{
 		ft_convert_line_1(cmdline, &s, &j, &i);
