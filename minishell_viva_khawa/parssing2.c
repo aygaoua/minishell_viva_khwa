@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 20:52:53 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/22 23:26:34 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 02:12:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ int	ft_get_out_file2(t_tokens **nodes, int i)
 	(*nodes)->options[i]++;
 	if ((*nodes)->options[i] && (*nodes)->options[i][0] == '>')
 	{
-		(*nodes)->type = -2;
+		(*nodes)->o_fd = ERROR;
+		(*nodes)->type = ERROR;
 		printf("minishell: syntax error near unexpected token `>'\n");
 		return (1);
 	}
 	else if ((*nodes)->options[i])
 	{
-		if ((*nodes)->type == IN_FILE || (*nodes)->type == IN_HERDOC)
-		{
-			(*nodes)->o_file = (*nodes)->options[i];
-			(*nodes)->o_fd = open((*nodes)->options[i], \
-								O_CREAT | O_RDWR, 0644);
-		}
+		if ((*nodes)->o_fd > 0)
+			close((*nodes)->o_fd);
+		(*nodes)->o_file = (*nodes)->options[i];
+		(*nodes)->o_fd = open((*nodes)->options[i], \
+							O_CREAT | O_RDWR, 0644);
+		(*nodes)->type = OUT_FILE;
 	}
 	(*nodes)->options[i]--;
 	return (0);
@@ -65,23 +66,24 @@ int	ft_get_out_file3(t_tokens **nodes, int i)
 {
 	if ((*nodes)->options[i + 1] && (*nodes)->options[i + 1][0] == '>')
 	{
-		(*nodes)->o_fd = -2;
+		(*nodes)->type = ERROR;
+		(*nodes)->o_fd = ERROR;
 		printf("minishell: syntax error near unexpected token `>'\n");
 		return (1);
 	}
 	else if ((*nodes)->options[i + 1])
 	{
-		if ((*nodes)->type == IN_FILE || (*nodes)->type == IN_HERDOC)
-		{
-			printf ("ll kk hh");
-			(*nodes)->o_file = (*nodes)->options[i + 1];
-			(*nodes)->o_fd = open((*nodes)->options[i + 1], \
-								O_CREAT | O_RDWR, 0644);
-		}
+		if ((*nodes)->o_fd > 0)
+			close((*nodes)->o_fd);
+		(*nodes)->o_file = (*nodes)->options[i + 1];
+		(*nodes)->o_fd = open((*nodes)->options[i + 1], \
+							O_CREAT | O_RDWR, 0644);
+		(*nodes)->type = OUT_FILE;
 	}
 	else
 	{
 		(*nodes)->type = ERROR;
+		(*nodes)->o_fd = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:29:52 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/22 23:23:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 02:12:17 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_get_out_files(t_tokens **cmdline)
 			break ;
 		nodes = nodes->next;
 	}
-	nodes = *cmdline;
+	// nodes = *cmdline;
 }
 
 int	ft_outfile_while(t_tokens **nodes, int *i)
@@ -107,16 +107,17 @@ int	ft_get_out_file1(t_tokens **nodes, int i)
 {
 	if ((*nodes)->options[i + 1] != NULL)
 	{
-		if ((*nodes)->type == IN_FILE || (*nodes)->type == IN_HERDOC)
-		{
-			(*nodes)->o_file = (*nodes)->options[i + 1];
-			(*nodes)->o_fd = open((*nodes)->options[i + 1], \
-									O_CREAT | O_RDWR, 0644);
-		}
+		if ((*nodes)->o_fd > 0)
+			close((*nodes)->o_fd);
+		(*nodes)->o_file = (*nodes)->options[i + 1];
+		(*nodes)->o_fd = open((*nodes)->options[i + 1], \
+								O_CREAT | O_RDWR, 0644);
+		(*nodes)->type = OUT_APPEND;
 	}
 	else
 	{
 		(*nodes)->type = ERROR;
+		(*nodes)->o_fd = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
 		return (1);
 	}
