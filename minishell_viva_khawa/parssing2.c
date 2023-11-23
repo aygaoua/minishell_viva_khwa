@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 20:52:53 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/18 21:33:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/22 23:26:34 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	ft_get_out_file3(t_tokens **nodes, int i)
 	{
 		if ((*nodes)->type == IN_FILE || (*nodes)->type == IN_HERDOC)
 		{
+			printf ("ll kk hh");
 			(*nodes)->o_file = (*nodes)->options[i + 1];
 			(*nodes)->o_fd = open((*nodes)->options[i + 1], \
 								O_CREAT | O_RDWR, 0644);
