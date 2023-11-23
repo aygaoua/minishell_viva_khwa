@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:49:44 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/22 18:31:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/22 23:40:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	ft_quots(t_tokens **cmdline)
 
 	i = 0;
 	j = 0;
-	printf ("---2----> %s <--------\n", (*cmdline)->cmd);
 	if (ft_elem_count((*cmdline)->cmd, '"') \
 		|| ft_elem_count((*cmdline)->cmd, '\''))
 	{
