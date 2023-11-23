@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 03:48:42 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 19:06:50 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 20:54:56 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 
 void ft_swap_and_null(char ***array, int row) {
-    printf("***********|||||||||||||*********\n%s - %d\n***********|||||||||||||*********\n", (*array)[row], row);
     if (*array == NULL || row < 0 || (*array)[row] == NULL) {
         // (*array)[row] = NULL;
         // Handle invalid input or if the specified element is already NULL
         return;
     }
+    printf("***********|||||||||||||*********\n%s - %d\n***********|||||||||||||*********\n", (*array)[row], row);
 
     char *temp; // Temporary variable for swapping
 

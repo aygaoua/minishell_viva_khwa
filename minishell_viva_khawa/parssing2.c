@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 20:52:53 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 20:30:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 21:04:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ int	ft_get_in_file3(t_tokens **nodes, int i)
 			(*nodes)->type = ERROR;
 			printf("minishell: %s: No such file or directory\n", \
 					(*nodes)->options[i + 1]);
-			ft_swap_and_null(&(*nodes)->options, i);
-			ft_swap_and_null(&(*nodes)->options, i);
-			i--;
+			// ft_free_tab_2((*nodes)->options);
+			// free((*nodes)->options);
 			return (1);
 		}
 		else
@@ -59,7 +58,6 @@ int	ft_get_out_file2(t_tokens **nodes, int i)
 		(*nodes)->o_fd = ERROR;
 		(*nodes)->type = ERROR;
 		printf("minishell: syntax error near unexpected token `>'\n");
-		// (*nodes)->options[i] = NULL;
 		ft_swap_and_null(&(*nodes)->options, i);
 		return (1);
 	}
