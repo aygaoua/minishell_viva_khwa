@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 20:52:53 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 06:04:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 20:30:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ int	ft_get_in_file3(t_tokens **nodes, int i)
 	{
 		(*nodes)->i_fd = -2;
 		printf("minishell: syntax error near unexpected token `<'\n");
-		// (*nodes)->options[i + 1] = NULL;
-		// ft_swap_and_null(&(*nodes)->options, i);
-		ft_swap_and_null(&(*nodes)->options, i + 1);
+		ft_swap_and_null(&(*nodes)->options, i);
+		ft_swap_and_null(&(*nodes)->options, i);
 		return (1);
 	}
 	else if ((*nodes)->options[i + 1])
@@ -33,22 +32,22 @@ int	ft_get_in_file3(t_tokens **nodes, int i)
 			(*nodes)->type = ERROR;
 			printf("minishell: %s: No such file or directory\n", \
 					(*nodes)->options[i + 1]);
-			// ft_swap_and_null(&(*nodes)->options, i);
-			ft_swap_and_null(&(*nodes)->options, i + 1);
+			ft_swap_and_null(&(*nodes)->options, i);
+			ft_swap_and_null(&(*nodes)->options, i);
+			i--;
 			return (1);
 		}
 		else
 			(*nodes)->type = IN_FILE;
-		// (*nodes)->options[i + 1] = NULL;
-		// ft_swap_and_null(&(*nodes)->options, i);
-		ft_swap_and_null(&(*nodes)->options, i + 1);
+		ft_swap_and_null(&(*nodes)->options, i);
+		ft_swap_and_null(&(*nodes)->options, i);
 	}
 	else
 	{
 		(*nodes)->type = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
+		ft_swap_and_null(&(*nodes)->options, i);
 	}
-	// ft_swap_and_null(&(*nodes)->options, i);
 	return (0);
 }
 

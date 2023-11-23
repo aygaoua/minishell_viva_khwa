@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:29:52 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 05:08:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 20:39:00 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,21 @@ int	ft_infile_while(t_tokens **nodes, int *i)
 		{
 			if (ft_get_in_file1(nodes, *i))
 				return (1);
-			// (*nodes)->options[*i] = NULL;
-			ft_swap_and_null(&(*nodes)->options, *i);
 		}
 		else if ((*nodes)->options[*i][0] == '<' && (*nodes)->options[*i][1] && \
 					(*nodes)->options[*i][1] != '<')
 		{
 			if (ft_get_in_file2(nodes, *i))
 				return (1);
-			// (*nodes)->options[*i] = NULL;
-			ft_swap_and_null(&(*nodes)->options, *i);
 		}
 		else if ((*nodes)->options[*i][0] && (*nodes)->options[*i][0] == '<')
 		{
 			if (ft_get_in_file3(nodes, *i))
+			{
+				(*i)--;
 				return (1);
-			// (*nodes)->options[*i] = NULL;
-			ft_swap_and_null(&(*nodes)->options, *i);
+			}
+			(*i)--;
 		}
 		(*i)++;
 	}
