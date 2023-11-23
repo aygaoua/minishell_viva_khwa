@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/21 20:30:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 02:43:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,12 @@ void    let_exec_command(char **path, char **command, char **envment)
 		{
 			pid = fork ();
 			if (pid == 0)
+			{
+				// if () there is an outfile, dup2
+				// if there is an infile, dup2 also
 				execve (cmd_path, command, envment);
-			wait(&pid);
+			}
+			wait(&pid);      // AYGAOUA TANJAWA A KHAWA !!
 		}
 		row++;
 	}

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/22 18:35:29 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/23 02:41:24 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_tokens	*ft_lstnew(char *str)
 	new->o_file = NULL;
 	new->options = NULL;
 	new->dlmtr = NULL;
-	new->i_fd = 0;
-	new->o_fd = 0;
-	new->type = 0;
+	new->i_fd = -2;
+	new->o_fd = -2;
+	new->type = -2;
 	new->next = NULL;
 	return (new);
 }
