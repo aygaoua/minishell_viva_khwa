@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:29:52 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 20:55:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/24 05:08:24 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ft_get_out_files(t_tokens **cmdline)
 			break ;
 		nodes = nodes->next;
 	}
-	// nodes = *cmdline;
 }
 
 int	ft_outfile_while(t_tokens **nodes, int *i)
@@ -87,7 +86,6 @@ int	ft_outfile_while(t_tokens **nodes, int *i)
 		{
 			if (ft_get_out_file1(nodes, *i))
 				return (1);
-			// (*nodes)->options[*i] = NULL;
 			ft_swap_and_null(&(*nodes)->options, *i);
 		}
 		else if ((*nodes)->options[*i][0] == '>' && (*nodes)->options[*i][1] && \
@@ -95,14 +93,12 @@ int	ft_outfile_while(t_tokens **nodes, int *i)
 		{
 			if (ft_get_out_file2(nodes, *i))
 				return (1);
-			// (*nodes)->options[*i] = NULL;
 			ft_swap_and_null(&(*nodes)->options, *i);
 		}
 		else if ((*nodes)->options[*i][0] && (*nodes)->options[*i][0] == '>')
 		{
 			if (ft_get_out_file3(nodes, *i))
 				return (1);
-			// (*nodes)->options[*i] = NULL;
 			ft_swap_and_null(&(*nodes)->options, *i);
 		}
 		(*i)++;
@@ -120,7 +116,6 @@ int	ft_get_out_file1(t_tokens **nodes, int i)
 		(*nodes)->o_fd = open((*nodes)->options[i + 1], \
 								O_CREAT | O_RDWR | O_APPEND, 0644);
 		(*nodes)->type = OUT_APPEND;
-		// (*nodes)->options[i + 1] = NULL;
 		ft_swap_and_null(&(*nodes)->options, i + 1);
 	}
 	else
