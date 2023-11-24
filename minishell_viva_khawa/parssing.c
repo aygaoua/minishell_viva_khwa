@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 18:25:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/24 04:49:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,9 @@ int	ft_get_in_file2(t_tokens **nodes, int i)
 		{
 			(*nodes)->type = ERROR;
 			(*nodes)->i_fd = ERROR;
-			printf("minishell: %s: No such file or directory\n", \
-			(*nodes)->options[i]);
+			perror("open");
+			// printf("minishell: %s: No such file or directory\n", \
+			// (*nodes)->options[i]);
 			--(*nodes)->options[i];
 			ft_swap_and_null(&(*nodes)->options, i);
 			return (1);
