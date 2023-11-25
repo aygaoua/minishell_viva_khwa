@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 04:23:36 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 05:15:22 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	ft_debug(t_tokens *nodes)
 			printf ("option[%d] = ---\"%s\"---\n", i, nodes->options[i]);
 			i++;
 		}
-		printf ("type %d = --->%d<---\n", j, nodes->type);
+		printf ("type_i %d = --->%d<---\n", j, nodes->type_i);
+		printf ("type_j %d = --->%d<---\n", j, nodes->type_o);
 		nodes = nodes->next;
 	}
 }
@@ -96,13 +97,12 @@ int	ft_get_in_file1(t_tokens **nodes, int i)
 	if ((*nodes)->options[i + 1] != NULL && (*nodes)->options[i + 1][0] != '<')
 	{
 		(*nodes)->dlmtr = (*nodes)->options[i + 1];
-		(*nodes)->type = IN_HERDOC;
+		(*nodes)->type_i = IN_HERDOC;
 		ft_swap_and_null(&(*nodes)->options, i);
-		// ft_swap_and_null(&(*nodes)->options, i);
 	}
 	else
 	{
-		(*nodes)->type = ERROR;
+		(*nodes)->type_i = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
 		while ((*nodes)->options[0])
 				ft_swap_and_null(&(*nodes)->options, 0);
@@ -117,7 +117,7 @@ int	ft_get_in_file2(t_tokens **nodes, int i)
 	(*nodes)->options[i]++;
 	if ((*nodes)->options[i] && (*nodes)->options[i][0] == '<')
 	{
-		(*nodes)->type = -2;
+		(*nodes)->type_i = -2;
 		printf("minishell: syntax error near unexpected token `<'\n");
 		--(*nodes)->options[i];
 		while ((*nodes)->options[0])
@@ -130,7 +130,7 @@ int	ft_get_in_file2(t_tokens **nodes, int i)
 		(*nodes)->i_fd = open((*nodes)->options[i], O_RDONLY);
 		if ((*nodes)->i_fd < 0)
 		{
-			(*nodes)->type = ERROR;
+			(*nodes)->type_i = ERROR;
 			(*nodes)->i_fd = ERROR;
 			perror("open");
 			// printf("minishell: %s: No such file or directory\n", \
@@ -141,7 +141,7 @@ int	ft_get_in_file2(t_tokens **nodes, int i)
 			return (1);
 		}
 		else
-			(*nodes)->type = IN_FILE;
+			(*nodes)->type_i = IN_FILE;
 	}
 	--(*nodes)->options[i];
 	ft_swap_and_null(&(*nodes)->options, i);
