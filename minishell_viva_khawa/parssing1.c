@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:29:52 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 04:39:13 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 05:18:11 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_infile_while(t_tokens **nodes, int *i)
 		{
 			if (ft_get_in_file1(nodes, *i))
 				return (1);
+			(*i)--;
 		}
 		else if ((*nodes)->options[*i][0] == '<' && (*nodes)->options[*i][1] && \
 					(*nodes)->options[*i][1] != '<')
@@ -116,12 +117,12 @@ int	ft_get_out_file1(t_tokens **nodes, int i)
 		(*nodes)->o_file = (*nodes)->options[i + 1];
 		(*nodes)->o_fd = open((*nodes)->options[i + 1], \
 								O_CREAT | O_RDWR | O_APPEND, 0644);
-		(*nodes)->type = OUT_APPEND;
+		(*nodes)->type_o = OUT_APPEND;
 		ft_swap_and_null(&(*nodes)->options, i);
 	}
 	else
 	{
-		(*nodes)->type = ERROR;
+		(*nodes)->type_o = ERROR;
 		(*nodes)->o_fd = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
 		while ((*nodes)->options[0])

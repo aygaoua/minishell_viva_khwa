@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 03:53:41 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 04:54:42 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef struct s_tokens
 	char			*dlmtr;
 	int				i_fd;
 	int				o_fd;
-	int				type;
+	int				type_o;
+	int				type_i;
 	struct s_tokens	*next;
 }					t_tokens;
 

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 04:31:11 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 05:14:07 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	main(int ac, char **av, char **env)
 		{
 			cmdline->cmd = ft_convert_line(&cmdline);
 			add_history(cmdline->input);
-			printf ("---1----> %s <--------\n", (cmdline)->cmd);
 			cmdline = ft_lstnew(cmdline->cmd);
 			ft_get_real_args(&cmdline);
 			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
