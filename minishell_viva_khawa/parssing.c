@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/24 04:49:54 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 04:23:36 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,15 @@ int	ft_get_in_file1(t_tokens **nodes, int i)
 	{
 		(*nodes)->dlmtr = (*nodes)->options[i + 1];
 		(*nodes)->type = IN_HERDOC;
-		ft_swap_and_null(&(*nodes)->options, i + 1);
+		ft_swap_and_null(&(*nodes)->options, i);
+		// ft_swap_and_null(&(*nodes)->options, i);
 	}
 	else
 	{
 		(*nodes)->type = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
-		ft_swap_and_null(&(*nodes)->options, i);
+		while ((*nodes)->options[0])
+				ft_swap_and_null(&(*nodes)->options, 0);
 		return (1);
 	}
 	ft_swap_and_null(&(*nodes)->options, i);
@@ -118,7 +120,8 @@ int	ft_get_in_file2(t_tokens **nodes, int i)
 		(*nodes)->type = -2;
 		printf("minishell: syntax error near unexpected token `<'\n");
 		--(*nodes)->options[i];
-		ft_swap_and_null(&(*nodes)->options, i);
+		while ((*nodes)->options[0])
+				ft_swap_and_null(&(*nodes)->options, 0);
 		return (1);
 	}
 	else if ((*nodes)->options[i])
@@ -133,7 +136,8 @@ int	ft_get_in_file2(t_tokens **nodes, int i)
 			// printf("minishell: %s: No such file or directory\n", \
 			// (*nodes)->options[i]);
 			--(*nodes)->options[i];
-			ft_swap_and_null(&(*nodes)->options, i);
+			while ((*nodes)->options[0])
+				ft_swap_and_null(&(*nodes)->options, 0);
 			return (1);
 		}
 		else

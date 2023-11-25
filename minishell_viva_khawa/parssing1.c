@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:29:52 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/24 23:36:22 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 04:39:13 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_infile_while(t_tokens **nodes, int *i)
 		{
 			if (ft_get_in_file2(nodes, *i))
 				return (1);
+			(*i)--;
 		}
 		else if ((*nodes)->options[*i][0] && (*nodes)->options[*i][0] == '<')
 		{
@@ -86,20 +87,20 @@ int	ft_outfile_while(t_tokens **nodes, int *i)
 		{
 			if (ft_get_out_file1(nodes, *i))
 				return (1);
-			ft_swap_and_null(&(*nodes)->options, *i);
+			(*i)--;
 		}
 		else if ((*nodes)->options[*i][0] == '>' && (*nodes)->options[*i][1] && \
 					(*nodes)->options[*i][1] != '>')
 		{
 			if (ft_get_out_file2(nodes, *i))
 				return (1);
-			ft_swap_and_null(&(*nodes)->options, *i);
+			(*i)--;
 		}
 		else if ((*nodes)->options[*i][0] && (*nodes)->options[*i][0] == '>')
 		{
 			if (ft_get_out_file3(nodes, *i))
 				return (1);
-			ft_swap_and_null(&(*nodes)->options, *i);
+			(*i)--;
 		}
 		(*i)++;
 	}
@@ -116,14 +117,17 @@ int	ft_get_out_file1(t_tokens **nodes, int i)
 		(*nodes)->o_fd = open((*nodes)->options[i + 1], \
 								O_CREAT | O_RDWR | O_APPEND, 0644);
 		(*nodes)->type = OUT_APPEND;
-		ft_swap_and_null(&(*nodes)->options, i + 1);
+		ft_swap_and_null(&(*nodes)->options, i);
 	}
 	else
 	{
 		(*nodes)->type = ERROR;
 		(*nodes)->o_fd = ERROR;
 		printf("minishell: syntax error near unexpected token `newline'\n");
+		while ((*nodes)->options[0])
+			ft_swap_and_null(&(*nodes)->options, 0);
 		return (1);
 	}
+	ft_swap_and_null(&(*nodes)->options, i);
 	return (0);
 }
