@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 20:52:53 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 05:11:37 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 09:30:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_get_in_file3(t_tokens **nodes, int i)
 		{
 			(*nodes)->i_fd = ERROR;
 			(*nodes)->type_i = ERROR;
-			printf("minishell: %s:%s\n", \
+			printf("minishell: %s: %s\n", \
 					(*nodes)->options[i + 1], strerror(errno));
 			while ((*nodes)->options[0])
 				ft_swap_and_null(&(*nodes)->options, 0);
@@ -60,7 +60,6 @@ int	ft_get_out_file2(t_tokens **nodes, int i)
 	{
 		(*nodes)->o_fd = ERROR;
 		(*nodes)->type_o = ERROR;
-		// printf("minishell: syntax error near unexpected token `>'\n");
 		perror("minishell: syntax error near unexpected token `>'\n");
 		while ((*nodes)->options[0])
 			ft_swap_and_null(&(*nodes)->options, 0);

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:18:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 05:15:22 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 11:38:41 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_debug(t_tokens *nodes)
 	}
 }
 
-void	ft_get_real_args(t_tokens **cmdline)
+void	ft_get_real_args(t_tokens **cmdline, t_node **env_nodes)
 {
 	t_tokens	*nodes;
 	int			j;
@@ -65,7 +65,7 @@ void	ft_get_real_args(t_tokens **cmdline)
 				nodes = nodes->next;
 			}
 			nodes = *cmdline;
-			ft_expand_check(cmdline);
+			ft_expand_check(cmdline, env_nodes);
 			nodes = *cmdline;
 			ft_get_in_files(&nodes);
 			nodes = *cmdline;
