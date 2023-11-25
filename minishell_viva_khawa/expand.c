@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:14:35 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 11:38:22 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:02:04 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,28 @@ char	**ft_expand_check(t_tokens **cmdline, t_node **env_nodes)
 			ft_expand_check_1(cmdline, &i, &s, &j);
 		s[j] = NULL;
 	}
+	else
+		return (NULL);
 	i = 0;
-	while (s[i])
+	if (s[i])
 	{
-		while ((*env_nodes))
+		while (s[i])
 		{
-			if (strcmp(s[i], (*env_nodes)->key) == 0)
+			while ((*env_nodes))
 			{
-				printf("expanding ----> %s", s[i]);
-				s[i] = (*env_nodes)->value_of_the_key;
-				printf(" to ----> %s\n", s[i]);
-				*env_nodes = env_head;
-				break;
+				if (ft_strcmp(s[i], (*env_nodes)->key) == 0)
+				{
+					printf("expanding ----> %s", s[i]);
+					s[i] = (*env_nodes)->value_of_the_key;
+					printf(" to ----> %s\n", s[i]);
+					*env_nodes = env_head;
+					break;
+				}
+				else
+					(*env_nodes) = (*env_nodes)->next;
 			}
-			else
-				(*env_nodes) = (*env_nodes)->next;
+			i++;
 		}
-		i++;
 	}
 	return (s);
 }
