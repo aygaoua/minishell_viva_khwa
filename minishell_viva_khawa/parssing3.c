@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 03:48:42 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 05:22:31 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 08:48:01 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,9 @@ void ft_swap_and_null(char ***array, int row)
         row++;
     }
     (*array)[row] = NULL;
+}
+
+void    ft_print_error(char *s)
+{
+    write(2, &s, ft_strlen(s));
 }

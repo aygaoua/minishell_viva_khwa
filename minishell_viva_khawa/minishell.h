@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 04:54:42 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/25 11:39:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ t_tokens		*ft_lstlast(t_tokens *lst);
 t_tokens		*ft_lstnew(char *str);
 char			*ft_substr_p(char const *s, unsigned int start, size_t len);
 // char			**ft_s_quots(char *cmd, int *i);
-char			**ft_expand_check(t_tokens **cmdline);
+char			**ft_expand_check(t_tokens **cmdline, t_node **env_nodes);
 char			**ft_split_p(char *s, char c);
 void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
-void			ft_get_real_args(t_tokens **cmdline);
+void			ft_get_real_args(t_tokens **cmdline, t_node **env_nodes);
 void			ft_lstdelone(t_tokens *lst, void (*del)(void *));
 void			ft_get_in_files(t_tokens **cmdline);
 void			ft_get_out_files(t_tokens **cmdline);
