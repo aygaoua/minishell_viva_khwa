@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/23 02:43:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/26 04:42:43 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char    **find_path(t_node *an_node)
 {
     char    **paths;
 
+	if (!an_node || !an_node->value_of_the_key)
+		return (NULL);
     paths = ft_split (an_node->value_of_the_key, ':');
     return (paths);
 }
@@ -51,7 +53,7 @@ void    let_exec_command(char **path, char **command, char **envment)
 	char	*cmd_path;
 	int		row;
 
-	if (!command || !command[0])
+	if (!command || !command[0] || !path || !path[0])
 		return ;
 	row = 0;
 	slash = add_slash (command[row]);

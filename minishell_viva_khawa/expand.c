@@ -6,58 +6,59 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:14:35 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 22:02:04 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/27 02:56:46 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_expand_check(t_tokens **cmdline, t_node **env_nodes)
+void	ft_expand_check(t_tokens **cmdline, t_node **env_nds)
 {
 	int		i;
 	int		k;
 	int		j;
-	char	**s;
-	t_node *env_head;
+	t_node *env_nodes;
 
-	env_head = *env_nodes;
+	env_nodes = *env_nds;
 	i = 0;
 	k = 0;
 	j = 0;
-	s = malloc ((ft_elem_count((*cmdline)->cmd, '$') + 1) * 8);
+	(*cmdline)->expand = malloc ((ft_elem_count((*cmdline)->cmd, '$') + 1) * 8);
 	if (ft_elem_count((*cmdline)->cmd, '$'))
 	{
+		printf("-\n");
 		while ((*cmdline)->cmd[i] && j < ft_elem_count((*cmdline)->cmd, '$'))
-			ft_expand_check_1(cmdline, &i, &s, &j);
-		s[j] = NULL;
+			ft_expand_check_1(cmdline, &i, &j);
+		(*cmdline)->expand[j] = NULL;
 	}
 	else
-		return (NULL);
+		return ;
 	i = 0;
-	if (s[i])
+	if ((*cmdline)->expand[i])
 	{
-		while (s[i])
+		while ((*cmdline)->expand[i])
 		{
-			while ((*env_nodes))
+			env_nodes = *env_nds;
+			while (env_nodes)
 			{
-				if (ft_strcmp(s[i], (*env_nodes)->key) == 0)
+				if (ft_strcmp((*cmdline)->expand[i], env_nodes->key) == 0)
 				{
-					printf("expanding ----> %s", s[i]);
-					s[i] = (*env_nodes)->value_of_the_key;
-					printf(" to ----> %s\n", s[i]);
-					*env_nodes = env_head;
+					printf("Expanding ----> %s", (*cmdline)->expand[i]);
+					free((*cmdline)->expand[i]);  // Free the old memory
+					(*cmdline)->expand[i] = ft_strdup(env_nodes->value_of_the_key);
+					printf(" to ----> %s\n", (*cmdline)->expand[i]);
 					break;
 				}
-				else
-					(*env_nodes) = (*env_nodes)->next;
+				env_nodes = env_nodes->next;
 			}
+			// if (env_nodes == NULL)
+				
 			i++;
 		}
 	}
-	return (s);
 }
 
-void	ft_expand_check_1(t_tokens **cmdline, int *i, char ***s, int *j)
+void	ft_expand_check_1(t_tokens **cmdline, int *i, int *j)
 {
 	int	k;
 
@@ -65,21 +66,21 @@ void	ft_expand_check_1(t_tokens **cmdline, int *i, char ***s, int *j)
 	while ((*cmdline)->cmd[*i] != '$')
 		(*i)++;
 	(*i)++;
-	k = (*i);
+	k = (*i) - k;
 	while ((*cmdline)->cmd[k] != ' ' && (*cmdline)->cmd[k])
 		k++;
 	if (k != 0)
 	{
-		(*s)[*j] = malloc(k + 1);
+		(*cmdline)->expand[*j] = malloc(k + 1);
 		k = 0;
 		while ((*cmdline)->cmd[*i] != ' ' && (*cmdline)->cmd[*i])
 		{
-			(*s)[*j][k] = (*cmdline)->cmd[*i];
+			(*cmdline)->expand[*j][k] = (*cmdline)->cmd[*i];
 			k++;
 			(*i)++;
 		}
-		(*s)[*j][k] = '\0';
-		// printf("$----->%s\n", (*s)[*j]);
+		(*cmdline)->expand[*j][k] = '\0';
 	}
 	(*j)++;
 }
+

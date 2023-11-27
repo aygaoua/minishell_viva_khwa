@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 11:39:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/27 02:11:16 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_tokens
 	char			*input;
 	char			*cmd;
 	char			**options;
+	char			**expand;
 	char			*i_file;
 	char			*o_file;
 	char			*dlmtr;
@@ -59,19 +60,21 @@ typedef struct s_tokens
 t_tokens		*ft_lstlast(t_tokens *lst);
 t_tokens		*ft_lstnew(char *str);
 char			*ft_substr_p(char const *s, unsigned int start, size_t len);
+char 			*expand_variables(char* input_string);
 // char			**ft_s_quots(char *cmd, int *i);
-char			**ft_expand_check(t_tokens **cmdline, t_node **env_nodes);
 char			**ft_split_p(char *s, char c);
 void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
-void			ft_get_real_args(t_tokens **cmdline, t_node **env_nodes);
+void			ft_get_real_args(t_tokens **cmdline, t_node *env);
 void			ft_lstdelone(t_tokens *lst, void (*del)(void *));
 void			ft_get_in_files(t_tokens **cmdline);
 void			ft_get_out_files(t_tokens **cmdline);
 void			ft_swap_and_null(char ***array, int row);
+void 			ft_args_with_expand(t_tokens **cmdline, t_node *env);
 // void			ft_s_quots_1(char **cmd, char ***s, int *j, int *i);
+void			ft_expand_check(t_tokens **cmdline, t_node **env_nodes);
 void			ft_convert_line_1(t_tokens **cmdline, char **s, int *j, \
 									int *i);
-void			ft_expand_check_1(t_tokens **cmdline, int *i, char ***s, \
+void			ft_expand_check_1(t_tokens **cmdline, int *i, \
 									int *j);
 int				ft_lstsize(t_tokens *lst);
 int				ft_elem_count(char *s, char c);

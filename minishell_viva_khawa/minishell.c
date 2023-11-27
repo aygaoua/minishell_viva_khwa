@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 11:38:34 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/27 02:12:35 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int	main(int ac, char **av, char **env)
 			cmdline->cmd = ft_convert_line(&cmdline);
 			add_history(cmdline->input);
 			cmdline = ft_lstnew(cmdline->cmd);
-			ft_get_real_args(&cmdline, take_env(env));
+			ft_expand_check(&cmdline, kmi);
+			ft_get_real_args(&cmdline, *kmi);
 			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
 				exit(0);
 			else if (ft_strncmp(cmdline->input, "echo", 4) == 0)
