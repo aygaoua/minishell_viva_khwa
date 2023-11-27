@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 06:01:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/27 18:32:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,16 @@ void	ft_convert_line_1(t_tokens **cmdline, char **s, int *j, int *i)
 
 void ft_print_token(t_token *token)
 {
-	t_token *j;
-	j = token;
-	while(j)
+	while(token)
 	{
-		printf("%d [%s]\n", j->type, j->value);
-		j = j->next;
-		// printf("%d [%s]\n", token->type, token->value);
+		printf("%d [%s]\n", token->type, token->value);
+		token = token->next;
 	}
-	// token = j;
+}
+
+void vv()
+{
+	system("leaks minishell");
 }
 
 int	main(int ac, char **av, char **env)
@@ -100,6 +101,7 @@ int	main(int ac, char **av, char **env)
 	t_node **kmi = take_env (env);/*this is mo7a O 7madd speaking*/
 	char		*str;
 
+	atexit(vv);
 	str = NULL;
 	cmdline = NULL;
 	cmdline = malloc (sizeof(t_tokens));
@@ -107,17 +109,16 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	while (0 == 0)
 	{
-		cmdline->input = readline("minishell-1$ ");
+		cmdline->input = readline("minishell-1$: ");
+		add_history(cmdline->input);
 		t_token *lst = ft_lexer(cmdline->input);
-		// ft_print_token(lst);
 		if (check_syntax_error(lst))
-		{
 			printf("syntaks a m3allem\n");
-		}
 		else if (cmdline->input && cmdline->input[0])
 		{
+			ft_print_token(lst);
+			// ft_valid_to_search(lst);
 			cmdline->cmd = ft_convert_line(&cmdline);
-			add_history(cmdline->input);
 			cmdline = ft_lstnew(cmdline->cmd);
 			ft_expand_check(&cmdline, kmi);
 			ft_get_real_args(&cmdline, *kmi);

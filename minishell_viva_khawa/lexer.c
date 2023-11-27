@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:16:04 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 04:48:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/27 18:16:08 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ t_token *ft_lexer(char *line)
     int j = 0;
     t_token *lst = NULL;
 
-    // lst = malloc(sizeof(t_token));
+    if (!line)
+        return (NULL);
     while(line[i])
     {
         j = i;
@@ -65,10 +66,10 @@ t_token *ft_lexer(char *line)
             i++;
         if(i != j)
             ft_lstadd_back2(&lst, ft_lstnew2(ft_substr(line, j, i - j), WORD));
-        else if(line[i] == ' ')
+        else if(line[i] == ' ' || line[i] == '\t')
             ft_lstadd_back2(&lst, ft_lstnew2(ft_get_spcs(line, &i), W_SPC));
         else 
-            ft_lstadd_back2(&lst, ft_lstnew2(NULL, ft_get_type(line, &i)));
+            ft_lstadd_back2(&lst, ft_lstnew2(ft_substr(line, i, 1), ft_get_type(line, &i)));
     }
     return (lst);
 }

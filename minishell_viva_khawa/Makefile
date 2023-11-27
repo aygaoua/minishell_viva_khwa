@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 20:42:57 by azgaoua           #+#    #+#              #
-#    Updated: 2023/11/27 05:32:07 by azgaoua          ###   ########.fr        #
+#    Updated: 2023/11/27 18:33:38 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ CC = cc
 
 RM = rm -rf
 
-FLGS = -Wall -Wextra -Werror -g -fsanitize=address 
+FLGS = -Wall -Wextra -Werror #-g -fsanitize=address 
 
 all :  $(NAME)
 
