@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 05:25:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/27 05:00:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,20 @@ t_tokens	*ft_lstnew(char *str)
 	new->o_fd = -2;
 	new->type_i = -2;
 	new->type_o = -2;
+	new->next = NULL;
+	return (new);
+}
+
+t_token	*ft_lstnew2(char *v, token_type t)
+{
+	t_token	*new;
+
+	new = malloc(sizeof(t_token));
+	if (!new)
+		return (0);
+	new->type = t;
+	new->value = v;
+	new->prev = NULL;
 	new->next = NULL;
 	return (new);
 }

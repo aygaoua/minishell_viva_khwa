@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 03:48:42 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 08:48:01 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/26 23:34:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,39 @@ void ft_swap_and_null(char ***array, int row)
     (*array)[row] = NULL;
 }
 
-void    ft_print_error(char *s)
+void ft_args_with_expand(t_tokens **cmdline, t_node *env_nds)
 {
-    write(2, &s, ft_strlen(s));
+    int i = 0;
+    int j = 0;
+    // char *name;
+
+    (void)env_nds;
+    while ((*cmdline)->options[i])
+    {
+        if ((*cmdline)->options[i][0] == '$' && \
+                ((*cmdline)->options[i][1] == '_' \
+                || ft_isalpha((*cmdline)->options[i][1]) == 1))
+        {
+            // if (name)
+            //     free(name);
+            // name = ft_strdup((*cmdline)->options[i] + 1);
+            // Check if the variable is in the expand array
+            if ((*cmdline)->expand[j])
+            {
+                printf("<<>>%s\n", (*cmdline)->options[i]);
+
+                // Free the original option and replace it with the expanded value
+                free((*cmdline)->options[i]);
+                (*cmdline)->options[i] = ft_strdup((*cmdline)->expand[j]);
+
+                j++;  // Move to the next variable in (*cmdline)->expand
+            }
+        }
+
+        i++;
+
+        if (!(*cmdline)->options[i])
+            break;
+    }
 }
+

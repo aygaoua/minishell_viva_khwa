@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/25 11:38:34 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/27 06:01:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,20 @@ void	ft_convert_line_1(t_tokens **cmdline, char **s, int *j, int *i)
 	}
 }
 
+
+void ft_print_token(t_token *token)
+{
+	t_token *j;
+	j = token;
+	while(j)
+	{
+		printf("%d [%s]\n", j->type, j->value);
+		j = j->next;
+		// printf("%d [%s]\n", token->type, token->value);
+	}
+	// token = j;
+}
+
 int	main(int ac, char **av, char **env)
 {
 	(void) ac;
@@ -94,12 +108,19 @@ int	main(int ac, char **av, char **env)
 	while (0 == 0)
 	{
 		cmdline->input = readline("minishell-1$ ");
-		if (cmdline->input && cmdline->input[0])
+		t_token *lst = ft_lexer(cmdline->input);
+		// ft_print_token(lst);
+		if (check_syntax_error(lst))
+		{
+			printf("syntaks a m3allem\n");
+		}
+		else if (cmdline->input && cmdline->input[0])
 		{
 			cmdline->cmd = ft_convert_line(&cmdline);
 			add_history(cmdline->input);
 			cmdline = ft_lstnew(cmdline->cmd);
-			ft_get_real_args(&cmdline, take_env(env));
+			ft_expand_check(&cmdline, kmi);
+			ft_get_real_args(&cmdline, *kmi);
 			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
 				exit(0);
 			else if (ft_strncmp(cmdline->input, "echo", 4) == 0)
