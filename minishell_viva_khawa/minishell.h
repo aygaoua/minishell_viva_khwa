@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 02:11:16 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/27 05:46:43 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,28 @@ typedef struct s_node
 	struct s_node	*next;
 }				t_node;
 
+typedef enum 
+{
+	WORD,
+	S_QUOT,
+	D_QUOT,
+	W_SPC,
+	DOLLAR,
+	R_IN,
+	R_OUT,
+	R_APPEND,
+	R_HERDOC,
+	PIP
+}	token_type;
+
+typedef struct s_token
+{
+	token_type type;
+	char *value;
+	struct s_token *next;
+	struct s_token *prev;
+} t_token;
+
 typedef struct s_tokens
 {
 	char			*input;
@@ -54,7 +76,14 @@ typedef struct s_tokens
 	int				type_o;
 	int				type_i;
 	struct s_tokens	*next;
+	
 }					t_tokens;
+
+//'aklsdjl;asdjals;dkjgaksdj
+
+t_token 		*ft_lexer(char *line);
+t_token			*ft_lstnew2(char *v, token_type t);
+void ft_print_token(t_token *token);
 
 //---------------------------------PARSSING----------------------------------//
 t_tokens		*ft_lstlast(t_tokens *lst);
@@ -64,6 +93,7 @@ char 			*expand_variables(char* input_string);
 // char			**ft_s_quots(char *cmd, int *i);
 char			**ft_split_p(char *s, char c);
 void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
+void			ft_lstadd_back2(t_token **lst, t_token *new);
 void			ft_get_real_args(t_tokens **cmdline, t_node *env);
 void			ft_lstdelone(t_tokens *lst, void (*del)(void *));
 void			ft_get_in_files(t_tokens **cmdline);
@@ -76,6 +106,7 @@ void			ft_convert_line_1(t_tokens **cmdline, char **s, int *j, \
 									int *i);
 void			ft_expand_check_1(t_tokens **cmdline, int *i, \
 									int *j);
+int				check_syntax_error(t_token *lst);
 int				ft_lstsize(t_tokens *lst);
 int				ft_elem_count(char *s, char c);
 int				ft_get_cmd_pipe_elems(t_tokens **nodes);
