@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 21:56:10 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 23:07:38 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 08:08:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		len;
 
 	if(!s1)
-		return ft_strdup(s2);
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	if (!s1 || !s2)
 		return (0);
 	len = ft_strlen(s2) + ft_strlen(s1);
