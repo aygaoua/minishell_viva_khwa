@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 06:29:49 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 09:19:09 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,11 @@ void ft_expand(t_token *lst, t_node *env)
     full_key_len = ft_strlen(full_key);
     rest_key = ft_substr(full_key, key_len, full_key_len - key_len);
     result = ft_strjoin(env_val, rest_key);
-    lst->value = result;
+    if (env_val)
+        lst->value = result;
+    else
+        lst->value = NULL;
+    return ;
 }
 
 t_token *ft_expand_and_quots(t_token *lst, t_node *env)
@@ -107,7 +111,7 @@ t_token *ft_expand_and_quots(t_token *lst, t_node *env)
             ft_quote_hand(&q , 2, &inside, &new_lst);
         else if(lst->type == DOLLAR && ft_valid_to_search(lst->next) && q != 1)
             ft_expand(lst->next, env);
-        else if(q)
+        else if(q && lst->value != NULL)
             inside = ft_strjoin_f(inside, lst->value, 1, 0);
         else 
             ft_lstadd_back2(&new_lst, ft_lstnew2(lst->value, lst->type));

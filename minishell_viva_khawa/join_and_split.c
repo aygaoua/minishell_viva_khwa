@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:17:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 06:19:41 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 09:24:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ t_token *ft_split_lst(t_token *lst)
     new = NULL;
     while (lst)
     {
-        if (lst->type == W_SPC)
+        if (lst->type == W_SPC || (lst->type == WORD && lst->value == NULL))
             lst = lst->next;
-        ft_lstadd_back2(&new, ft_lstnew2(lst->value, lst->type));
-        lst = lst->next;
+        else
+        {
+            ft_lstadd_back2(&new, ft_lstnew2(lst->value, lst->type));
+            lst = lst->next;
+        }
     }
     return (new);
 }
@@ -54,12 +57,9 @@ t_token *ft_join_needed(t_token *lst)
     new_lst = NULL;
     while (lst)
     {
-        printf("------------%s-------------\n", lst->value);
         if (lst->type == WORD && lst->next && (lst->next->type == WORD \
             || lst->next->type == DOLLAR))
-        {
             ft_jion_elem(&lst, &new_lst);
-        }
         else
         {
             ft_lstadd_back2(&new_lst, ft_lstnew2(lst->value, lst->type));
