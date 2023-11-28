@@ -6,7 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2023/11/28 11:33:54 by azgaoua          ###   ########.fr       */
+=======
 /*   Updated: 2023/11/28 10:00:02 by azgaoua          ###   ########.fr       */
+>>>>>>> 72fff09ebd840354d0c825b5fbbc80190861f09d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +131,7 @@ int	main(int ac, char **av, char **env)
 	{
 		cmdline->input = readline("minishell-1$: ");
 		lst = ft_lexer(cmdline->input);
-		if (check_syntax_error(lst))
+		if (ft_check_syntax_error(lst))
 			printf("syntaks a m3allem\n");
 		else if (cmdline->input && cmdline->input[0])
 		{
