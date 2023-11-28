@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 03:40:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 04:53:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ t_token			*ft_lstnew2(char *v, token_type t);
 t_token			*ft_join_and_split(t_token *lst);
 t_token 		*ft_expand_and_quots(t_token *lst, t_node *env);
 void 			ft_print_token(t_token *token);
+int				ft_join_not_done(t_token *lst);
+
 
 //---------------------------------PARSSING----------------------------------//
 t_tokens		*ft_lstlast(t_tokens *lst);

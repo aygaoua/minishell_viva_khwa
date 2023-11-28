@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 02:47:20 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 04:54:01 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int	main(int ac, char **av, char **env)
 			printf("syntaks a m3allem\n");
 		lst = ft_expand_and_quots(lst, *kmi);
 		//------ft_join_and_split------//
-		lst = ft_join_and_split(lst);
+		while (ft_join_not_done(lst))
+			lst = ft_join_and_split(lst);
 		ft_print_token(lst);
 		if (cmdline->input && cmdline->input[0])
 		{
