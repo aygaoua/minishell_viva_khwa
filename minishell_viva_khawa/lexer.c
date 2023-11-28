@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:16:04 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 18:16:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 06:30:31 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ token_type ft_get_type(char *line, int *i)
         return (DOLLAR);
     else if(line[*i - 1] == '|')
         return (PIP);
-    return 69;
+    return (100);
 }
 
 int ft_is_valid_word(char c)
