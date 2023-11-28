@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 09:19:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:21:34 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void ft_expand(t_token *lst, t_node *env)
     if (env_val)
         lst->value = result;
     else
-        lst->value = NULL;
+        lst->value = ft_strjoin(NULL, rest_key);
     return ;
 }
 
