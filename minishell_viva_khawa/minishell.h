@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 05:46:43 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/27 23:51:23 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ typedef struct s_tokens
 
 t_token 		*ft_lexer(char *line);
 t_token			*ft_lstnew2(char *v, token_type t);
-void ft_print_token(t_token *token);
+void 			ft_print_token(t_token *token);
+t_token 		*ft_expand_and_quots(t_token *lst, t_node *env);
 
 //---------------------------------PARSSING----------------------------------//
 t_tokens		*ft_lstlast(t_tokens *lst);

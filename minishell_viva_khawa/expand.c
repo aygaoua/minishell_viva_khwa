@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:14:35 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 02:56:46 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 00:00:30 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_expand_check(t_tokens **cmdline, t_node **env_nds)
 	(*cmdline)->expand = malloc ((ft_elem_count((*cmdline)->cmd, '$') + 1) * 8);
 	if (ft_elem_count((*cmdline)->cmd, '$'))
 	{
-		printf("-\n");
 		while ((*cmdline)->cmd[i] && j < ft_elem_count((*cmdline)->cmd, '$'))
 			ft_expand_check_1(cmdline, &i, &j);
 		(*cmdline)->expand[j] = NULL;
