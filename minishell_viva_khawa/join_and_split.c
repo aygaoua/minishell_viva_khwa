@@ -43,8 +43,9 @@ int ft_join_if_need(t_token *lst)
 {
     while (lst)
     {
-        if (lst->type == WORD && lst->next && (lst->next->type == WORD \
-            || lst->next->type == DOLLAR))
+        if (((lst->type == WORD && lst->next && (lst->next->type == WORD \
+            || lst->next->type == DOLLAR)) || (lst->type == DOLLAR && (lst->next->type == WORD \
+            || lst->next->type == DOLLAR))))
             return (1);
         lst = lst->next;
     }
@@ -58,8 +59,9 @@ t_token *ft_join_needed(t_token *lst)
     new_lst = NULL;
     while (lst)
     {
-        if (lst->type == WORD && lst->next && (lst->next->type == WORD \
-            || lst->next->type == DOLLAR))
+        if (((lst->type == WORD && lst->next && (lst->next->type == WORD \
+            || lst->next->type == DOLLAR)) || (lst->type == DOLLAR && (lst->next->type == WORD \
+            || lst->next->type == DOLLAR))))
             ft_jion_elem(&lst, &new_lst);
         else
         {
