@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:17:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 10:23:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:35:37 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ t_token *ft_split_lst(t_token *lst)
     new = NULL;
     while (lst)
     {
-        if (lst->type == W_SPC || (lst->type == WORD && lst->value == NULL))
+        if (lst->type == W_SPC || (lst->type == WORD \
+            && (lst->value == NULL || lst->value[0] == '\0')))
             lst = lst->next;
         else
         {

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 06:35:46 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 11:33:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct s_tokens
 	char			*input;
 	char			*cmd;
 	char			**options;
-	// char			**expand;
 	char			*i_file;
 	char			*o_file;
 	char			*dlmtr;
@@ -79,18 +78,19 @@ typedef struct s_tokens
 	
 }					t_tokens;
 
-//'aklsdjl;asdjals;dkjgaksdj
-
+//---------------------------------NEW_PARSSING----------------------------------//
 t_token 		*ft_lexer(char *line);
 t_token			*ft_lstnew2(char *v, token_type t);
 t_token			*ft_join_needed(t_token *lst);
 t_token 		*ft_expand_and_quots(t_token *lst, t_node *env);
 t_token			*ft_split_lst(t_token *lst);
 void 			ft_print_token(t_token *token);
+void			ft_lstadd_back2(t_token **lst, t_token *new);
 int				ft_join_if_need(t_token *lst);
+int				ft_check_syntax_error(t_token *lst);
 
 
-//---------------------------------PARSSING----------------------------------//
+//-----------------------------------PARSSING------------------------------------//
 t_tokens		*ft_lstlast(t_tokens *lst);
 t_tokens		*ft_lstnew(char *str);
 char			*ft_substr_p(char const *s, unsigned int start, size_t len);
@@ -98,7 +98,6 @@ char 			*expand_variables(char* input_string);
 // char			**ft_s_quots(char *cmd, int *i);
 char			**ft_split_p(char *s, char c);
 void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
-void			ft_lstadd_back2(t_token **lst, t_token *new);
 void			ft_get_real_args(t_tokens **cmdline, t_node *env);
 void			ft_lstdelone(t_token *lst, void (*del)(void *));
 void			ft_get_in_files(t_tokens **cmdline);
@@ -111,7 +110,6 @@ void			ft_convert_line_1(t_tokens **cmdline, char **s, int *j, \
 									int *i);
 void			ft_expand_check_1(t_tokens **cmdline, int *i, \
 									int *j);
-int				check_syntax_error(t_token *lst);
 int				ft_lstsize(t_tokens *lst);
 int				ft_elem_count(char *s, char c);
 int				ft_get_cmd_pipe_elems(t_tokens **nodes);
