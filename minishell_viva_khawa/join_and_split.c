@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:17:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 04:53:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 06:19:41 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,24 @@ void    ft_jion_elem(t_token **lst, t_token **lst_new)
                         (*lst)->next->value), WORD));
         (*lst) = (*lst)->next;
         (*lst) = (*lst)->next;
-    // printf("------------%s-------------\n", (*lst_new)->value);
 }
 
-int ft_join_not_done(t_token *lst)
+t_token *ft_split_lst(t_token *lst)
+{
+    t_token *new;
+
+    new = NULL;
+    while (lst)
+    {
+        if (lst->type == W_SPC)
+            lst = lst->next;
+        ft_lstadd_back2(&new, ft_lstnew2(lst->value, lst->type));
+        lst = lst->next;
+    }
+    return (new);
+}
+
+int ft_join_if_need(t_token *lst)
 {
     while (lst)
     {
@@ -33,7 +47,7 @@ int ft_join_not_done(t_token *lst)
     return (0);
 }
 
-t_token *ft_join_and_split(t_token *lst)
+t_token *ft_join_needed(t_token *lst)
 {
     t_token  *new_lst;
 

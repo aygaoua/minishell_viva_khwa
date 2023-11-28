@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 04:54:01 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 06:36:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,27 @@ void	ft_convert_line_1(t_tokens **cmdline, char **s, int *j, int *i)
 	}
 }
 
+char** ft_lst_to_tab(t_token *head) {
+    int count = 0;
+    t_token *current = head;
+    while (current != NULL) {
+        count++;
+        current = current->next;
+    }
+    char **twoDimArray = (char **)malloc((count + 1) * 8);
+    if (twoDimArray == NULL) {
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
+    current = head;
+    int i;
+    for (i = 0; i < count; i++) {
+        twoDimArray[i] = current->value;
+        current = current->next;
+    }
+    twoDimArray[i] = NULL;
+    return (twoDimArray);
+}
 
 void ft_print_token(t_token *token)
 {
@@ -93,6 +114,7 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 	t_tokens	*cmdline;
+	t_token 	*lst;
 	t_node **kmi = take_env (env);/*this is mo7a O 7madd speaking*/
 	char		*str;
 
@@ -104,22 +126,22 @@ int	main(int ac, char **av, char **env)
 	while (0 == 0)
 	{
 		cmdline->input = readline("minishell-1$: ");
-		add_history(cmdline->input);
-		t_token *lst = ft_lexer(cmdline->input);
+		lst = ft_lexer(cmdline->input);
 		if (check_syntax_error(lst))
 			printf("syntaks a m3allem\n");
-		lst = ft_expand_and_quots(lst, *kmi);
-		//------ft_join_and_split------//
-		while (ft_join_not_done(lst))
-			lst = ft_join_and_split(lst);
-		ft_print_token(lst);
-		if (cmdline->input && cmdline->input[0])
+		else if (cmdline->input && cmdline->input[0])
 		{
-			// ft_valid_to_search(lst);
+			add_history(cmdline->input);
+			lst = ft_expand_and_quots(lst, *kmi);
+			while (ft_join_if_need(lst))
+				lst = ft_join_needed(lst);
+			lst = ft_split_lst(lst);
+			ft_print_token(lst);
 			cmdline->cmd = ft_convert_line(&cmdline);
-			cmdline = ft_lstnew(cmdline->cmd);
-			ft_expand_check(&cmdline, kmi);
-			ft_get_real_args(&cmdline, *kmi);
+			// ft_expand_check(&cmdline, kmi);
+			// ft_get_real_args(&cmdline, *kmi);
+			cmdline->options = ft_lst_to_tab(lst);
+			// cmdline = ft_lstnew(cmdline->cmd);
 			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
 				exit(0);
 			else if (ft_strncmp(cmdline->input, "echo", 4) == 0)
