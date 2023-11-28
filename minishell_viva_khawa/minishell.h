@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 05:46:43 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 03:40:09 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ typedef struct s_tokens
 
 t_token 		*ft_lexer(char *line);
 t_token			*ft_lstnew2(char *v, token_type t);
-void ft_print_token(t_token *token);
+t_token			*ft_join_and_split(t_token *lst);
+t_token 		*ft_expand_and_quots(t_token *lst, t_node *env);
+void 			ft_print_token(t_token *token);
 
 //---------------------------------PARSSING----------------------------------//
 t_tokens		*ft_lstlast(t_tokens *lst);
@@ -95,7 +97,7 @@ char			**ft_split_p(char *s, char c);
 void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
 void			ft_lstadd_back2(t_token **lst, t_token *new);
 void			ft_get_real_args(t_tokens **cmdline, t_node *env);
-void			ft_lstdelone(t_tokens *lst, void (*del)(void *));
+void			ft_lstdelone(t_token *lst, void (*del)(void *));
 void			ft_get_in_files(t_tokens **cmdline);
 void			ft_get_out_files(t_tokens **cmdline);
 void			ft_swap_and_null(char ***array, int row);

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 05:03:54 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 05:58:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 00:01:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int check_syntax_error(t_token *lst)
     int q = 0;
 
     lst = spcless(lst);
-    printf("--0-------->\n");
     while(lst)
     {
         if(lst->type == S_QUOT)
