@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 23:52:13 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 02:47:20 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,6 @@ void ft_print_token(t_token *token)
 	}
 }
 
-void vv()
-{
-	system("leaks minishell");
-}
-
 int	main(int ac, char **av, char **env)
 {
 	(void) ac;
@@ -101,7 +96,6 @@ int	main(int ac, char **av, char **env)
 	t_node **kmi = take_env (env);/*this is mo7a O 7madd speaking*/
 	char		*str;
 
-	atexit(vv);
 	str = NULL;
 	cmdline = NULL;
 	cmdline = malloc (sizeof(t_tokens));
@@ -115,9 +109,11 @@ int	main(int ac, char **av, char **env)
 		if (check_syntax_error(lst))
 			printf("syntaks a m3allem\n");
 		lst = ft_expand_and_quots(lst, *kmi);
+		//------ft_join_and_split------//
+		lst = ft_join_and_split(lst);
+		ft_print_token(lst);
 		if (cmdline->input && cmdline->input[0])
 		{
-			ft_print_token(lst);
 			// ft_valid_to_search(lst);
 			cmdline->cmd = ft_convert_line(&cmdline);
 			cmdline = ft_lstnew(cmdline->cmd);

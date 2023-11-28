@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 00:05:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 02:15:28 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,43 +58,47 @@ int ft_len_var(char *s)
 
 char *ft_get_env(char* lst_key, t_node *env)
 {
-    char *key = NULL;
-    int j = 0;
+    char *key;
+    int j;
 
     j = ft_len_var(lst_key);
     key = ft_substr(lst_key, 0, j);
     while (env)
     {
         if (ft_strcmp(key, env->key) == 0)
-        {
-            printf("----->%s\n-------->%s\n", key, env->key);
-            free(key);
-            return (env->value_of_the_key);
-        }
+            return (free(key), env->value_of_the_key);
         env = env->next;
     }
-    free(key);
-    return (NULL);
+    return (free(key), NULL);
 }
 
 void ft_expand(t_token *lst, t_node *env)
 {
-    char *full_key = lst->value;
-    char *env_val = ft_get_env(full_key, env);
-    printf("{%s}\n", env_val);
-    int key_len = ft_len_var(full_key);
-    int full_key_len = ft_strlen(full_key);
-    char *rest_key = ft_substr(full_key, key_len, full_key_len - key_len);
-    char *result = ft_strjoin(env_val, rest_key);
+    char *full_key;
+    char *env_val;
+    int key_len;
+    int full_key_len;
+    char *rest_key;
+    char *result;
+
+    full_key = lst->value;
+    env_val = ft_get_env(full_key, env);
+    key_len = ft_len_var(full_key);
+    full_key_len = ft_strlen(full_key);
+    rest_key = ft_substr(full_key, key_len, full_key_len - key_len);
+    result = ft_strjoin(env_val, rest_key);
     lst->value = result;
 }
 
 t_token *ft_expand_and_quots(t_token *lst, t_node *env)
 {
-    t_token* new_lst = NULL;
-    int q = 0;
-    char *inside = NULL;
+    t_token *new_lst;
+    char    *inside;
+    int     q;
 
+    new_lst = NULL;
+    inside = NULL;  
+    q = 0;
     while(lst)
     {
         if(lst->type == S_QUOT && q != 2)
@@ -104,13 +108,10 @@ t_token *ft_expand_and_quots(t_token *lst, t_node *env)
         else if(lst->type == DOLLAR && ft_valid_to_search(lst->next) && q != 1)
             ft_expand(lst->next, env);
         else if(q)
-        {
-            printf("{%s}\n", inside);
             inside = ft_strjoin_f(inside, lst->value, 1, 0);
-        }
         else 
             ft_lstadd_back2(&new_lst, ft_lstnew2(lst->value, lst->type));
         lst = lst->next;
     }
-    return new_lst;
+    return (new_lst);
 }
