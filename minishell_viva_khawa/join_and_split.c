@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:17:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 03:52:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 04:53:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ void    ft_jion_elem(t_token **lst, t_token **lst_new)
     // printf("------------%s-------------\n", (*lst_new)->value);
 }
 
+int ft_join_not_done(t_token *lst)
+{
+    while (lst)
+    {
+        if (lst->type == WORD && lst->next && (lst->next->type == WORD \
+            || lst->next->type == DOLLAR))
+            return (1);
+        lst = lst->next;
+    }
+    return (0);
+}
+
 t_token *ft_join_and_split(t_token *lst)
 {
     t_token  *new_lst;
@@ -33,16 +45,12 @@ t_token *ft_join_and_split(t_token *lst)
             || lst->next->type == DOLLAR))
         {
             ft_jion_elem(&lst, &new_lst);
-            new_lst = ft_join_and_split(new_lst);
         }
         else
         {
             ft_lstadd_back2(&new_lst, ft_lstnew2(lst->value, lst->type));
             lst = lst->next;
         }
-        // else
-        // {
-        // }
     }
     return (new_lst);
 }
