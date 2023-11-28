@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 11:51:51 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 23:41:22 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,21 +126,22 @@ int	main(int ac, char **av, char **env)
 	while (0 == 0)
 	{
 		cmdline->input = readline("minishell-1$: ");
+		add_history(cmdline->input);
 		lst = ft_lexer(cmdline->input);
 		if (ft_check_syntax_error(lst))
 			printf("syntaks a m3allem\n");
 		else if (cmdline->input && cmdline->input[0])
 		{
-			add_history(cmdline->input);
 			lst = ft_expand_and_quots(lst, *kmi);
 			while (ft_join_if_need(lst))
 				lst = ft_join_needed(lst);
 			lst = ft_split_lst(lst);
 			ft_print_token(lst);
+			cmdline->options = ft_lst_to_tab(lst);
+			// cmdline->i_fd = ft_get_in_file();
 			// cmdline->cmd = ft_convert_line(&cmdline);
 			// ft_expand_check(&cmdline, kmi);
 			// ft_get_real_args(&cmdline, *kmi);
-			cmdline->options = ft_lst_to_tab(lst);
 			// cmdline = ft_lstnew(cmdline->cmd);
 			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
 				exit(0);

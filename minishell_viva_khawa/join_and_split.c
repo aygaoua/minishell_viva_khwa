@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:17:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 11:52:00 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/29 00:10:13 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int ft_join_if_need(t_token *lst)
 {
     while (lst)
     {
-        if (lst->type == WORD && lst->next && (lst->next->type == WORD \
-            || lst->next->type == DOLLAR))
+        if (((lst->type == WORD && lst->next && (lst->next->type == WORD \
+            || lst->next->type == DOLLAR)) || (lst->type == DOLLAR && (lst->next->type == WORD \
+            || lst->next->type == DOLLAR))))
             return (1);
         lst = lst->next;
     }
@@ -58,8 +59,9 @@ t_token *ft_join_needed(t_token *lst)
     new_lst = NULL;
     while (lst)
     {
-        if (lst->type == WORD && lst->next && (lst->next->type == WORD \
-            || lst->next->type == DOLLAR))
+        if (((lst->type == WORD && lst->next && (lst->next->type == WORD \
+            || lst->next->type == DOLLAR)) || (lst->type == DOLLAR && (lst->next->type == WORD \
+            || lst->next->type == DOLLAR))))
             ft_jion_elem(&lst, &new_lst);
         else
         {
