@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 06:36:40 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/28 10:00:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	main(int ac, char **av, char **env)
 				lst = ft_join_needed(lst);
 			lst = ft_split_lst(lst);
 			ft_print_token(lst);
-			cmdline->cmd = ft_convert_line(&cmdline);
+			// cmdline->cmd = ft_convert_line(&cmdline);
 			// ft_expand_check(&cmdline, kmi);
 			// ft_get_real_args(&cmdline, *kmi);
 			cmdline->options = ft_lst_to_tab(lst);
