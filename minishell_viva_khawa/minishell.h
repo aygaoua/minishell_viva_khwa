@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/29 14:06:42 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 00:20:48 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ void 			ft_print_token(t_token *token);
 void			ft_lstadd_back2(t_token **lst, t_token *new);
 int				ft_join_if_need(t_token *lst);
 int				ft_check_syntax_error(t_token *lst);
-void	ft_debug(t_tokens *nodes);
+void			ft_debug(t_tokens *nodes);
+void			ft_print_token(t_token *token);
 
 
 //-----------------------------------PARSSING------------------------------------//
@@ -111,7 +112,7 @@ void			ft_convert_line_1(t_tokens **cmdline, char **s, int *j, \
 									int *i);
 void			ft_expand_check_1(t_tokens **cmdline, int *i, \
 									int *j);
-int				ft_lstsize(t_tokens *lst);
+int				ft_lstsize(t_token *lst);
 int				ft_elem_count(char *s, char c);
 int				ft_get_cmd_pipe_elems(t_tokens **nodes);
 int				ft_get_in_file1(t_tokens **nodes, int i);

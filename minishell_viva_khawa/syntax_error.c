@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 05:03:54 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/29 14:32:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/29 23:10:15 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ int ft_check_syntax_error(t_token *lst)
             return 1;
         lst = lst->next;
     }
-    ft_print_token(lst);
     return q;
 }

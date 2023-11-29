@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/29 14:48:53 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 00:29:15 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,60 +78,42 @@ void	ft_convert_line_1(t_tokens **cmdline, char **s, int *j, int *i)
 	}
 }
 
-char** ft_lst_to_tab(t_token *head) {
-    int count = 0;
-    t_token *current = head;
-    while (current != NULL) {
-        count++;
-        current = current->next;
-    }
-    char **twoDimArray = (char **)malloc((count + 1) * 8);
-    if (twoDimArray == NULL) {
-        perror("Memory allocation failed");
-        exit(EXIT_FAILURE);
-    }
-    current = head;
-    int i;
-    for (i = 0; i < count; i++) {
-        twoDimArray[i] = current->value;
-        current = current->next;
-    }
-    twoDimArray[i] = NULL;
-    return (twoDimArray);
-}
-
-void ft_print_token(t_token *token)
+char	**ft_lst_to_tab(t_token *head)
 {
-	while(token)
+	int		i;
+	char	**tab;
+
+	i = 0;
+	tab = malloc ((ft_lstsize(head) + 1) * 8);
+	while (head)
 	{
-		printf("%d [%s]\n", token->type, token->value);
-		token = token->next;
+		if (head->type == R_APPEND || head->type == R_HERDOC \
+			|| head->type == R_IN || head->type == R_OUT)
+		{
+			head = head->next;
+			head = head->next;
+		}
+		else if (head->type == PIP)
+			head = head->next;
+		else
+		{
+			tab[i] = ft_strdup(head->value);
+			head = head->next;
+			i++;
+		}
 	}
+	tab[i] = NULL;
+	return (tab);
 }
 
-// t_token *ft_move_to_next(t_tokens *cmdline, t_token *lst)
+// void ft_print_token(t_token *token)
 // {
-// 	t_token *new_lst;
-
-// 	while (lst)
+// 	while(token)
 // 	{
-// 		ft_lstadd_back2()
-// 		lst = lst->prev;
+// 		printf("%d [%s]\n", token->type, token->value);
+// 		token = token->next;
 // 	}
 // }
-
-// t_tokens	*ft_pip_split(t_tokens *cmdline, t_token *lst);
-// {
-// 	while (lst)
-// 	{
-// 		if (lst->type == PIP)
-// 		{
-// 			lst = ft_move_to_next(cmdline, lst);
-// 		}
-// 		lst = lst->next;
-// 	}
-// }
-
 
 int		ft_still_pip(t_token *lst)
 {
@@ -211,14 +193,66 @@ void	ft_open_herdoc(char *s, t_tokens *cmdline)
 	}
 }
 
+int	ft_open_in_file(char *s, t_tokens *cmdline, int flag)
+{
+	int fd;
+	if (cmdline->i_fd > 0)
+		close(cmdline->i_fd);
+	fd = open(s, O_RDONLY);
+	if (fd < 0)
+	{
+		write(2, "minishell-1$: ", 14);
+		write(2, s, ft_strlen(s));
+		write(2, ": ", 2);
+		perror("");
+		cmdline->i_fd = -3;
+		if (cmdline->options)
+			ft_free_matrix_contnt(cmdline->options);
+		cmdline->options = NULL;
+		return (1);
+	}
+	if (!flag)
+		close(fd);
+	else
+		cmdline->i_fd = fd;
+	return (0);
+}
+
 void	ft_heredoc(t_token *lst, t_tokens *cmdline)
 {
+	cmdline = cmdline->next;
 	while (lst)
 	{
 		if (lst->type == R_HERDOC)
 			ft_open_herdoc(lst->next->value, cmdline);
 		if (lst->type == PIP)
 			cmdline = cmdline->next;
+		lst = lst->next;
+	}
+}
+
+void	ft_in_file(t_tokens *cmdline, t_token *lst)
+{
+	int flag;
+
+	flag = 1;
+	if (cmdline->i_fd > 0)
+		flag = 0;
+	cmdline = cmdline->next;
+	while (lst)
+	{
+		if (lst->type == R_IN)
+		{
+			if (cmdline->i_fd != -3)
+				ft_open_in_file(lst->next->value, cmdline, flag);
+		}
+		if (lst->type == PIP)
+		{
+			cmdline = cmdline->next;
+			flag = 1;
+			if (cmdline->i_fd > 0)
+				flag = 0;
+		}
 		lst = lst->next;
 	}
 }
@@ -267,6 +301,67 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 	}
 }
 
+void ft_open_out_file(char *s, t_tokens *cmdline, int flag, int type)
+{
+	int fd;
+
+	if (cmdline->o_fd > 0)
+		close(cmdline->o_fd);
+	if (type == R_OUT)
+	{
+		cmdline->type_o = OUT_FILE;
+		fd = open(s, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
+	else
+	{
+		cmdline->type_o = OUT_APPEND;
+		fd = open(s, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	}
+	if (fd < 0)
+	{
+		write(2, "minishell-1$: ", 14);
+		write(2, s, ft_strlen(s));
+		write(2, ": ", 2);
+		perror("");
+		cmdline->o_fd = -3;
+		if (cmdline->options)
+			ft_free_matrix_contnt(cmdline->options);
+		cmdline->options = NULL;
+		return ;
+	}
+	if (!flag)
+		close(fd);
+	else
+		cmdline->o_fd = fd;
+}
+
+
+void ft_out_file(t_tokens *cmdline, t_token *lst)
+{
+	int flag;
+
+	flag = 1;
+	if (cmdline->o_fd > 0)
+		flag = 0;
+	cmdline = cmdline->next;
+	while (lst)
+	{
+		if (lst->type == R_OUT || lst->type == R_APPEND)
+		{
+			if (cmdline->o_fd != -3)
+				ft_open_out_file(lst->next->value, cmdline, flag, lst->type); 
+		}
+		if (lst->type == PIP)
+		{
+			cmdline = cmdline->next;
+			flag = 1;
+			if (cmdline->o_fd > 0)
+				flag = 0;
+		}
+		lst = lst->next;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	(void) ac;
@@ -290,21 +385,21 @@ int	main(int ac, char **av, char **env)
 		lst = ft_lexer(cmdline->input);
 		if (cmdline->input && cmdline->input[0])
 		{
-		lst = ft_expand_and_quots(lst, *kmi);
-		if (ft_check_syntax_error(lst))
-			printf("syntaks a m3allem\n");
-		while (ft_join_if_need(lst))
-			lst = ft_join_needed(lst);
-		lst = ft_split_lst(lst);
-		cmdline->options = ft_lst_to_tab(lst);
-		ft_make_nodes(cmdline, lst);
-		ft_heredoc(lst, cmdline);
-			// ft_print_token(lst);
+			lst = ft_expand_and_quots(lst, *kmi);
+			if (ft_check_syntax_error(lst))
+				printf("syntaks a m3allem\n");
+			while (ft_join_if_need(lst))
+				lst = ft_join_needed(lst);
+			lst = ft_split_lst(lst);
+			cmdline->options = ft_lst_to_tab(lst);
+			ft_make_nodes(cmdline, lst);
+			ft_heredoc(lst, cmdline);
+			ft_in_file(cmdline, lst);
+			ft_out_file(cmdline, lst);
 			ft_debug(cmdline);
+			// ft_print_token(lst);
 			// while (ft_still_pip(lst))
-			// {
 			// 	lst = ft_pips_pars(cmdline, lst);
-			// }
 			// cmdline = ft_pip_split(cmdline, lst);
 			// cmdline->i_fd = ft_get_in_file();
 			// cmdline->cmd = ft_convert_line(&cmdline);
