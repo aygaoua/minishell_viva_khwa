@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 11:21:34 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/29 01:12:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,28 @@ void ft_expand(t_token *lst, t_node *env)
     return ;
 }
 
+void ft_invalid_exp(t_token *lst)
+{
+    char *full_key;
+    int key_len;
+    int full_key_len;
+    char *rest_key;
+    char *result;
+
+    full_key = lst->value;
+    if (full_key[0] != '_' || ft_isalpha(full_key[0] == 0))
+    {
+        lst->value = ft_strjoin(full_key + 1, rest_key);
+        return ;
+    }
+    key_len = ft_len_var(full_key);
+    full_key_len = ft_strlen(full_key);
+    rest_key = ft_substr(full_key, key_len, full_key_len - key_len);
+    result = ft_strjoin( NULL, rest_key);
+    lst->value = ft_strjoin(NULL, rest_key);
+    return ;
+}
+
 t_token *ft_expand_and_quots(t_token *lst, t_node *env)
 {
     t_token *new_lst;
@@ -111,6 +133,8 @@ t_token *ft_expand_and_quots(t_token *lst, t_node *env)
             ft_quote_hand(&q , 2, &inside, &new_lst);
         else if(lst->type == DOLLAR && ft_valid_to_search(lst->next) && q != 1)
             ft_expand(lst->next, env);
+        else if (lst->type == DOLLAR && ft_valid_to_search(lst->next) == 0 && q != 1)
+            ft_invalid_exp(lst->next);
         else if(q && lst->value != NULL)
             inside = ft_strjoin_f(inside, lst->value, 1, 0);
         else 
