@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 23:41:22 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/29 14:48:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,164 @@ void ft_print_token(t_token *token)
 	}
 }
 
+// t_token *ft_move_to_next(t_tokens *cmdline, t_token *lst)
+// {
+// 	t_token *new_lst;
+
+// 	while (lst)
+// 	{
+// 		ft_lstadd_back2()
+// 		lst = lst->prev;
+// 	}
+// }
+
+// t_tokens	*ft_pip_split(t_tokens *cmdline, t_token *lst);
+// {
+// 	while (lst)
+// 	{
+// 		if (lst->type == PIP)
+// 		{
+// 			lst = ft_move_to_next(cmdline, lst);
+// 		}
+// 		lst = lst->next;
+// 	}
+// }
+
+
+int		ft_still_pip(t_token *lst)
+{
+	while (lst)
+	{
+		if (lst->type == PIP)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
+}
+
+t_token *ft_pips_pars(t_tokens *cmdline, t_token *lst)
+{
+	t_token *new_lst;
+	char **tab;
+	int i;
+	int k = 0;
+
+	new_lst = lst;
+	i = 0;
+	while (lst->type != PIP)
+	{
+		i++;
+		lst = lst->next;
+	}
+	lst = new_lst;
+	tab = malloc ((i + 1)* 8);
+	while (k < i)
+	{
+		tab[k] = ft_strdup(lst->value);
+		ft_lstadd_back2(&new_lst, ft_lstnew2(lst->value, lst->type));
+		lst = lst->next;
+		k++;
+	}
+	lst = lst->next;
+	tab[k] = NULL;
+	cmdline->options = tab;
+	return (new_lst);
+}
+
+int ft_heredoc_on(t_token *lst)
+{
+	while (lst)
+	{
+		if (lst->type == R_HERDOC)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
+}
+
+void	ft_open_herdoc(char *s, t_tokens *cmdline)
+{
+	char	*str;
+	int fd[2];
+
+	if (pipe(fd) == -1)
+	{
+		perror("pip");
+		return ;
+	}
+	if (cmdline->i_fd > 0)
+		close(cmdline->i_fd);
+	cmdline->i_fd = fd[1];
+	while(0 == 0)
+	{
+		str = readline(">");
+		if (ft_strcmp(s, str) == 0)
+		{
+			close(fd[1]);
+			cmdline->i_fd = fd[0];
+			break ;
+		}
+		write(cmdline->i_fd, str, ft_strlen(str));
+		write(cmdline->i_fd, "\n", 1);
+	}
+}
+
+void	ft_heredoc(t_token *lst, t_tokens *cmdline)
+{
+	while (lst)
+	{
+		if (lst->type == R_HERDOC)
+			ft_open_herdoc(lst->next->value, cmdline);
+		if (lst->type == PIP)
+			cmdline = cmdline->next;
+		lst = lst->next;
+	}
+}
+
+void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
+{
+	int	i;
+	int	j;
+	t_token		*head;
+
+	while (lst)
+	{
+		head = lst;
+		j = 0;
+		i = 0;
+		ft_lstadd_back(&cmdline, ft_lstnew(lst->value));
+		cmdline = cmdline->next;
+		if (lst->type == PIP)
+			lst = lst->next;
+		while (lst && lst->type != PIP)// you forget the protection
+		{
+			if (lst->type != R_APPEND && lst->type != R_HERDOC \
+				&& lst->type != R_IN && lst->type != R_OUT)
+				i++;
+			else
+				lst = lst->next;
+			lst = lst->next;
+		}
+		cmdline->options = malloc((i + 1) * 8);
+		lst = head;
+		while (lst && lst->type != PIP)
+		{
+			if (lst->type != R_APPEND && lst->type != R_HERDOC \
+				&& lst->type != R_IN && lst->type != R_OUT)
+			{
+				cmdline->options[j] = ft_strdup(lst->value);
+				j++;
+			}
+			else
+				lst = lst->next;
+			lst = lst->next;
+		}
+		cmdline->options[j] = NULL;
+		if (lst)
+			lst = lst->next;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	(void) ac;
@@ -123,21 +281,31 @@ int	main(int ac, char **av, char **env)
 	cmdline = malloc (sizeof(t_tokens));
 	if (!cmdline)
 		return (0);
+	cmdline->next = NULL;// added bye hamza plus ; what are you doing in this part ? no propre initialization
 	while (0 == 0)
 	{
-		cmdline->input = readline("minishell-1$: ");
+		cmdline->input = readline("minishell-1$ ");
 		add_history(cmdline->input);
+		cmdline = ft_lstnew(cmdline->input);
 		lst = ft_lexer(cmdline->input);
+		if (cmdline->input && cmdline->input[0])
+		{
+		lst = ft_expand_and_quots(lst, *kmi);
 		if (ft_check_syntax_error(lst))
 			printf("syntaks a m3allem\n");
-		else if (cmdline->input && cmdline->input[0])
-		{
-			lst = ft_expand_and_quots(lst, *kmi);
-			while (ft_join_if_need(lst))
-				lst = ft_join_needed(lst);
-			lst = ft_split_lst(lst);
-			ft_print_token(lst);
-			cmdline->options = ft_lst_to_tab(lst);
+		while (ft_join_if_need(lst))
+			lst = ft_join_needed(lst);
+		lst = ft_split_lst(lst);
+		cmdline->options = ft_lst_to_tab(lst);
+		ft_make_nodes(cmdline, lst);
+		ft_heredoc(lst, cmdline);
+			// ft_print_token(lst);
+			ft_debug(cmdline);
+			// while (ft_still_pip(lst))
+			// {
+			// 	lst = ft_pips_pars(cmdline, lst);
+			// }
+			// cmdline = ft_pip_split(cmdline, lst);
 			// cmdline->i_fd = ft_get_in_file();
 			// cmdline->cmd = ft_convert_line(&cmdline);
 			// ft_expand_check(&cmdline, kmi);
