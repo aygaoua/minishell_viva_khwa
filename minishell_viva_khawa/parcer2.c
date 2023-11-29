@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/29 01:12:03 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/29 02:30:51 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void ft_invalid_exp(t_token *lst)
     char *rest_key;
     char *result;
 
+    if (lst == NULL)
+        return ;
     full_key = lst->value;
     if (full_key[0] != '_' || ft_isalpha(full_key[0] == 0))
     {
