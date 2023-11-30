@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 05:47:24 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 09:23:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ char			**make_list_arr(t_node **list);
 
 
 int				ft_lstsize_token(t_tokens *lst);
-int 			execcmd_red(t_tokens *cmdline, t_node **my_env);
+int 			execcmd_red(t_node **my_list, t_tokens **parss);
 char    		*get_path_cmand(char **path, char **command);
 
 

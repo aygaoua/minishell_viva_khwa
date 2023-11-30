@@ -6,32 +6,32 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 05:03:54 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 06:12:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 10:53:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstclear2(t_token **lst)
-{
-	t_token	*helper;
+// void	ft_lstclear2(t_token **lst)
+// {
+// 	t_token	*helper;
 
-	if (!lst || !*lst)
-		return ;
-	else
-	{
-		while (*lst)
-		{
-			helper = (*lst)-> next;
-            printf("freeing %p\n", (*lst));
-            if (*lst && (*lst)->value)
-			    free((*lst)->value);
-			free(*lst);
-            *lst = helper;
-		}
-		*lst = NULL;
-	}
-}
+// 	if (!lst || !*lst)
+// 		return ;
+// 	else
+// 	{
+// 		while (*lst)
+// 		{
+// 			helper = (*lst)-> next;
+//             // printf("freeing %p\n", (*lst));
+//             // if (*lst && (*lst)->value)
+// 			//     free((*lst)->value);
+// 			free(*lst);
+//             *lst = helper;
+// 		}
+// 		*lst = NULL;
+// 	}
+// }
 
 t_token *spcless(t_token *lst)
 {
@@ -42,6 +42,7 @@ t_token *spcless(t_token *lst)
             ft_lstadd_back2(&spc, ft_lstnew2(ft_strdup(lst->value), lst->type));
         lst = lst->next;
     }
+    ft_free_lst(&lst);
     return (spc);
 }
 
@@ -58,8 +59,10 @@ int ft_error_syntax(t_token *lst, int q)
 int ft_check_syntax_error(t_token *lst)
 {
     int q = 0;
+    t_token *head;
 
     lst = spcless(lst);
+    head = lst;
     while(lst)
     {
         if(lst->type == S_QUOT)
@@ -77,11 +80,11 @@ int ft_check_syntax_error(t_token *lst)
                 q = 0;
         }
         else if(ft_error_syntax(lst, q))
-            return (ft_lstclear2(&lst), 1);
+            return (ft_free_lst(&head), 1);
         else if((lst->type == PIP) && ((!lst->next || !lst->prev) || ((lst->next && lst->prev) && \
                 (lst->next->type == PIP || lst->prev->type == PIP) && !q)))
-            return (ft_lstclear2(&lst), 1);
+            return (ft_free_lst(&head), 1);
         lst = lst->next;
     }
-    return (ft_lstclear2(&lst), q);
+    return (ft_free_lst(&head), q);
 }

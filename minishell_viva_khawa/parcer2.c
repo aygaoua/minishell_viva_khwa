@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 06:13:50 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:11:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,14 @@ void ft_invalid_exp(t_token *lst)
 t_token *ft_expand_and_quots(t_token *lst, t_node *env)
 {
     t_token *new_lst;
+    t_token *head;
     char    *inside;
     int     q;
 
     new_lst = NULL;
     inside = NULL;  
     q = 0;
+    head = lst;
     while(lst)
     {
         if(lst->type == S_QUOT && q != 2)
@@ -144,5 +146,7 @@ t_token *ft_expand_and_quots(t_token *lst, t_node *env)
             ft_lstadd_back2(&new_lst, ft_lstnew2(ft_strdup(lst->value), lst->type));
         lst = lst->next;
     }
+    lst = head;
+    ft_free_lst(&lst);
     return (new_lst);
 }

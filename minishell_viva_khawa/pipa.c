@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 04:31:31 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 05:14:48 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 08:28:28 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,29 @@ int	ft_lstsize_token(t_tokens *lst)
 }
 
 // int execcmd_red(int fd_in, int fd_out, char **env, char **options, char *in_file, char *out_file, char *main_cmd)
-int execcmd_red(t_tokens *cmdline, t_node **my_env)
-{
-    pid_t pid;
-    pid = fork();
-    if (pid == 0)
-    {
-		if (cmdline->i_fd != -2)
-        {
-            dup2(cmdline->i_fd, STDIN_FILENO);
-            close(cmdline->i_fd);
-        }
-        if (cmdline->o_fd != -2 )
-        {
-            dup2(cmdline->o_fd, STDOUT_FILENO);
-            close(cmdline->o_fd);
-        }
-        execve("/bin/cat", cmdline->options, make_list_arr(my_env));
-        perror("execve");
-        exit(EXIT_FAILURE);
-    }
-    waitpid(pid, NULL, 0);
-    return 0;
-}
+// int execcmd_red(t_tokens *cmdline, t_node **my_env)
+// {
+//     pid_t pid;
+//     pid = fork();
+//     if (pid == 0)
+//     {
+// 		if (cmdline->i_fd != -2)
+//         {
+//             dup2(cmdline->i_fd, STDIN_FILENO);
+//             close(cmdline->i_fd);
+//         }
+//         if (cmdline->o_fd != -2 )
+//         {
+//             dup2(cmdline->o_fd, STDOUT_FILENO);
+//             close(cmdline->o_fd);
+//         }
+//         execve("/bin/cat", cmdline->options, make_list_arr(my_env));
+//         perror("execve");
+//         exit(EXIT_FAILURE);
+//     }
+//     waitpid(pid, NULL, 0);
+//     return 0;
+// }
 
 char    *get_path_cmand(char **path, char **command)
 {

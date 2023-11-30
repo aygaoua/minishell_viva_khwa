@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 02:56:28 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 10:13:05 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_tokens	*ft_lstnew(char *str)
 	new = malloc(sizeof(t_tokens));
 	if (!new)
 		return (0);
+	// printf("%p\n", new);
 	new->input = str;
 	new->options = NULL;
 	new->i_fd = -2;
@@ -36,6 +37,7 @@ t_token	*ft_lstnew2(char *v, token_type t)
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (0);
+	printf("%p\n", new);
 	new->type = t;
 	new->value = v;
 	new->prev = NULL;

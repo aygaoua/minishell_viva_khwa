@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:46:00 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 05:02:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 09:22:11 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ void	ft_lstadd_back2(t_token **lst, t_token *new)
 		new->prev = last;
         last->next = new;
 	}
+	new->next = NULL;
 }
