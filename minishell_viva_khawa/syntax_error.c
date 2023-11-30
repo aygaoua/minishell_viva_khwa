@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 05:03:54 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/29 23:10:15 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 00:58:22 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ t_token *spcless(t_token *lst)
         lst = lst->next;
     }
     return (spc);
+}
+
+int ft_error_syntax(t_token *lst, int q)
+{
+    if (((lst->type == R_APPEND ||
+                lst->type == R_HERDOC || lst->type == R_IN || lst->type == R_OUT)) \
+                && ((!lst->next) || ((lst->next) && (lst->next->type != WORD \
+                && lst->next->type != DOLLAR) && !q)))
+        return 1;
+    return (0);
 }
 
 int ft_check_syntax_error(t_token *lst)
@@ -45,10 +55,7 @@ int ft_check_syntax_error(t_token *lst)
             else if (q == 2)
                 q = 0;
         }
-        else if(((lst->type == R_APPEND ||
-                lst->type == R_HERDOC || lst->type == R_IN || lst->type == R_OUT)) \
-                && ((!lst->next) || ((lst->next) && (lst->next->type != WORD \
-                && lst->next->type != DOLLAR) && !q)))
+        else if(ft_error_syntax(lst, q))
             return 1;
         else if((lst->type == PIP) && ((!lst->next || !lst->prev) || ((lst->next && lst->prev) && \
                 (lst->next->type == PIP || lst->prev->type == PIP) && !q)))

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 00:19:49 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 02:56:28 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,8 @@ t_tokens	*ft_lstnew(char *str)
 	new = malloc(sizeof(t_tokens));
 	if (!new)
 		return (0);
-	new->cmd = str;
 	new->input = str;
-	new->i_file = NULL;
-	new->o_file = NULL;
 	new->options = NULL;
-	new->dlmtr = NULL;
 	new->i_fd = -2;
 	new->o_fd = -2;
 	new->type_i = -2;

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 00:29:15 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 03:38:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,6 @@ int	ft_nbr_of_elem(char *s)
 	return (len);
 }
 
-char	*ft_convert_line(t_tokens **cmdline)
-{
-	int		len;
-	int		i;
-	int		j;
-	char	*s;
-
-	i = 0;
-	j = 0;
-	len = ft_nbr_of_elem((*cmdline)->input);
-	s = malloc (ft_strlen((*cmdline)->input) + ((len +  1) * 2));
-	while ((*cmdline)->input[i])
-	{
-		ft_convert_line_1(cmdline, &s, &j, &i);
-		i++;
-		j++;
-	}
-	s[j] = '\0';
-	return (s);
-}
-
-void	ft_convert_line_1(t_tokens **cmdline, char **s, int *j, int *i)
-{
-	if ((*s)[*j] != ' ')
-		(*s)[*j] = (*cmdline)->input[*i];
-	else
-		(*s)[++(*j)] = (*cmdline)->input[*i];
-	if (((*cmdline)->input[*i] == '<' && \
-		(*cmdline)->input[*i + 1] == '<') || \
-		((*cmdline)->input[*i] == '>' && (*cmdline)->input[*i + 1] == '>'))
-	{
-		(*j)++;
-		(*i)++;
-		(*s)[*j] = (*cmdline)->input[*i];
-	}
-	if (((*cmdline)->input[*i] && (*cmdline)->input[*i + 1] == '>') || \
-		((*cmdline)->input[*i] && (*cmdline)->input[*i + 1] == '<') || \
-		((*cmdline)->input[*i] == '<' && (*cmdline)->input[*i + 1] && \
-		(*cmdline)->input[*i + 1] != '<') || \
-		((*cmdline)->input[*i] == '>' && (*cmdline)->input[*i + 1] && \
-		(*cmdline)->input[*i + 1] != '>') || (*cmdline)->input[*i] == '|')
-	{
-		(*j)++;
-		(*s)[*j] = ' ';
-	}
-}
-
 char	**ft_lst_to_tab(t_token *head)
 {
 	int		i;
@@ -91,7 +44,8 @@ char	**ft_lst_to_tab(t_token *head)
 			|| head->type == R_IN || head->type == R_OUT)
 		{
 			head = head->next;
-			head = head->next;
+			if (head)
+				head = head->next;
 		}
 		else if (head->type == PIP)
 			head = head->next;
@@ -152,6 +106,7 @@ t_token *ft_pips_pars(t_tokens *cmdline, t_token *lst)
 	lst = lst->next;
 	tab[k] = NULL;
 	cmdline->options = tab;
+	ft_free_matrix_contnt(tab);
 	return (new_lst);
 }
 
@@ -250,7 +205,7 @@ void	ft_in_file(t_tokens *cmdline, t_token *lst)
 		{
 			cmdline = cmdline->next;
 			flag = 1;
-			if (cmdline->i_fd > 0)
+			if (cmdline && cmdline->i_fd > 0)
 				flag = 0;
 		}
 		lst = lst->next;
@@ -279,7 +234,8 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 				i++;
 			else
 				lst = lst->next;
-			lst = lst->next;
+			if (lst)
+				lst = lst->next;
 		}
 		cmdline->options = malloc((i + 1) * 8);
 		lst = head;
@@ -289,11 +245,13 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 				&& lst->type != R_IN && lst->type != R_OUT)
 			{
 				cmdline->options[j] = ft_strdup(lst->value);
+				free(lst->value);
 				j++;
 			}
 			else
 				lst = lst->next;
-			lst = lst->next;
+			if (lst)
+				lst = lst->next;
 		}
 		cmdline->options[j] = NULL;
 		if (lst)
@@ -362,17 +320,53 @@ void ft_out_file(t_tokens *cmdline, t_token *lst)
 	}
 }
 
+void ff()
+{
+	system("leaks minishell");
+}
+
+void	ft_free_tokens(t_tokens **cmdline)
+{
+	t_tokens *tmp;
+
+	while (*cmdline)
+	{
+		tmp = *cmdline;
+		*cmdline = (*cmdline)->next;
+		if (tmp)
+		{
+			if (tmp->input)
+				free(tmp->input);
+			if (tmp->options)
+				ft_free_matrix_contnt(tmp->options);
+			free(tmp);
+		}
+	}
+}
+
+void	ft_free_lst(t_token **lst)
+{
+	t_token *tmp;
+	
+	while (*lst)
+	{
+		tmp = *lst;
+		*lst = (*lst)->next;
+		if (tmp)
+			free(tmp);
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
-	(void) ac;
-	(void) av;
+	(void) 		ac;
+	(void) 		av;
 	t_tokens	*cmdline;
 	t_token 	*lst;
-	t_node **kmi = take_env (env);/*this is mo7a O 7madd speaking*/
-	char		*str;
+	t_node 		**kmi;
 
-	str = NULL;
-	cmdline = NULL;
+	// atexit(ff);
+	kmi = take_env (env);
 	cmdline = malloc (sizeof(t_tokens));
 	if (!cmdline)
 		return (0);
@@ -383,11 +377,11 @@ int	main(int ac, char **av, char **env)
 		add_history(cmdline->input);
 		cmdline = ft_lstnew(cmdline->input);
 		lst = ft_lexer(cmdline->input);
-		if (cmdline->input && cmdline->input[0])
+		if (ft_check_syntax_error(lst))
+			printf("syntaks a m3allem\n");
+		else if (cmdline->input && cmdline->input[0])
 		{
 			lst = ft_expand_and_quots(lst, *kmi);
-			if (ft_check_syntax_error(lst))
-				printf("syntaks a m3allem\n");
 			while (ft_join_if_need(lst))
 				lst = ft_join_needed(lst);
 			lst = ft_split_lst(lst);
@@ -396,41 +390,38 @@ int	main(int ac, char **av, char **env)
 			ft_heredoc(lst, cmdline);
 			ft_in_file(cmdline, lst);
 			ft_out_file(cmdline, lst);
-			ft_debug(cmdline);
-			// ft_print_token(lst);
-			// while (ft_still_pip(lst))
-			// 	lst = ft_pips_pars(cmdline, lst);
-			// cmdline = ft_pip_split(cmdline, lst);
-			// cmdline->i_fd = ft_get_in_file();
-			// cmdline->cmd = ft_convert_line(&cmdline);
-			// ft_expand_check(&cmdline, kmi);
-			// ft_get_real_args(&cmdline, *kmi);
-			// cmdline = ft_lstnew(cmdline->cmd);
-			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
-				exit(0);
-			else if (ft_strncmp(cmdline->input, "echo", 4) == 0)
-				my_echo_n((cmdline->options + 1));
-			else if (ft_strncmp(cmdline->input, "cd", 2) == 0)
-				cd_command (take_env (env), cmdline->options + 1);
-			else if (ft_strncmp(cmdline->input, "pwd", 3) == 0)
-				my_pdw();
+			// ft_debug(cmdline);
+			// ft_free_tokens(&cmdline);
+			// ft_free_lst(&lst);
+			system("leaks minishell");
+			continue ;
 /*#######################this is mo7a O 7madd speaking########################*/
-			else if (ft_strncmp(cmdline->input, "export", 6) == 0)
+			if (ft_strncmp(cmdline->next->input, "exit", 5) == 0)
+				exit(0);
+			if (!cmdline->next || cmdline->next->options[0] == NULL)
+				continue ;
+			else if (ft_strncmp(cmdline->next->input, "echo", 4) == 0)
+				my_echo_n((cmdline->next->options + 1));
+			else if (ft_strncmp(cmdline->next->input, "cd", 2) == 0)
+				cd_command (take_env (env), cmdline->next->options + 1);
+			else if (ft_strncmp(cmdline->next->input, "pwd", 3) == 0)
+				my_pdw();
+			else if (ft_strncmp(cmdline->next->input, "export", 6) == 0)
 			{
 				// t_node **kmi = take_env (env);
-				printf ("THIS IS EXPORT%p\n",cmdline->options + 2);
-				export_command (kmi, cmdline->options + 1);
+				printf ("THIS IS EXPORT%p\n",cmdline->next->options + 2);
+				export_command (kmi, cmdline->next->options + 1);
 				// export_command (take_env (env), NULL);
 				print_export (kmi);
 			}
-			else if (ft_strncmp(cmdline->input, "unset", 5) == 0)
+			else if (ft_strncmp(cmdline->next->input, "unset", 5) == 0)
 			{
 				printf ("THIS IS UNSET\n");
-				unset_command (kmi, cmdline->options + 1);
+				unset_command (kmi, cmdline->next->options + 1);
 				// if (kmi)
 					print_export (kmi);
 			}
-			else if (ft_strncmp(cmdline->input, "env", 3) == 0)
+			else if (ft_strncmp(cmdline->next->input, "env", 3) == 0)
 			{
 				printf ("THIS IS ENV\n");
 				env_command(env);

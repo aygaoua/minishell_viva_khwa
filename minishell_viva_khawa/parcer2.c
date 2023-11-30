@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/29 02:30:51 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 03:03:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void ft_expand(t_token *lst, t_node *env)
     full_key_len = ft_strlen(full_key);
     rest_key = ft_substr(full_key, key_len, full_key_len - key_len);
     result = ft_strjoin(env_val, rest_key);
+    free(lst->value);
     if (env_val)
         lst->value = result;
     else
@@ -143,5 +144,6 @@ t_token *ft_expand_and_quots(t_token *lst, t_node *env)
             ft_lstadd_back2(&new_lst, ft_lstnew2(lst->value, lst->type));
         lst = lst->next;
     }
+    ft_free_lst(&lst);
     return (new_lst);
 }
