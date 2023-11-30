@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 03:05:03 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 05:47:24 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_tokens		*ft_lstnew(char *str);
 void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
 void			ft_lstdelone(t_token *lst, void (*del)(void *));
 int				ft_lstsize(t_token *lst);
+void			ft_lstclear2(t_token **lst);
 
 //----------------------------------EXECUTION----------------------------------//
 t_node			*get_node(t_node **list, char *str);
@@ -155,5 +156,24 @@ char			*ft_backcpy(char *dst, char *src, char del);
 char			*add_slash(char *str);
 char			*add_plus(char *str);
 char			**make_list_arr(t_node **list);
+
+
+
+
+
+//--------------------------//
+
+
+int				ft_lstsize_token(t_tokens *lst);
+int 			execcmd_red(t_tokens *cmdline, t_node **my_env);
+char    		*get_path_cmand(char **path, char **command);
+
+
+//-------------------------//
+
+
+
+
+
 
 #endif

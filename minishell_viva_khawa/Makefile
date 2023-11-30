@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 20:42:57 by azgaoua           #+#    #+#              #
-#    Updated: 2023/11/30 01:49:56 by azgaoua          ###   ########.fr        #
+#    Updated: 2023/11/30 06:14:22 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJS = minishell.o ft_lst_tools.o \
 		export_command.o export_command1.o export_command2.o export_command3.o \
 		export_command4.o unset.o unset1.o find_the_path.o execve.o split_p.o \
 		lexer.o ft_list_token.o syntax_error.o \
-		parcer2.o join_and_split.o
+		parcer2.o join_and_split.o pipa.o
 
 FILES = minishell.c ft_lst_tools.c \
 		expand.c echo_command.c cd_cmmand1.c cd_command.c \
@@ -26,7 +26,7 @@ FILES = minishell.c ft_lst_tools.c \
 		export_command.c export_command1.c export_command2.c export_command3.c \
 		export_command4.c unset.c unset1.c find_the_path.c execve.c split_p.c \
 		lexer.c ft_list_token.c syntax_error.c \
-		parcer2.c join_and_split.c
+		parcer2.c join_and_split.c pipa.c
 
 CC = cc
 

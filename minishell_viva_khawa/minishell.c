@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 03:38:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 06:21:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**ft_lst_to_tab(t_token *head)
 			head = head->next;
 		else
 		{
-			tab[i] = ft_strdup(head->value);
+			tab[i] = head->value;
 			head = head->next;
 			i++;
 		}
@@ -98,7 +98,7 @@ t_token *ft_pips_pars(t_tokens *cmdline, t_token *lst)
 	tab = malloc ((i + 1)* 8);
 	while (k < i)
 	{
-		tab[k] = ft_strdup(lst->value);
+		tab[k] = lst->value;
 		ft_lstadd_back2(&new_lst, ft_lstnew2(lst->value, lst->type));
 		lst = lst->next;
 		k++;
@@ -212,7 +212,7 @@ void	ft_in_file(t_tokens *cmdline, t_token *lst)
 	}
 }
 
-void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
+void	ft_make_nodes(t_tokens **cmdline, t_token *lst)
 {
 	int	i;
 	int	j;
@@ -223,8 +223,8 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 		head = lst;
 		j = 0;
 		i = 0;
-		ft_lstadd_back(&cmdline, ft_lstnew(lst->value));
-		cmdline = cmdline->next;
+		ft_lstadd_back(cmdline, ft_lstnew(lst->value));
+		*cmdline = (*cmdline)->next;
 		if (lst->type == PIP)
 			lst = lst->next;
 		while (lst && lst->type != PIP)// you forget the protection
@@ -237,15 +237,14 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 			if (lst)
 				lst = lst->next;
 		}
-		cmdline->options = malloc((i + 1) * 8);
+		(*cmdline)->options = malloc((i + 1) * 8);
 		lst = head;
 		while (lst && lst->type != PIP)
 		{
 			if (lst->type != R_APPEND && lst->type != R_HERDOC \
 				&& lst->type != R_IN && lst->type != R_OUT)
 			{
-				cmdline->options[j] = ft_strdup(lst->value);
-				free(lst->value);
+				(*cmdline)->options[j] = ft_strdup(lst->value);
 				j++;
 			}
 			else
@@ -253,7 +252,7 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 			if (lst)
 				lst = lst->next;
 		}
-		cmdline->options[j] = NULL;
+		(*cmdline)->options[j] = NULL;
 		if (lst)
 			lst = lst->next;
 	}
@@ -357,12 +356,62 @@ void	ft_free_lst(t_token **lst)
 	}
 }
 
+void	ft_debug(t_tokens *nodes)
+{
+	int	j;
+	int	i;
+
+	i = 0;
+	j = 0;
+	while (nodes)
+	{
+		printf ("in_fd %d = ---\'%d\'---\n", j, nodes->i_fd);
+		printf ("out_fd %d = ---\'%d\'---\n", j, nodes->o_fd);
+		j++;
+		i = 0;
+		while (nodes->options && nodes->options[i])
+		{
+			printf ("option[%d] = ---\"%s\"---\n", i, nodes->options[i]);
+			i++;
+		}
+		printf ("type_i %d = --->%d<---\n", j, nodes->type_i);
+		printf ("type_j %d = --->%d<---\n", j, nodes->type_o);
+		nodes = nodes->next;
+	}
+}
+
+t_tokens *ft_parssing(t_tokens *cmdline, t_node **kmi)
+{
+	t_token *lex_lst = NULL;
+	t_token *quotless_and_expnded = NULL;
+	t_token *lst_join = NULL;
+	t_token *lst_split	= NULL;
+
+	lex_lst = ft_lexer(cmdline->input);
+	if (ft_check_syntax_error(lex_lst))
+		printf("syntaks a m3allem\n");
+	quotless_and_expnded = ft_expand_and_quots(lex_lst, *kmi);
+	while (ft_join_if_need(quotless_and_expnded))
+		lst_join = ft_join_needed(quotless_and_expnded);
+	lst_split = ft_split_lst(lst_join);
+	cmdline->options = ft_lst_to_tab(lst_split);
+	ft_make_nodes(&cmdline, lst_split);
+	ft_heredoc(lst_split, cmdline);
+	ft_in_file(cmdline, lst_split);
+	ft_out_file(cmdline, lst_split);
+	ft_lstclear2(&lex_lst);
+	ft_lstclear2(&quotless_and_expnded);
+	ft_lstclear2(&lst_join);
+	ft_lstclear2(&lst_split);
+	ft_debug(cmdline);
+	return (cmdline);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	(void) 		ac;
 	(void) 		av;
 	t_tokens	*cmdline;
-	t_token 	*lst;
 	t_node 		**kmi;
 
 	// atexit(ff);
@@ -376,26 +425,21 @@ int	main(int ac, char **av, char **env)
 		cmdline->input = readline("minishell-1$ ");
 		add_history(cmdline->input);
 		cmdline = ft_lstnew(cmdline->input);
-		lst = ft_lexer(cmdline->input);
-		if (ft_check_syntax_error(lst))
-			printf("syntaks a m3allem\n");
-		else if (cmdline->input && cmdline->input[0])
+		ft_parssing(cmdline, kmi);
+		system("leaks minishell");
+		if (cmdline)
 		{
-			lst = ft_expand_and_quots(lst, *kmi);
-			while (ft_join_if_need(lst))
-				lst = ft_join_needed(lst);
-			lst = ft_split_lst(lst);
-			cmdline->options = ft_lst_to_tab(lst);
-			ft_make_nodes(cmdline, lst);
-			ft_heredoc(lst, cmdline);
-			ft_in_file(cmdline, lst);
-			ft_out_file(cmdline, lst);
-			// ft_debug(cmdline);
+			printf ("kmi--------------->\n");
 			// ft_free_tokens(&cmdline);
 			// ft_free_lst(&lst);
-			system("leaks minishell");
-			continue ;
 /*#######################this is mo7a O 7madd speaking########################*/
+			if (cmdline->next->type_o == OUT_FILE)
+			{
+				execcmd_red(cmdline->next, kmi);
+				printf ("kmi\n");
+				// exit (0);
+			}
+				// continue ;
 			if (ft_strncmp(cmdline->next->input, "exit", 5) == 0)
 				exit(0);
 			if (!cmdline->next || cmdline->next->options[0] == NULL)
@@ -431,7 +475,9 @@ int	main(int ac, char **av, char **env)
 /*#######################this is mo7a O 7madd speaking########################*/
 		}
 		else
+		{
 			continue ;
+		}
 	}
 	return (0);
 }

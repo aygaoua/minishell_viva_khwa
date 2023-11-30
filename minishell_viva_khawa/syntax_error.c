@@ -6,11 +6,32 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 05:03:54 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 00:58:22 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 06:12:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_lstclear2(t_token **lst)
+{
+	t_token	*helper;
+
+	if (!lst || !*lst)
+		return ;
+	else
+	{
+		while (*lst)
+		{
+			helper = (*lst)-> next;
+            printf("freeing %p\n", (*lst));
+            if (*lst && (*lst)->value)
+			    free((*lst)->value);
+			free(*lst);
+            *lst = helper;
+		}
+		*lst = NULL;
+	}
+}
 
 t_token *spcless(t_token *lst)
 {
@@ -56,11 +77,11 @@ int ft_check_syntax_error(t_token *lst)
                 q = 0;
         }
         else if(ft_error_syntax(lst, q))
-            return 1;
+            return (ft_lstclear2(&lst), 1);
         else if((lst->type == PIP) && ((!lst->next || !lst->prev) || ((lst->next && lst->prev) && \
                 (lst->next->type == PIP || lst->prev->type == PIP) && !q)))
-            return 1;
+            return (ft_lstclear2(&lst), 1);
         lst = lst->next;
     }
-    return q;
+    return (ft_lstclear2(&lst), q);
 }
