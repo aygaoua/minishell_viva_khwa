@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 21:56:10 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 04:14:42 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:34:17 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -28,6 +28,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s = malloc(len + 1);
 	if (!s)
 		return (0);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(s));
 	i = 0;
 	while (s1[i])
 		i++;

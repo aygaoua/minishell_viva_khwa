@@ -6,10 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:29:24 by azgaoua           #+#    #+#             */
-/*   Updated: 2022/10/18 14:52:16 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:12:32 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../minishell.h"
 
 int	ft_isprint(int c)
 {

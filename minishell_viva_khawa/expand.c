@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:14:35 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/28 08:04:48 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:26:52 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_expand_check(t_tokens **cmdline, t_node **env_nds)
 	// 			if (ft_strcmp((*cmdline)->expand[i], env_nodes->key) == 0)
 	// 			{
 	// 				printf("Expanding ----> %s", (*cmdline)->expand[i]);
-	// 				free((*cmdline)->expand[i]);  // Free the old memory
+	// 				//free((*cmdline)->expand[i]);  // Free the old memory
 	// 				(*cmdline)->expand[i] = ft_strdup(env_nodes->value_of_the_key);
 	// 				printf(" to ----> %s\n", (*cmdline)->expand[i]);
 	// 				break;

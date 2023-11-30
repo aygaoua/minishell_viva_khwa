@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 11:11:40 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:28:13 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void ft_quote_hand(int *q, int type, char **inside, t_token **lst)
     }
 }
 
-char *ft_strjoin_f(char *s1, char *s2, int a, int b)
-{
-    char *str = ft_strjoin(s1, s2);
-    if(a)
-        free(s1);
-    if(b)
-        free(s2);
-    return str;
-}
+// char *ft_strjoin_f(char *s1, char *s2)
+// {
+//     char *str = ft_strjoin(s1, s2);
+//     // if(a)
+//     //     //free(s1);
+//     // if(b)
+//         //free(s2);
+//     return str;
+// }
 
 int ft_len_var(char *s)
 {
@@ -66,10 +66,10 @@ char *ft_get_env(char* lst_key, t_node *env)
     while (env)
     {
         if (ft_strcmp(key, env->key) == 0)
-            return (free(key), env->value_of_the_key);
+            return (env->value_of_the_key);
         env = env->next;
     }
-    return (free(key), NULL);
+    return (NULL);
 }
 
 void ft_expand(t_token *lst, t_node *env)
@@ -87,7 +87,7 @@ void ft_expand(t_token *lst, t_node *env)
     full_key_len = ft_strlen(full_key);
     rest_key = ft_substr(full_key, key_len, full_key_len - key_len);
     result = ft_strjoin(env_val, rest_key);
-    free(lst->value);
+    //free(lst->value);
     if (env_val)
         lst->value = result;
     else
@@ -141,7 +141,7 @@ t_token *ft_expand_and_quots(t_token *lst, t_node *env)
         else if (lst->type == DOLLAR && ft_valid_to_search(lst->next) == 0 && q != 1)
             ft_invalid_exp(lst->next);
         else if(q && lst->value != NULL)
-            inside = ft_strjoin_f(inside, lst->value, 1, 0);
+            inside = ft_strjoin(inside, lst->value);
         else 
             ft_lstadd_back2(&new_lst, ft_lstnew2(ft_strdup(lst->value), lst->type));
         lst = lst->next;

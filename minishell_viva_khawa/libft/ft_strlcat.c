@@ -6,10 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 04:29:49 by azgaoua           #+#    #+#             */
-/*   Updated: 2022/11/07 00:10:24 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:11:11 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../minishell.h"
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {

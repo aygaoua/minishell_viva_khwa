@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:46:13 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/30 09:03:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:33:19 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ t_node	**take_env(char **env)
 	int		row;
 
 	list = malloc (sizeof (t_node *));
+	if (!list)
+		return (NULL);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(list));
 	(*list) = NULL;
 	row = 0;
 	while (env[row] != NULL)

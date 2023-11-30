@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 05:03:54 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 10:53:53 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:26:52 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 // 			helper = (*lst)-> next;
 //             // printf("freeing %p\n", (*lst));
 //             // if (*lst && (*lst)->value)
-// 			//     free((*lst)->value);
-// 			free(*lst);
+// 			//     //free((*lst)->value);
+// 			//free(*lst);
 //             *lst = helper;
 // 		}
 // 		*lst = NULL;

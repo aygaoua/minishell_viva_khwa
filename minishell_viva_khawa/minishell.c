@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 11:15:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:31:55 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int	ft_nbr_of_elem(char *s)
 	return (len);
 }
 
+t_collector	**ft_collector(void)
+{
+	static t_collector *colctr;
+	return (&colctr);
+}
+
 char	**ft_lst_to_tab(t_token *head)
 {
 	int		i;
@@ -38,6 +44,9 @@ char	**ft_lst_to_tab(t_token *head)
 
 	i = 0;
 	tab = malloc ((ft_lstsize(head) + 1) * 8);
+	if (!tab)
+		return (NULL);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(tab));
 	while (head)
 	{
 		if (head->type == R_APPEND || head->type == R_HERDOC \
@@ -96,6 +105,9 @@ t_token *ft_pips_pars(t_tokens *cmdline, t_token *lst)
 	}
 	lst = new_lst;
 	tab = malloc ((i + 1)* 8);
+	if (!tab)
+		return (NULL);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(tab));
 	while (k < i)
 	{
 		tab[k] = lst->value;
@@ -296,6 +308,9 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 				lst = lst->next;
 		}
 		cmdline->options = malloc((i + 1) * 8);
+		if (!cmdline->options)
+			return ;
+		ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(cmdline->options));
 		lst = head;
 		while (lst && lst->type != PIP)
 		{
@@ -392,9 +407,9 @@ void	ft_free_tokens(t_tokens **cmdline)
 		*cmdline = (*cmdline)->next;
 		if (tmp)
 		{
-			// free(tmp->input);
+			// //free(tmp->input);
 			ft_free_matrix_contnt(tmp->options);
-			// free(tmp);
+			// //free(tmp);
 		}
 	}
 }
@@ -407,8 +422,8 @@ void	ft_free_lst(t_token **lst)
 	{
 		tmp = *lst;
 		*lst = (*lst)->next;
-		free(tmp->value);
-		free(tmp);
+		//free(tmp->value);
+		//free(tmp);
 	}
 }
 
@@ -461,6 +476,7 @@ int	main(int ac, char **av, char **env)
 	cmdline = malloc (sizeof(t_tokens));
 	if (!cmdline)
 		return (0);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(cmdline));
 	// cmdline->next = NULL;// added bye hamza plus ; what are you doing in this part ? no propre initialization
 	while (0 == 0)
 	{
@@ -537,7 +553,6 @@ int	main(int ac, char **av, char **env)
 		else
 			continue ;
 	}
-	ft_free_contnue (kmi);
-	ft_free_list (kmi);
+	ft_free_clctr(ft_collector());
 	return (0);
 }

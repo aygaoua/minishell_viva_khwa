@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 03:58:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2022/10/24 00:44:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:34:09 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../minishell.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -18,6 +19,7 @@ void	*ft_calloc(size_t count, size_t size)
 	i = malloc(count * size);
 	if (i)
 	{
+		ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(i));
 		ft_bzero(i, count * size);
 		return (i);
 	}

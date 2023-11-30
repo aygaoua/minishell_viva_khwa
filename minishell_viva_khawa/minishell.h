@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 09:23:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:31:31 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,21 @@
 # define OUT_FILE	3
 # define OUT_APPEND	4
 
+
+
 /*
 type == 3 ==>> '>'
 type == 4 ==>> '>>'
 */
 
 //----------------------------------STRUCTS----------------------------------//
+
+typedef struct s_collector
+{
+	void	*ptr;
+	struct s_collector	*next;
+}	t_collector;
+
 
 typedef struct s_node
 {
@@ -70,12 +79,15 @@ typedef struct s_tokens
 	int				o_fd;
 	int				type_o;
 	int				type_i;
+	t_collector		*grbg_clctr;
 	struct s_tokens	*next;
 	
 }					t_tokens;
 
 //---------------------------------NEW_PARSSING----------------------------------//
+t_collector		**ft_collector(void);
 t_token 		*ft_lexer(char *line);
+char			**ft_split(char *s, char c);
 t_token			*ft_lstnew2(char *v, token_type t);
 t_token			*ft_join_needed(t_token *lst);
 t_token 		*ft_expand_and_quots(t_token *lst, t_node *env);
@@ -89,7 +101,11 @@ t_tokens		*ft_lstnew(char *str);
 void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
 void			ft_lstdelone(t_token *lst, void (*del)(void *));
 int				ft_lstsize(t_token *lst);
-void			ft_lstclear2(t_token **lst);
+t_collector		*ft_lstnew_clctr(void *lst);
+void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
+void			ft_free_clctr(t_collector **lst);
+char			*ft_strdup(const char *s1);
+char			*ft_substr(char const *s, unsigned int start, size_t len);
 
 //----------------------------------EXECUTION----------------------------------//
 t_node			*get_node(t_node **list, char *str);

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:04:20 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/23 01:16:38 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:34:01 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*ft_substr_p(char const *s, unsigned int start, size_t len)
 	p = malloc(len + 1);
 	if (!p)
 		return (0);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(p));
 	i = 0;
 	while (i < len)
 	{
@@ -41,10 +42,10 @@ static char	**freeme(char **s, size_t i)
 {
 	while (i >= 0 && s[i] != NULL)
 	{
-		free(s[i]);
+		//free(s[i]);
 		i--;
 	}
-	free(s);
+	//free(s);
 	return (NULL);
 }
 
@@ -60,6 +61,7 @@ char	**ft_split_p(char *s, char c)
 	sp = malloc(8 * (lignes(s, c) + 1));
 	if (!sp)
 		return (0);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(sp));
 	while (*s)
 	{
 		j = 0;

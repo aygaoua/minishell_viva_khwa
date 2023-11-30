@@ -6,11 +6,10 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:04:42 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/10/25 21:52:36 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:13:55 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "../minishell.h"
 
 char	*get_next_line(int fd)

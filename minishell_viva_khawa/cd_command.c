@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:55:19 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/20 00:10:37 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:32:13 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	update_env(t_node **my_env)
 	free (ptr);
 	// pwd = getcwd (NULL, 0);
 	// free (new->value_of_the_key);
-	pwd = ft_strdup (getcwd (NULL, 0));
+	pwd = getcwd (NULL, 0);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(pwd));
 	new->value_of_the_key = pwd;
 	// free (ptr);
 }
