@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:55:19 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/30 13:32:13 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 15:00:04 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	update_env(t_node **my_env)
 	char	*ptr;
 	char	*pwd;
 
-	printf ("AAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
 	old = get_node (my_env, "OLDPWD");
 	new = get_node (my_env, "PWD");
 	ptr = old->value_of_the_key;
@@ -106,44 +105,21 @@ int	home(t_node **my_env, char *str)
 
 void	cd_command(t_node **env, char **arg)
 {
-	printf ("########################################\n############################################\n");
 	print_list (env);
 	if (!arg || !arg[0])
 	{
-		// printf ("GO HOME\n");
 		if ((home (env, arg[0]) == 0))
 			return ;
 	}
-	// if ((home (env), arg[0]) == 0)
-	// 	return ;
 	if (arg_path (arg[0]) == 0)
 	{
 		if (chdir (arg[0]) == 0)
 		{
-			printf ("+++++|+|+kmi\n");
-			// print_export (env); 
-			// print_list (env);
 			update_env (env);
-			printf ("!!!!!!!!!!!!!***************!!!!!!!!!!!!!!!!!**************!!!!!!!!!!!*****************\n");
-			// print_export (env);
 			print_list (env); 
 			return ;
 		}
 		else
 			printf (" cd: %s: No such file or directory\n", arg[0]);
 	}
-	// else if (arg_path (arg[0]) == 1)
-	// {
-	// 	printf ("!!!!!!!!!!!!!***************!!!!!!!!!!!!!!!!!**************!!!!!!!!!!!*****************\n");
-	// 	if (arg[0][1] == '\0')
-	// 	{
-	// 		if ((get_node (env), "OLDPWD") == NULL)
-	// 		{
-	// 			printf (" cd: OLDPWD not set\n");
-	// 			return ;
-	// 		}
-	// 		print_oldpwd(env);
-	// 	}
-	// }
-	// print_list (env);
 }

@@ -6,30 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 13:31:55 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 16:44:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_nbr_of_elem(char *s)
-{
-	int		i;
-	int		len;
-
-	i = 0;
-	len = 0;
-	while (s[i])
-	{
-		if ((s[i] == '<' && s[i + 1] == '<') || (s[i] == '>' && \
-			s[i + 1] == '>') || (s[i] == '<' && s[i + 1] && \
-			s[i + 1] != '<') || (s[i] == '>' && s[i + 1] && \
-			s[i + 1] != '>') || s[i] == '|' || s[i] == '\'')
-			len++;
-		i++;
-	}
-	return (len);
-}
 
 t_collector	**ft_collector(void)
 {
@@ -60,66 +41,11 @@ char	**ft_lst_to_tab(t_token *head)
 			head = head->next;
 		else
 		{
-			tab[i] = head->value;
+			tab[i++] = head->value;
 			head = head->next;
-			i++;
 		}
 	}
-	tab[i] = NULL;
-	return (tab);
-}
-
-// void ft_print_token(t_token *token)
-// {
-// 	while(token)
-// 	{
-// 		printf("%d [%s]\n", token->type, token->value);
-// 		token = token->next;
-// 	}
-// }
-
-int		ft_still_pip(t_token *lst)
-{
-	while (lst)
-	{
-		if (lst->type == PIP)
-			return (1);
-		lst = lst->next;
-	}
-	return (0);
-}
-
-t_token *ft_pips_pars(t_tokens *cmdline, t_token *lst)
-{
-	t_token *new_lst;
-	char **tab;
-	int i;
-	int k = 0;
-
-	new_lst = lst;
-	i = 0;
-	while (lst->type != PIP)
-	{
-		i++;
-		lst = lst->next;
-	}
-	lst = new_lst;
-	tab = malloc ((i + 1)* 8);
-	if (!tab)
-		return (NULL);
-	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(tab));
-	while (k < i)
-	{
-		tab[k] = lst->value;
-		ft_lstadd_back2(&new_lst, ft_lstnew2(lst->value, lst->type));
-		lst = lst->next;
-		k++;
-	}
-	lst = lst->next;
-	tab[k] = NULL;
-	cmdline->options = tab;
-	ft_free_matrix_contnt(tab);
-	return (new_lst);
+	return (tab[i] = NULL ,tab);
 }
 
 int ft_heredoc_on(t_token *lst)
@@ -224,62 +150,55 @@ void	ft_in_file(t_tokens *cmdline, t_token *lst)
 	}
 }
 
-// int execcmd_red(int fd_in, int fd_out, char env, char options, char in_file, char *out_file, char main_cmd)
 int execcmd_red(t_node **my_list, t_tokens **parss)
 {
-    // (void) main_cmd;
 	char **env = make_list_arr (my_list);
-    // (void) in_file;
-    // (void) out_file;
-    // (void)fd_in;
-    // (void)fd_out;
-    // t_node **my_list = take_env (env);
-    char *slach;
-    char **path;
-    char *ptr = NULL;
-    char *cmd_path = NULL;
-    int row = 0;
+	char *slach;
+	char **path;
+	char *ptr = NULL;
+	char *cmd_path = NULL;
+	int row = 0;
 
-    slach = add_slash ((*parss)->options[0]);
-    path = find_path (get_node (my_list, "PATH"));
+	slach = add_slash ((*parss)->options[0]);
+	path = find_path (get_node (my_list, "PATH"));
 
-    pid_t pid;
-    row = 0;
-    while (path[row])
-    {
-        if (ptr)
-            free (ptr);
-        cmd_path = ft_strjoin (path[row], slach);
-        ptr = cmd_path;
-        if (access (cmd_path, F_OK) == 0)
-        {
-            pid = fork ();
-            if (pid    == 0)
-            {
-                if ((*parss)->i_fd > 0)
-                {
-                    dup2((*parss)->i_fd, STDIN_FILENO);
-                    close((*parss)->i_fd);
-                }
-                if ((*parss)->o_fd > 0)
-                {
-                    dup2((*parss)->o_fd, STDOUT_FILENO);
-                    close((*parss)->o_fd);
-                }
-                execve(cmd_path, (*parss)->options, env);
-                perror("execve");
-                exit(EXIT_FAILURE);
-            }
-        }
-        row++;
-    }
-    waitpid(pid, NULL, 0);
-    ft_free_contnue (my_list);
-    ft_free_list (my_list);
-    ft_free_matrix_contnt (path);
-    free (slach);
-    free (ptr);
-    return 0;
+	pid_t pid;
+	row = 0;
+	while (path[row])
+	{
+		if (ptr)
+			free (ptr);
+		cmd_path = ft_strjoin (path[row], slach);
+		ptr = cmd_path;
+		if (access (cmd_path, F_OK) == 0)
+		{
+			pid = fork ();
+			if (pid    == 0)
+			{
+				if ((*parss)->i_fd > 0)
+				{
+					dup2((*parss)->i_fd, STDIN_FILENO);
+					close((*parss)->i_fd);
+				}
+				if ((*parss)->o_fd > 0)
+				{
+					dup2((*parss)->o_fd, STDOUT_FILENO);
+					close((*parss)->o_fd);
+				}
+				execve(cmd_path, (*parss)->options, env);
+				perror("execve");
+				exit(EXIT_FAILURE);
+			}
+		}
+		row++;
+	}
+	waitpid(pid, NULL, 0);
+	ft_free_contnue (my_list);
+	ft_free_list (my_list);
+	ft_free_matrix_contnt (path);
+	free (slach);
+	free (ptr);
+	return 0;
 }
 
 void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
@@ -297,7 +216,7 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 		cmdline = cmdline->next;
 		if (lst->type == PIP)
 			lst = lst->next;
-		while (lst && lst->type != PIP)// you forget the protection
+		while (lst && lst->type != PIP)
 		{
 			if (lst->type != R_APPEND && lst->type != R_HERDOC \
 				&& lst->type != R_IN && lst->type != R_OUT)
@@ -328,6 +247,23 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 		cmdline->options[j] = NULL;
 		if (lst)
 			lst = lst->next;
+	}
+}
+
+void	ft_free_clctr(t_collector **lst)
+{
+	t_collector	*head;
+	t_collector	*tmp;
+
+	if (!lst || !*lst)
+		return ;
+	head = *lst;
+	while (*lst)
+	{
+		tmp = head->next;
+		free(head->ptr);
+		free(head);
+		head = tmp;
 	}
 }
 
@@ -392,41 +328,6 @@ void ft_out_file(t_tokens *cmdline, t_token *lst)
 	}
 }
 
-void ff()
-{
-	system("leaks minishell");
-}
-
-void	ft_free_tokens(t_tokens **cmdline)
-{
-	t_tokens *tmp;
-
-	while (*cmdline)
-	{
-		tmp = *cmdline;
-		*cmdline = (*cmdline)->next;
-		if (tmp)
-		{
-			// //free(tmp->input);
-			ft_free_matrix_contnt(tmp->options);
-			// //free(tmp);
-		}
-	}
-}
-
-void	ft_free_lst(t_token **lst)
-{
-	t_token *tmp;
-	
-	while (*lst)
-	{
-		tmp = *lst;
-		*lst = (*lst)->next;
-		//free(tmp->value);
-		//free(tmp);
-	}
-}
-
 void	ft_debug(t_tokens *nodes)
 {
 	int	j;
@@ -451,16 +352,6 @@ void	ft_debug(t_tokens *nodes)
 	}
 }
 
-// t_tokens *ft_parssing(t_tokens *cmdline, t_node **kmi, t_token *lex_lst)
-// {
-// 	return (cmdline);
-// }
-
-void vv()
-{
-	system("leaks minishell");
-}
-
 int	main(int ac, char **av, char **env)
 {
 	(void) ac;
@@ -471,7 +362,6 @@ int	main(int ac, char **av, char **env)
 	char		*str;
 
 	str = NULL;
-	// atexit(vv);
 	cmdline = NULL;
 	cmdline = malloc (sizeof(t_tokens));
 	if (!cmdline)
@@ -484,75 +374,52 @@ int	main(int ac, char **av, char **env)
 		add_history(cmdline->input);
 		cmdline = ft_lstnew(cmdline->input);
 		lst = ft_lexer(cmdline->input);
+		lst = ft_expand_and_quots(lst, *kmi);
+		if (ft_check_syntax_error(lst))
+			continue ;
+		while (ft_join_if_need(lst))
+			lst = ft_join_needed(lst);
+		lst = ft_split_lst(lst);
+		cmdline->options = ft_lst_to_tab(lst);
+		ft_make_nodes(cmdline, lst);
+		ft_heredoc(lst, cmdline);
+		ft_in_file(cmdline, lst);
+		ft_out_file(cmdline, lst);
+		ft_debug(cmdline);
 		if (cmdline->input && cmdline->input[0])
 		{
-			lst = ft_expand_and_quots(lst, *kmi);
-			if (ft_check_syntax_error(lst))
-			{
-				printf("syntaks a m3allem\n");
-				continue ;
-			}
-			while (ft_join_if_need(lst))
-				lst = ft_join_needed(lst);
-			lst = ft_split_lst(lst);
-			cmdline->options = ft_lst_to_tab(lst);
-			ft_make_nodes(cmdline, lst);
-			ft_heredoc(lst, cmdline);
-			ft_in_file(cmdline, lst);
-			ft_out_file(cmdline, lst);
-			ft_free_lst(&lst);
-			ft_debug(cmdline);
-			// if (cmdline->o_fd > 0)
-			// {
-			// printf ("options[0] = %s\nfd[0] = %d\n", cmdline->next->options[0], cmdline->next->o_fd);
-			// execcmd_red(kmi, &cmdline->next);
-			// }
-			// else 
-			// 	print_2d(cmdline->options);
-			// ft_print_token(lst);
-			// while (ft_still_pip(lst))
-			// 	lst = ft_pips_pars(cmdline, lst);
-			// cmdline = ft_pip_split(cmdline, lst);
-			// cmdline->i_fd = ft_get_in_file();
-			// cmdline->cmd = ft_convert_line(&cmdline);
-			// ft_expand_check(&cmdline, kmi);
-			// ft_get_real_args(&cmdline, *kmi);
-			// cmdline = ft_lstnew(cmdline->cmd);
-			if (ft_strncmp(cmdline->next->input, "exit", 5) == 0)
-				exit(0);
-			else if (ft_strncmp(cmdline->next->input, "echo", 4) == 0)
-				my_echo_n((cmdline->next->options + 1));
-			else if (ft_strncmp(cmdline->next->input, "cd", 2) == 0)
-				cd_command (take_env (env), cmdline->next->options + 1);
-			else if (ft_strncmp(cmdline->next->input, "pwd", 3) == 0)
+			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
+				break ;
+			else if (ft_strncmp(cmdline->input, "echo", 4) == 0)
+				my_echo_n((cmdline->options + 1));
+			else if (ft_strncmp(cmdline->input, "cd", 2) == 0)
+				cd_command (take_env (env), cmdline->options + 1);
+			else if (ft_strncmp(cmdline->input, "pwd", 3) == 0)
 				my_pdw();
-/*#######################this is mo7a O 7madd speaking########################*/
-			else if (ft_strncmp(cmdline->next->input, "export", 6) == 0)
+			else if (ft_strncmp(cmdline->input, "export", 6) == 0)
 			{
-				printf ("THIS IS EXPORT%p\n",cmdline->next->options + 2);
-				export_command (kmi, cmdline->next->options + 1);
+				printf ("THIS IS EXPORT%p\n",cmdline->options + 2);
+				export_command (kmi, cmdline->options + 1);
 				print_export (kmi);
 			}
-			else if (ft_strncmp(cmdline->next->input, "unset", 5) == 0)
+			else if (ft_strncmp(cmdline->input, "unset", 5) == 0)
 			{
 				printf ("THIS IS UNSET\n");
-				unset_command (kmi, cmdline->next->options + 1);
+				unset_command (kmi, cmdline->options + 1);
 				print_export (kmi);
 			}
-			else if (ft_strncmp(cmdline->next->input, "env", 3) == 0)
+			else if (ft_strncmp(cmdline->input, "env", 3) == 0)
 			{
 				printf ("THIS IS ENV\n");
 				env_command(env);
 			}
 			else
-				let_exec_command (find_path (get_node (kmi , "PATH")), cmdline->next->options, make_list_arr (kmi));
-			// ft_free_tokens(&cmdline);
-/*#######################this is mo7a O 7madd speaking########################*/
-			vv();
+				let_exec_command (find_path (get_node (kmi , "PATH")), cmdline->options, make_list_arr (kmi));
+			// atexit(vv);
 		}
 		else
 			continue ;
 	}
-	ft_free_clctr(ft_collector());
+	// ft_free_clctr(ft_collector());
 	return (0);
 }

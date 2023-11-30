@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 05:03:54 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 11:26:52 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 15:57:30 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_token *spcless(t_token *lst)
             ft_lstadd_back2(&spc, ft_lstnew2(ft_strdup(lst->value), lst->type));
         lst = lst->next;
     }
-    ft_free_lst(&lst);
     return (spc);
 }
 
@@ -80,11 +79,11 @@ int ft_check_syntax_error(t_token *lst)
                 q = 0;
         }
         else if(ft_error_syntax(lst, q))
-            return (ft_free_lst(&head), 1);
+            return (1);
         else if((lst->type == PIP) && ((!lst->next || !lst->prev) || ((lst->next && lst->prev) && \
                 (lst->next->type == PIP || lst->prev->type == PIP) && !q)))
-            return (ft_free_lst(&head), 1);
+            return (1);
         lst = lst->next;
     }
-    return (ft_free_lst(&head), q);
+    return (q);
 }

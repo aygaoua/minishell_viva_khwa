@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 13:31:31 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 15:19:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,27 +85,34 @@ typedef struct s_tokens
 }					t_tokens;
 
 //---------------------------------NEW_PARSSING----------------------------------//
+token_type		ft_get_type(char *line, int *i);
 t_collector		**ft_collector(void);
+t_collector		*ft_lstnew_clctr(void *lst);
+t_tokens		*ft_lstlast(t_tokens *lst);
+t_tokens		*ft_lstnew(char *str);
 t_token 		*ft_lexer(char *line);
-char			**ft_split(char *s, char c);
 t_token			*ft_lstnew2(char *v, token_type t);
 t_token			*ft_join_needed(t_token *lst);
 t_token 		*ft_expand_and_quots(t_token *lst, t_node *env);
 t_token			*ft_split_lst(t_token *lst);
-void			ft_lstadd_back2(t_token **lst, t_token *new);
-int				ft_join_if_need(t_token *lst);
-int				ft_check_syntax_error(t_token *lst);
-void			ft_free_lst(t_token **lst);
-t_tokens		*ft_lstlast(t_tokens *lst);
-t_tokens		*ft_lstnew(char *str);
-void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
-void			ft_lstdelone(t_token *lst, void (*del)(void *));
-int				ft_lstsize(t_token *lst);
-t_collector		*ft_lstnew_clctr(void *lst);
-void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
-void			ft_free_clctr(t_collector **lst);
+void			ft_open_herdoc(char *s, t_tokens *cmdline);
+char			**ft_split(char *s, char c);
+char			*ft_get_spcs(char *line, int *i);
 char			*ft_strdup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
+void			ft_lstadd_back2(t_token **lst, t_token *new);
+void			ft_lstadd_back(t_tokens **lst, t_tokens *new);
+void			ft_lstdelone(t_token *lst, void (*del)(void *));
+void			ft_free_clctr(t_collector **lst);
+void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
+void			ft_heredoc(t_token *lst, t_tokens *cmdline);
+void			ft_in_file(t_tokens *cmdline, t_token *lst);
+void			ft_make_nodes(t_tokens *cmdline, t_token *lst);
+int				ft_is_valid_word(char c);
+int				ft_join_if_need(t_token *lst);
+int				ft_check_syntax_error(t_token *lst);
+int				ft_lstsize(t_token *lst);
+int				ft_open_in_file(char *s, t_tokens *cmdline, int flag);
 
 //----------------------------------EXECUTION----------------------------------//
 t_node			*get_node(t_node **list, char *str);

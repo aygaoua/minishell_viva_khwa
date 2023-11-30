@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 13:32:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 15:44:32 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_tokens	*ft_lstnew(char *str)
 	if (!new)
 		return (0);
 	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(new));
-	// printf("%p\n", new);
 	new->input = str;
 	new->options = NULL;
 	new->i_fd = -2;
@@ -39,7 +38,6 @@ t_token	*ft_lstnew2(char *v, token_type t)
 	if (!new)
 		return (0);
 	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(new));
-	printf("%p\n", new);
 	new->type = t;
 	new->value = v;
 	new->prev = NULL;
@@ -64,15 +62,6 @@ void	ft_lstadd_back(t_tokens **lst, t_tokens *new)
 	}
 }
 
-void	ft_lstdelone(t_token *lst, void (*del)(void *))
-{
-	if (lst && del)
-	{
-		del(lst->value);
-		//free(lst);
-	}
-}
-
 t_tokens	*ft_lstlast(t_tokens *lst)
 {
 	if (!lst)
@@ -93,7 +82,7 @@ int	ft_lstsize(t_token *lst)
 	i = 0;
 	while (j != NULL)
 	{
-		j = lst -> next;
+		j = lst->next;
 		lst = j;
 		i++;
 	}

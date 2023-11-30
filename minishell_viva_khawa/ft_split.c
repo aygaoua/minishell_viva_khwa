@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:04:20 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 13:33:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 15:23:41 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,6 @@ size_t	lignes(const char *s, char c)
 	return (l + 1);
 }
 
-static char	**freeme(char **s, size_t i)
-{
-	while (i >= 0 && s[i] != NULL)
-	{
-		//free(s[i]);
-		i--;
-	}
-	//free(s);
-	return (NULL);
-}
-
 char	**ft_split(char *s, char c)
 {
 	size_t	i;
@@ -70,7 +59,7 @@ char	**ft_split(char *s, char c)
 		if (j != 0)
 			sp[i++] = ft_substr(s, 0, j);
 		if (j != 0 && !sp[i - 1])
-			return (freeme(sp, i - 1));
+			return (NULL);
 		s += j;
 	}
 	return (sp[i] = NULL, sp);
