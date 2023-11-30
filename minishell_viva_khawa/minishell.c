@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 16:44:54 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 19:08:15 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,7 +301,6 @@ void ft_open_out_file(char *s, t_tokens *cmdline, int flag, int type)
 		cmdline->o_fd = fd;
 }
 
-
 void ft_out_file(t_tokens *cmdline, t_token *lst)
 {
 	int flag;
@@ -367,7 +366,7 @@ int	main(int ac, char **av, char **env)
 	if (!cmdline)
 		return (0);
 	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(cmdline));
-	// cmdline->next = NULL;// added bye hamza plus ; what are you doing in this part ? no propre initialization
+	cmdline->next = NULL;// added bye hamza plus ; what are you doing in this part ? no propre initialization
 	while (0 == 0)
 	{
 		cmdline->input = readline("minishell-1$ ");
@@ -386,31 +385,28 @@ int	main(int ac, char **av, char **env)
 		ft_in_file(cmdline, lst);
 		ft_out_file(cmdline, lst);
 		ft_debug(cmdline);
-		if (cmdline->input && cmdline->input[0])
+		if (cmdline->next && cmdline->next->input && cmdline->next->input[0])
 		{
-			if (ft_strncmp(cmdline->input, "exit", 5) == 0)
+			if (ft_strncmp(cmdline->next->input, "exit", 5) == 0)
 				break ;
-			else if (ft_strncmp(cmdline->input, "echo", 4) == 0)
+			else if (ft_strncmp(cmdline->next->input, "echo", 4) == 0)
 				my_echo_n((cmdline->options + 1));
-			else if (ft_strncmp(cmdline->input, "cd", 2) == 0)
+			else if (ft_strncmp(cmdline->next->input, "cd", 2) == 0)
 				cd_command (take_env (env), cmdline->options + 1);
-			else if (ft_strncmp(cmdline->input, "pwd", 3) == 0)
+			else if (ft_strncmp(cmdline->next->input, "pwd", 3) == 0)
 				my_pdw();
-			else if (ft_strncmp(cmdline->input, "export", 6) == 0)
+			else if (ft_strncmp(cmdline->next->input, "export", 6) == 0)
 			{
-				printf ("THIS IS EXPORT%p\n",cmdline->options + 2);
 				export_command (kmi, cmdline->options + 1);
 				print_export (kmi);
 			}
-			else if (ft_strncmp(cmdline->input, "unset", 5) == 0)
+			else if (ft_strncmp(cmdline->next->input, "unset", 5) == 0)
 			{
-				printf ("THIS IS UNSET\n");
 				unset_command (kmi, cmdline->options + 1);
 				print_export (kmi);
 			}
-			else if (ft_strncmp(cmdline->input, "env", 3) == 0)
+			else if (ft_strncmp(cmdline->next->input, "env", 3) == 0)
 			{
-				printf ("THIS IS ENV\n");
 				env_command(env);
 			}
 			else
