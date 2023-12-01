@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:39:13 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 13:10:39 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:05:19 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,34 +60,17 @@ void	ft_helper_expand1(t_token **head, t_token **lst, t_node *env)
 
 int	ft_condition_expand(t_token *lst, int q)
 {
-	printf("test\n");
 	if (lst->type == DOLLAR && ft_valid_to_search(lst->next) \
-				&& q != 1 && (!lst->prev || 
-				((lst->prev && ((lst->prev->type != R_HERDOC && lst->prev->type != W_SPC)
-				|| (lst->prev->type == W_SPC && ((lst->prev->prev && lst->prev->prev->type != R_HERDOC)
-				|| (!lst->prev->prev))))))))
-		return (printf("true\n"),1);
-	return (printf("false\n"),0);
+			&& q != 1 && (!lst->prev \
+			|| ((lst->prev && ((lst->prev->type != R_HERDOC \
+			&& lst->prev->type != W_SPC) || (lst->prev->type == W_SPC \
+			&& ((lst->prev->prev \
+			&& lst->prev->prev->type != R_HERDOC) || (!lst->prev->prev))))))))
+		return (1);
+	return (0);
 }
 
-// void	let_exec_command(char **path, char **command, char **envment, t_tokens **parss)
-// {
-// 	pid_t	pid;
-// 	char *cmd_path; 
-	
-// 	if (access(command[0], F_OK | X_OK) == 0)
-// 		cmd_path = command[0];
-// 	else
-// 		cmd_path = get_cmd_path(path, command);
-// 	if (!cmd_path)
-// 		printf ("minishell-1$: %s: command not found\n", command[0]);
-// 	pid = fork ();
-// 	if (pid == 0)
-// 	{
-// 		redirections_in_one_cmd(parss);
-// 		execve (cmd_path, command, envment);
-// 		exit(127);
-// 	}
-// 	wait(&pid);
-// 	free (cmd_path);
-// }
+void	env_command(t_node **list)
+{
+	print_list (list);
+}

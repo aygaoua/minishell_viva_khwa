@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 09:21:04 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:13:30 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	ft_invalid_exp(t_token *lst)
 
 	if (lst == NULL)
 		return ;
-	printf("trdt\n");
 	full_key = lst->value;
 	if (full_key[0] == '?')
 	{
@@ -78,7 +77,13 @@ void	ft_invalid_exp(t_token *lst)
 void	ft_helper_expand2(t_token **lst, char **inside, \
 							t_token **new_lst, int q)
 {
-	if ((*lst)->type == WORD && ((*lst)->prev && (*lst)->prev->type == DOLLAR && (((*lst)->prev->prev && (((*lst)->prev->prev->type == W_SPC && (*lst)->prev->prev->prev && (*lst)->prev->prev->prev->type == R_HERDOC) || (*lst)->prev->prev->type == R_HERDOC)))))
+	if ((*lst)->type == WORD && ((*lst)->prev \
+	&& (*lst)->prev->type == DOLLAR \
+	&& (((*lst)->prev->prev \
+	&& (((*lst)->prev->prev->type == W_SPC \
+	&& (*lst)->prev->prev->prev \
+	&& (*lst)->prev->prev->prev->type == R_HERDOC) \
+	|| (*lst)->prev->prev->type == R_HERDOC)))))
 	{
 		*inside = ft_strjoin(ft_strdup("$"), (*lst)->value);
 		printf("***************||%s||*****************\n", (*lst)->value);

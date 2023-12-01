@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 08:53:52 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 10:47:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:03:11 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handle_sigint(int sig)
 	}
 }
 
-void	catch_sig()
+void	catch_sig(void)
 {
 	rl_catch_signals = 0;
 	signal(SIGINT, &handle_sigint);

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 22:24:57 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 12:53:29 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:51:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	execcmd_red(t_node **my_list, t_tokens **parss)
 	row = 0;
 	slach = add_slash ((*parss)->options[0]);
 	path = find_path (get_node (my_list, "PATH"));
-
-	pid_t pid;
+	pid_t	pid;
 	row = 0;
 	while (path[row])
 	{
@@ -37,7 +36,7 @@ int	execcmd_red(t_node **my_list, t_tokens **parss)
 		if (access (cmd_path, F_OK) == 0)
 		{
 			pid = fork ();
-			if (pid    == 0)
+			if (pid == 0)
 			{
 				if ((*parss)->i_fd > 0)
 				{
@@ -62,7 +61,7 @@ int	execcmd_red(t_node **my_list, t_tokens **parss)
 	ft_free_matrix_contnt (path);
 	free (slach);
 	free (ptr);
-	return 0;
+	return (0);
 }
 
 // #include "minishell.h"

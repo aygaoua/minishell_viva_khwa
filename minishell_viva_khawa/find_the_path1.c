@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_garbege_clctr.c                                 :+:      :+:    :+:   */
+/*   find_the_path1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 23:30:22 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 14:29:09 by azgaoua          ###   ########.fr       */
+/*   Created: 2023/12/01 14:35:28 by azgaoua           #+#    #+#             */
+/*   Updated: 2023/12/01 14:36:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_collector	**ft_collector(void)
+void	redirections_in_one_cmd(t_tokens **parss)
 {
-	static t_collector	*colctr;
-
-	return (&colctr);
-}
-
-int	ft_exit_status(int status)
-{
-	static int	exit_status;
-
-	if (status != -1)
-		exit_status = status;
-	return (exit_status);
+	if ((*parss)->i_fd != -2)
+	{
+		dup2((*parss)->i_fd, STDIN_FILENO);
+		close((*parss)->i_fd);
+	}
+	if ((*parss)->o_fd != -2)
+	{
+		dup2((*parss)->o_fd, STDOUT_FILENO);
+		close((*parss)->o_fd);
+	}
 }

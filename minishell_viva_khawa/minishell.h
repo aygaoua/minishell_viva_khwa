@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 13:10:11 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 14:27:33 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,22 +191,18 @@ int					ft_lstsize_token(t_tokens *lst);
 int					execcmd_red(t_node **my_list, t_tokens **parss);
 void				bipa(t_tokens **list, t_node **my_list, char **env);
 char				*get_path_cmand(char **path, char **command);
-void				catch_sig();
+void				catch_sig(void);
 void				handle_sigint(int sig);
 char				*get_cmd_path(char **path, char **command);
 void				bipa(t_tokens **list, t_node **my_list, char **env);
 int					check_if_redirection(t_tokens *cmdline);
 int					build(char *cmd);
 void				excut_biltins(int cmd, t_node **my_list, t_tokens *cmdline);
-
-
-void    			let_exec_command(char **path, char **command, char **envment);
+void				let_exec_command(char **path, char **command, \
+					char **envment);
 void				ft_execute_moha(t_tokens *cmdline, t_node **kmi);
-
-// void				cmd_in_pipe(t_tokens *list, t_node **my_list , char **env);
 void				redirections_in_one_cmd(t_tokens **parss);
 void				set_command_io(t_node **my_list, int i_fd, int o_fd);
 void				create_pipes(int pipes[][2], int size);
-
 
 #endif
