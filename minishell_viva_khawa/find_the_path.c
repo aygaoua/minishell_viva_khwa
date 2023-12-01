@@ -6,27 +6,27 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/26 04:42:43 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 23:43:30 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char    **find_path(t_node *an_node)
+char	**find_path(t_node *an_node)
 {
-    char    **paths;
+	char	**paths;
 
 	if (!an_node || !an_node->value_of_the_key)
 		return (NULL);
-    paths = ft_split (an_node->value_of_the_key, ':');
-    return (paths);
+	paths = ft_split (an_node->value_of_the_key, ':');
+	return (paths);
 }
 
 char	*add_slash(char *str)
 {
-	int indx_i;
-	int indx_j;
-	int	len;
+	int		indx_i;
+	int		indx_j;
+	int		len;
 	char	*slash;
 
 	indx_i = 0;
@@ -46,7 +46,7 @@ char	*add_slash(char *str)
 	return (slash);
 }
 
-void    let_exec_command(char **path, char **command, char **envment)
+void	let_exec_command(char **path, char **command, char **envment)
 {
 	pid_t	pid;
 	char	*slash;
@@ -67,12 +67,8 @@ void    let_exec_command(char **path, char **command, char **envment)
 		{
 			pid = fork ();
 			if (pid == 0)
-			{
-				// if () there is an outfile, dup2
-				// if there is an infile, dup2 also
 				execve (cmd_path, command, envment);
-			}
-			wait(&pid);      // AYGAOUA TANJAWA A KHAWA !!
+			wait(&pid);
 		}
 		row++;
 	}

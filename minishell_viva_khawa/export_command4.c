@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command4.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:52:00 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/20 21:12:55 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:28:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,17 @@ void	take_last_link(t_node **env, t_node *new)
 	t_node	*last;
 
 	last = ft_lstlast_k (env);
-	last->next = new;
+	if (!last)
+		ft_lstadd_front_k (env, new);
+	else
+		last->next = new;
 }
 
 void	check_link(t_node **my_env, t_node *new)
 {
 	t_node	*an_node;
 
-	if (!my_env || !new)
+	if (!new)
 		return ;
 	if (key_error (new) == 0)
 	{
@@ -75,6 +78,8 @@ int	check_nil(t_node **env, char **matrix)
 {
 	if (!matrix)
 	{
+		if (empty_list (env) == 1)
+			return (1);
 		swap_nodes (env);
 		print_export (env);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 15:44:32 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 23:40:28 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_tokens	*ft_lstnew(char *str)
 	return (new);
 }
 
-t_token	*ft_lstnew2(char *v, token_type t)
+t_token	*ft_lstnew2(char *v, t_token_type t)
 {
 	t_token	*new;
 
@@ -73,7 +73,7 @@ t_tokens	*ft_lstlast(t_tokens *lst)
 
 int	ft_lstsize(t_token *lst)
 {
-	t_token	*j;
+	t_token		*j;
 	int			i;
 
 	if (!lst)

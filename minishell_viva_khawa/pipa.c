@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 04:31:31 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 17:18:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 22:50:11 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_lstsize_token(t_tokens *lst)
 	return (i);
 }
 
-char    *get_path_cmand(char **path, char **command)
+char	*get_path_cmand(char **path, char **command)
 {
 	char	*slash;
 	char	*cmd_path;
@@ -60,7 +60,7 @@ void	cmd_in_pipe(t_tokens *list, t_node **my_list, int i_fd, int o_fd)
 {
 	pid_t	pid;
 	char	**matrix;
-    char    **oth;
+	char	**oth;
 	char	*cmd_path;
 
 	pid = fork ();
@@ -82,10 +82,10 @@ void	cmd_in_pipe(t_tokens *list, t_node **my_list, int i_fd, int o_fd)
 			close (o_fd);
 		}
 		matrix = ft_split (get_node (my_list, "PATH")->value_of_the_key, ':');
-		cmd_path = get_path_cmand(matrix,list->options);
+		cmd_path = get_path_cmand(matrix, list->options);
 		if (!cmd_path)
 			printf (" command not found: %s\n", list->options[0]);
-        oth = make_list_arr (my_list);
+		oth = make_list_arr (my_list);
 		execve (cmd_path, list->options, oth);
 		ft_free_matrix_contnt (matrix);
 		exit(EXIT_FAILURE);
@@ -94,15 +94,14 @@ void	cmd_in_pipe(t_tokens *list, t_node **my_list, int i_fd, int o_fd)
 		waitpid (pid, NULL, 0);
 }
 
-
-void    bipa(t_tokens **list, t_node **my_list)
+void	bipa(t_tokens **list, t_node **my_list)
 {
-    t_tokens	*ptr;
+	t_tokens	*ptr;
 	int			size;
 	int			pipat[ft_lstsize_token((*list)) - 1][2];
 	int			indx;
 
-    ptr = (*list);
+	ptr = (*list);
 	size = ft_lstsize_token ((*list));
 	indx = 0;
 	while (indx < size -1)
@@ -111,8 +110,8 @@ void    bipa(t_tokens **list, t_node **my_list)
 		indx++;
 	}
 	indx = 0;
-    while (ptr && indx < size)
-    {
+	while (ptr && indx < size)
+	{
 		if (indx == 0)
 		{
 			cmd_in_pipe (ptr, my_list, 0, pipat[indx][1]);
@@ -120,16 +119,16 @@ void    bipa(t_tokens **list, t_node **my_list)
 		}
 		else if (indx > 0 && indx < size - 1)
 		{
-			cmd_in_pipe (ptr, my_list,pipat[indx - 1][0], pipat[indx][1]);
+			cmd_in_pipe (ptr, my_list, pipat[indx - 1][0], pipat[indx][1]);
 			close (pipat[indx - 1][0]);
 			close (pipat[indx][1]);
 		}
 		else
 		{
-			cmd_in_pipe (ptr,my_list, pipat[indx - 1][0], 1);
+			cmd_in_pipe (ptr, my_list, pipat[indx - 1][0], 1);
 			close (pipat[indx - 1][0]);
 		}
 		indx++;
 		ptr = ptr->next;
-    }
+	}
 }

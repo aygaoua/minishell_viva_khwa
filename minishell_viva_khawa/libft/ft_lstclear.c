@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 13:52:35 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 12:13:01 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 20:58:51 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		{
 			helper = (*lst)-> next;
 			del((*lst)-> content);
-			//free(*lst);
+			free(*lst);
 			*lst = helper;
 		}
 		*lst = NULL;

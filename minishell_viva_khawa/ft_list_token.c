@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:46:00 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 11:53:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 23:41:22 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_lstadd_back_clctr(t_collector **lst, t_collector *new)
 	{
 		while (last->next != NULL)
 			last = last->next;
-        last->next = new;
+		last->next = new;
 	}
 	new->next = NULL;
 }
@@ -73,7 +73,7 @@ void	ft_lstadd_back2(t_token **lst, t_token *new)
 		while (last->next != NULL)
 			last = last->next;
 		new->prev = last;
-        last->next = new;
+		last->next = new;
 	}
 	new->next = NULL;
 }

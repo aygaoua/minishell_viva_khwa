@@ -6,13 +6,13 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:16:04 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 15:10:46 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 23:17:01 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-token_type	ft_get_type(char *line, int *i)
+t_token_type	ft_get_type(char *line, int *i)
 {
 	(*i)++;
 	if (line[*i - 1] == '\'')

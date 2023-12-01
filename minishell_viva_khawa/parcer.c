@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   parcer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/12 19:38:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 22:40:30 by azgaoua          ###   ########.fr       */
+/*   Created: 2023/11/30 23:01:31 by azgaoua           #+#    #+#             */
+/*   Updated: 2023/11/30 23:02:16 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_valid_to_search(t_token *lst)
 {
-	write(fd, &c, 1);
+	int	i;
+
+	i = 0;
+	if (lst && (lst->type == WORD \
+		&& (lst->value[0] == '_' || ft_isalpha(lst->value[0]))))
+		return (1);
+	return (0);
+}
+
+int	ft_len_var(char *s)
+{
+	int	j;
+
+	j = 0;
+	while (s[j] && (s[j] == '_' || ft_isalpha(s[j]) \
+			|| ft_isdigit(s[j])))
+		j++;
+	return (j);
 }

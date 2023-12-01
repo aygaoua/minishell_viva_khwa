@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_garbege_clctr.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/12 19:38:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 22:40:30 by azgaoua          ###   ########.fr       */
+/*   Created: 2023/11/30 23:30:22 by azgaoua           #+#    #+#             */
+/*   Updated: 2023/11/30 23:31:07 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	ft_putchar_fd(char c, int fd)
+t_collector	**ft_collector(void)
 {
-	write(fd, &c, 1);
+	static t_collector	*colctr;
+
+	return (&colctr);
 }
