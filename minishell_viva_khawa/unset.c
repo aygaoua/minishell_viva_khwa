@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 16:04:50 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 00:31:46 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 09:57:13 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,4 @@ void	unset_command(t_node **env, char **str)
 		}
 		row++;
 	}
-	if (empty_list (env) == 1)
-		free (env);
 }

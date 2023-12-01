@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 05:32:30 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 10:46:49 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int					ft_len_var(char *s);
 int					ft_valid_to_search(t_token *lst);
 int					ft_condition(t_token *head);
 int					ft_condition_expand(t_token *lst, int q);
+int					ft_exit_status(int status);
 
 //------------------------------EXECUTION------------------------------//
 t_node				*get_node(t_node **list, char *str);
@@ -190,6 +191,8 @@ void				bipa(t_tokens **list, t_node **my_list, char **env);
 char				*get_path_cmand(char **path, char **command);
 void				cmd_in_pipe(t_tokens *list, t_node **my_list, 
 						int i_fd, int o_fd, char **env);
+void				catch_sig();
+void				handle_sigint(int sig);
 					////////---------5args------////////
 void				bipa(t_tokens **list, t_node **my_list, char **env);
 ////////////

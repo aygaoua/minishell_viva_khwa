@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 05:49:45 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 09:42:41 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int	main(int ac, char **av, char **env)
 	cmdline->next = NULL;
 	while (0 == 0)
 	{
+		ft_exit_status(0);
 		cmdline->input = readline("minishell-1$ ");
 		add_history(cmdline->input);
 		cmdline = ft_lstnew(cmdline->input);
@@ -196,10 +197,7 @@ int	main(int ac, char **av, char **env)
 		ft_out_file(cmdline, lst);
 		ft_debug(cmdline);
 		if (cmdline->next && (cmdline->next->o_fd == 3 || cmdline->next->o_fd == 4))
-		{
-			printf ("&&&&&&&&&&&&&&&&&&&&&&&&\n");
 			execcmd_red (kmi, &cmdline);
-		}
 		if (cmdline->next && cmdline->next->input && cmdline->next->input[0])
 		{
 			if (build (cmdline->next->input) != 0)

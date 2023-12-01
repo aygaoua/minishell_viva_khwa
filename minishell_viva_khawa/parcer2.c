@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 04:58:54 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 09:21:04 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_expand(t_token *lst, t_node *env)
 	int		full_key_len;
 	char	*rest_key;
 
+	printf("--------------------\n");
 	full_key = lst->value;
 	env_val = ft_get_env(full_key, env);
 	key_len = ft_len_var(full_key);
@@ -54,7 +55,13 @@ void	ft_invalid_exp(t_token *lst)
 
 	if (lst == NULL)
 		return ;
+	printf("trdt\n");
 	full_key = lst->value;
+	if (full_key[0] == '?')
+	{
+		lst->value = ft_itoa(ft_exit_status(-1));
+		return ;
+	}
 	if (full_key[0] != '_' || ft_isalpha(full_key[0] == 0))
 	{
 		lst->value = ft_strjoin(full_key + 1, rest_key);
@@ -71,6 +78,11 @@ void	ft_invalid_exp(t_token *lst)
 void	ft_helper_expand2(t_token **lst, char **inside, \
 							t_token **new_lst, int q)
 {
+	if ((*lst)->type == WORD && ((*lst)->prev && (*lst)->prev->type == DOLLAR && (((*lst)->prev->prev && (((*lst)->prev->prev->type == W_SPC && (*lst)->prev->prev->prev && (*lst)->prev->prev->prev->type == R_HERDOC) || (*lst)->prev->prev->type == R_HERDOC)))))
+	{
+		*inside = ft_strjoin(ft_strdup("$"), (*lst)->value);
+		printf("***************||%s||*****************\n", (*lst)->value);
+	}
 	if (q && (*lst)->value != NULL)
 		*inside = ft_strjoin(*inside, (*lst)->value);
 	else 

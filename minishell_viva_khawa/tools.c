@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:39:13 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 05:11:22 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 09:16:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,18 @@ void	ft_helper_expand1(t_token **head, t_token **lst, t_node *env)
 	if ((*head)->prev && (*head)->prev->type == W_SPC)
 		(*head) = (*head)->prev;
 	if (((*head)->prev && (*head)->prev->type != R_HERDOC) \
-		|| (*lst)->prev == NULL)
+		|| (*head)->prev == NULL)
 		ft_expand((*lst)->next, env);
 }
 
 int	ft_condition_expand(t_token *lst, int q)
 {
+	printf("test\n");
 	if (lst->type == DOLLAR && ft_valid_to_search(lst->next) \
-				&& q != 1 && (!lst->prev || ((lst->prev \
-				&& lst->prev->type != R_HERDOC) || (lst->prev->type == W_SPC \
-				&& lst->prev->prev && lst->prev->prev->type != R_HERDOC))))
-		return (1);
-	return (0);
+				&& q != 1 && (!lst->prev || 
+				((lst->prev && ((lst->prev->type != R_HERDOC && lst->prev->type != W_SPC)
+				|| (lst->prev->type == W_SPC && ((lst->prev->prev && lst->prev->prev->type != R_HERDOC)
+				|| (!lst->prev->prev))))))))
+		return (printf("true\n"),1);
+	return (printf("false\n"),0);
 }

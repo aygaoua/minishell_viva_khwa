@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 05:37:51 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 09:46:01 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,38 +56,6 @@ int    how_many_row(char **arr)
     return (row);
 }
 
-// void    let_exec_command(char **path, char **command, char **envment)
-// {
-//     pid_t    pid;
-//     char    *slash;
-//     char    *cmd_path;
-//     int        row;
-
-//     if (!command || !command[0] || !path || !path[0])
-//         return ;
-//     row = 0;
-//     slash = add_slash (command[row]);
-//     cmd_path = NULL;
-//     while (path[row])
-//     {
-//         if (cmd_path)
-//             free (cmd_path);
-//         cmd_path = ft_strjoin (path[row], slash);
-//         if (access (cmd_path, F_OK) == 0)
-//         {
-//             pid = fork ();
-//             if (pid == 0)
-//                 execve (cmd_path, command, envment);
-//             wait(&pid);
-//         }
-//         row++;
-//     }
-//     if (row == how_many_row (path))
-//         printf ("minishell-1$ %s: command not found\n", command[0]);
-//     // free (cmd_path);
-//     // ft_free_matrix_contnt (path);
-//     // free (slash);
-// }
 char *get_cmd_path(char **path, char **command)
 {
     char    *slash;
@@ -120,6 +88,7 @@ char *get_cmd_path(char **path, char **command)
 void    let_exec_command(char **path, char **command, char **envment)
 {
     pid_t    pid;
+	int		status;
     char *cmd_path; 
     
     if (access(command[0], F_OK | X_OK) == 0)
@@ -127,14 +96,18 @@ void    let_exec_command(char **path, char **command, char **envment)
     else
         cmd_path = get_cmd_path(path, command);
     if (!cmd_path)
+	{
         printf ("minishell %s: command not found\n", command[0]);
+		ft_exit_status(127);
+	}
     pid = fork ();
     if (pid == 0)
     {
         execve (cmd_path, command, envment);
         exit(127);
     }
-    wait(&pid);
+    waitpid(pid, &status, 0);
+	ft_exit_status(status);
     free (cmd_path);
 }
 

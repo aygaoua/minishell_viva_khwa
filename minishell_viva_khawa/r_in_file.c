@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 22:23:27 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 22:44:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 08:18:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_open_in_file(char *s, t_tokens *cmdline, int flag)
 	if (fd < 0)
 	{
 		write(2, "minishell-1$: ", 14);
-		write(2, s, ft_strlen(s));
+		write(2, s, ft_strlen(s) - 1);
 		write(2, ": ", 2);
 		perror("");
 		cmdline->i_fd = -3;

@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_garbege_clctr.c                                 :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 23:30:22 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 09:43:43 by azgaoua          ###   ########.fr       */
+/*   Created: 2023/12/01 08:53:52 by momihamm          #+#    #+#             */
+/*   Updated: 2023/12/01 10:47:19 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_collector	**ft_collector(void)
+void	handle_sigint(int sig)
 {
-	static t_collector	*colctr;
-
-	return (&colctr);
+	if (sig == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
-int ft_exit_status(int status)
+void	catch_sig()
 {
-    static int  exit_status;
-
-    if (status != -1)
-        exit_status = status;
-    return (exit_status);
+	rl_catch_signals = 0;
+	signal(SIGINT, &handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
 }
