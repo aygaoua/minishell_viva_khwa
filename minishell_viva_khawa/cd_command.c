@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:55:19 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/30 23:56:52 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 03:55:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	cd_command(t_node **env, char **arg)
 		if (chdir (arg[0]) == 0)
 		{
 			update_env (env);
-			print_list (env); 
+			// print_list (env); 
 			return ;
 		}
 		else

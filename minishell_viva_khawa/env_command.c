@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:46:13 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/30 13:33:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 03:39:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,13 @@ void	print_list(t_node **list)
 {
 	t_node	*ptr;
 
+	if (!list)
+		return ;
 	ptr = (*list);
 	while (ptr)
 	{
-		printf ("%s=%s\n", ptr->key, ptr->value_of_the_key);
+		if (ptr->value_of_the_key)
+			printf ("%s=%s\n", ptr->key, ptr->value_of_the_key);
 		ptr = ptr->next;
 	}
 }
@@ -150,14 +153,14 @@ void	ft_free_list(t_node **list)
 	free (list);
 }
 
-void	env_command(char **env)
+void	env_command(t_node **list)
 {
-	t_node	**list;
+	// t_node	**list;
 
-	if (!env || !env[0])
-		return ;
-	list = take_env (env);
+	// if (!env || !env[0])
+	// 	return ;
+	// list = take_env (env);
 	print_list (list);
-	ft_free_contnue (list);
-	ft_free_list (list);
+	// ft_free_contnue (list);
+	// ft_free_list (list);
 }

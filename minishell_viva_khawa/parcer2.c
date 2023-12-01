@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 01:13:20 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 02:37:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,18 @@ t_token	*ft_expand_and_quots(t_token *lst, t_node *env)
 		else if (lst->type == D_QUOT && q != 1)
 			ft_quote_hand(&q, 2, &inside, &new_lst);
 		else if (lst->type == DOLLAR && ft_valid_to_search(lst->next) \
-				&& q != 1)
+				&& q != 1 && (!lst->prev || ((lst->prev && lst->prev->type != R_HERDOC) || (lst->prev->type == W_SPC && lst->prev->prev && lst->prev->prev->type != R_HERDOC))))
 		{
-			printf("got here\n");
-			if ((lst->prev && lst->prev->type != R_HERDOC) || lst->prev == NULL)
+			head = lst;
+			if (head->prev && head->prev->type == W_SPC)
+				head = head->prev;
+			if ((head->prev && head->prev->type != R_HERDOC) || lst->prev == NULL)
 			{
-				printf("got here too\n");
 				ft_expand(lst->next, env);
 			}
 		}
 		else if (lst->type == DOLLAR && ft_valid_to_search(lst->next) == 0 \
-					&& q != 1)
+					&& q != 1 && lst->next && lst->next->type != W_SPC)
 		{
 			ft_invalid_exp(lst->next);
 		}
@@ -123,5 +124,5 @@ t_token	*ft_expand_and_quots(t_token *lst, t_node *env)
 							lst->type));
 		lst = lst->next;
 	}
-	return (lst = head, new_lst);
+	return (new_lst);
 }

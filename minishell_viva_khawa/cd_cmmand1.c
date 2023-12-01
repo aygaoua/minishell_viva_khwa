@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 21:13:29 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/30 15:22:13 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 03:10:08 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_node	*get_node(t_node **list, char *str)
 {
 	t_node	*ptr;
 
+	if (!list || !(*list))
+		return (NULL);
 	ptr = (*list);
 	while (ptr)
 	{

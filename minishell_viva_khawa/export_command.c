@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:22:37 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 00:27:11 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 03:53:39 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	export_command(t_node **my_env, char **arg)
 	int		row;
 
 	row = -1;
-
 	if (check_nil (my_env, arg) == 1)
 		return ;
-
 	while (arg[++row])
 	{
 		new = ft_lstnew_k (arg[row]);

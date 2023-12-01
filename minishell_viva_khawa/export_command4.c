@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:52:00 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 00:28:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 03:51:33 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	check_link(t_node **my_env, t_node *new)
 
 int	check_nil(t_node **env, char **matrix)
 {
-	if (!matrix)
+	if (!matrix[0])
 	{
 		if (empty_list (env) == 1)
 			return (1);

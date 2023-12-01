@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 23:24:11 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 03:43:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void				print_list(t_node **list);
 void				unset_key(t_node **env, char *str);
 void				unset_command(t_node **env, char **str);
 void				unset_out_error(char *str);
-void				env_command(char **env);
+void	env_command(t_node **list);
 void				update_env(t_node **my_env);
 void				ft_free_list(t_node **list);
 void				ft_free_contnue(t_node **lst);
@@ -176,6 +176,20 @@ char				*add_plus(char *str);
 char				**make_list_arr(t_node **list);
 int					ft_lstsize_token(t_tokens *lst);
 int					execcmd_red(t_node **my_list, t_tokens **parss);
+void				bipa(t_tokens **list, t_node **my_list, char **env);
 char				*get_path_cmand(char **path, char **command);
+void				cmd_in_pipe(t_tokens *list, t_node **my_list, int i_fd, \
+					int o_fd, char **env);
+void				bipa(t_tokens **list, t_node **my_list, char **env);
+
+
+
+
+
+
+
+int check_if_redirection(t_tokens *cmdline);
+int	build (char *cmd);
+void    excut_biltins (int cmd, t_node **my_list, t_tokens *cmdline);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 01:00:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 03:54:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,9 @@ int	main(int ac, char **av, char **env)
 		lst = ft_lexer(cmdline->input);
 		if (ft_check_syntax_error(lst))
 			continue ;
+		lst = ft_expand_and_quots(lst, *kmi);
 		while (ft_join_if_need(lst))
 			lst = ft_join_needed(lst);
-		lst = ft_expand_and_quots(lst, *kmi);
 		lst = ft_split_lst(lst);
 		cmdline->options = ft_lst_to_tab(lst);
 		ft_make_nodes(cmdline, lst);
@@ -178,30 +178,42 @@ int	main(int ac, char **av, char **env)
 		ft_in_file(cmdline, lst);
 		ft_out_file(cmdline, lst);
 		ft_debug(cmdline);
+		// if (ft_lstsize_token(cmdline) == 2)
+		// {
+		// }
 		if (cmdline->next && cmdline->next->input && cmdline->next->input[0])
 		{
-			if (ft_strncmp(cmdline->next->input, "exit", 5) == 0)
-				exit (0);
-			else if (ft_strncmp(cmdline->next->input, "echo", 4) == 0)
-				my_echo_n((cmdline->options + 1));
-			else if (ft_strncmp(cmdline->next->input, "cd", 2) == 0)
-				cd_command (take_env (env), cmdline->options + 1);
-			else if (ft_strncmp(cmdline->next->input, "pwd", 3) == 0)
-				my_pdw();
-			else if (ft_strncmp(cmdline->next->input, "export", 6) == 0)
-			{
-				export_command (kmi, cmdline->options + 1);
-				print_export (kmi);
-			}
-			else if (ft_strncmp(cmdline->next->input, "unset", 5) == 0)
-			{
-				unset_command (kmi, cmdline->options + 1);
-				print_export (kmi);
-			}
-			else if (ft_strncmp(cmdline->next->input, "env", 3) == 0)
-			{
-				env_command(env);
-			}
+			// if (cmdline->next && check_if_redirection(cmdline->next) == 1)
+			// 	execcmd_red (kmi, &cmdline->next);
+			// ############################## BUILTINS ############################## //
+			// if (ft_strncmp(cmdline->next->input, "exit", 5) == 0)
+			// 	exit (0);
+			// else if (ft_strncmp(cmdline->next->input, "echo", 4) == 0)
+			// 	my_echo_n((cmdline->options + 1));
+			// else if (ft_strncmp(cmdline->next->input, "cd", 2) == 0)
+			// 	cd_command (take_env (env), cmdline->options + 1);
+			// else if (ft_strncmp(cmdline->next->input, "pwd", 3) == 0)
+			// 	my_pdw();
+			// else if (ft_strncmp(cmdline->next->input, "export", 6) == 0)
+			// {
+			// 	export_command (kmi, cmdline->options + 1);
+			// 	print_export (kmi);
+			// }
+			// else if (ft_strncmp(cmdline->next->input, "unset", 5) == 0)
+			// {
+			// 	unset_command (kmi, cmdline->options + 1);
+			// 	print_export (kmi);
+			// }
+			// else if (ft_strncmp(cmdline->next->input, "env", 3) == 0)
+			// {
+			// 	env_command(env);
+			// }
+			// else
+			// 	let_exec_command(find_path(get_node (kmi, "PATH")), \
+			// 						cmdline->options, make_list_arr(kmi));
+			// ############################## BUILTINS ############################## //
+			if (build (cmdline->next->input) != 0)
+				excut_biltins (build (cmdline->next->input),kmi, cmdline);
 			else
 				let_exec_command(find_path(get_node (kmi, "PATH")), \
 									cmdline->options, make_list_arr(kmi));
