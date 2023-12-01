@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 22:25:26 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 02:38:56 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 05:12:48 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_open_herdoc(char *s, t_tokens *cmdline)
 	if (cmdline->i_fd > 0)
 		close(cmdline->i_fd);
 	cmdline->i_fd = fd[1];
-	printf("-------%s\n"	, s);
 	while (0 == 0)
 	{
 		str = readline(">");

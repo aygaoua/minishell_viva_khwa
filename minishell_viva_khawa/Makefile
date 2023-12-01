@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 20:42:57 by azgaoua           #+#    #+#              #
-#    Updated: 2023/12/01 02:47:31 by azgaoua          ###   ########.fr        #
+#    Updated: 2023/12/01 05:34:04 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJS = minishell.o ft_lst_tools.o \
 		lexer.o ft_list_token.o syntax_error.o \
 		parcer2.o join_and_split.o pipa.o ft_split.o ft_strdup.o ft_substr.o \
 		r_out_file.o r_in_file.o r_heredoc.o parcer.o ft_garbege_clctr.o \
-		pip_and_redirection.o
+		pip_and_redirection.o syntax_error1.o
 
 FILES = minishell.c ft_lst_tools.c \
 		echo_command.c cd_cmmand1.c cd_command.c \
@@ -30,13 +30,13 @@ FILES = minishell.c ft_lst_tools.c \
 		lexer.c ft_list_token.c syntax_error.c \
 		parcer2.c join_and_split.c pipa.c ft_split.c ft_strdup.c ft_substr.c \
 		r_out_file.c r_in_file.c r_heredoc.c parcer.c ft_garbege_clctr.c \
-		pip_and_redirection.c
+		pip_and_redirection.c syntax_error1.c
 
 CC = cc
 
 RM = rm -rf
 
-FLGS = -Wall -Wextra -Werror -g -fsanitize=address 
+FLGS = -Wall -Wextra -Werror #-g -fsanitize=address 
 
 all :  $(NAME)
 

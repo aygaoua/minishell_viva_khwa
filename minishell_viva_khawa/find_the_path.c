@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/30 23:43:30 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 05:37:51 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,95 @@ char	*add_slash(char *str)
 	return (slash);
 }
 
-void	let_exec_command(char **path, char **command, char **envment)
+int    how_many_row(char **arr)
 {
-	pid_t	pid;
-	char	*slash;
-	char	*cmd_path;
-	int		row;
+    int    row;
 
-	if (!command || !command[0] || !path || !path[0])
-		return ;
-	row = 0;
-	slash = add_slash (command[row]);
-	cmd_path = NULL;
-	while (path[row])
-	{
-		if (cmd_path)
-			free (cmd_path);
-		cmd_path = ft_strjoin (path[row], slash);
-		if (access (cmd_path, F_OK) == 0)
-		{
-			pid = fork ();
-			if (pid == 0)
-				execve (cmd_path, command, envment);
-			wait(&pid);
-		}
-		row++;
-	}
-	free (cmd_path);
-	ft_free_matrix_contnt (path);
-	free (slash);
+    row = 0;
+    while (arr[row])
+        row++;
+    return (row);
 }
+
+// void    let_exec_command(char **path, char **command, char **envment)
+// {
+//     pid_t    pid;
+//     char    *slash;
+//     char    *cmd_path;
+//     int        row;
+
+//     if (!command || !command[0] || !path || !path[0])
+//         return ;
+//     row = 0;
+//     slash = add_slash (command[row]);
+//     cmd_path = NULL;
+//     while (path[row])
+//     {
+//         if (cmd_path)
+//             free (cmd_path);
+//         cmd_path = ft_strjoin (path[row], slash);
+//         if (access (cmd_path, F_OK) == 0)
+//         {
+//             pid = fork ();
+//             if (pid == 0)
+//                 execve (cmd_path, command, envment);
+//             wait(&pid);
+//         }
+//         row++;
+//     }
+//     if (row == how_many_row (path))
+//         printf ("minishell-1$ %s: command not found\n", command[0]);
+//     // free (cmd_path);
+//     // ft_free_matrix_contnt (path);
+//     // free (slash);
+// }
+char *get_cmd_path(char **path, char **command)
+{
+    char    *slash;
+    char    *cmd_path;
+    int        row;
+
+    if (!command || !command[0] || !path || !path[0])
+        return NULL;
+    row = 0;
+    slash = add_slash (command[row]);
+    cmd_path = NULL;
+    while (path[row])
+    {
+        if (cmd_path)
+            free (cmd_path);
+        cmd_path = ft_strjoin (path[row], slash);
+        if (access (cmd_path, F_OK | X_OK) == 0)
+        {
+            ft_free_matrix_contnt (path);
+            free (slash);
+            return (cmd_path);
+        }
+        row++;
+    }        
+    ft_free_matrix_contnt (path);
+    free (slash);
+    return (NULL);
+}
+
+void    let_exec_command(char **path, char **command, char **envment)
+{
+    pid_t    pid;
+    char *cmd_path; 
+    
+    if (access(command[0], F_OK | X_OK) == 0)
+        cmd_path = command[0];
+    else
+        cmd_path = get_cmd_path(path, command);
+    if (!cmd_path)
+        printf ("minishell %s: command not found\n", command[0]);
+    pid = fork ();
+    if (pid == 0)
+    {
+        execve (cmd_path, command, envment);
+        exit(127);
+    }
+    wait(&pid);
+    free (cmd_path);
+}
+

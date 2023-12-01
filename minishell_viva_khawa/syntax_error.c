@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 05:03:54 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 21:05:54 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 05:25:13 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ int	ft_error_syntax(t_token *lst, int q)
 	return (0);
 }
 
+void	ft_print_error_pipe(t_token *lst)
+{
+	if (lst->next && (lst->next->type == PIP || lst->prev->type == PIP))
+		write (2, "minishell: syntax error near unexpected token `||'\n",
+			51);
+	else
+		write (2, "minishell: syntax error near unexpected token `|'\n",
+			50);
+}
+
 int	ft_check_syntax_error(t_token *lst)
 {
 	t_token	*head;
@@ -58,44 +68,18 @@ int	ft_check_syntax_error(t_token *lst)
 	while (lst)
 	{
 		if (lst->type == S_QUOT && q != 2)
-		{
-			if (q == 0)
-				q = 1;
-			else if (q == 1)
-				q = 0;
-		}
+			ft_change_q1(&q);
 		else if (lst->type == D_QUOT && q != 1)
-		{
-			if (q == 0)
-				q = 2;
-			else if (q == 2)
-				q = 0;
-			printf("%d\n", q);
-		}
+			ft_change_q2(&q);
 		else if (ft_error_syntax(lst, q))
 			return (1);
 		else if ((lst->type == PIP) && ((!lst->next || !lst->prev) && !q))
-		{
-			if (lst->next && (lst->next->type == PIP || lst->prev->type == PIP))
-				write (2, "minishell: syntax error near unexpected token `||'\n",
-					51);
-			else
-				write (2, "minishell: syntax error near unexpected token `|'\n",
-					50);
-			return (1);
-		}
+			return (ft_print_error_pipe(lst), 1);
 		lst = lst->next;
 	}
 	if (q == 1)
-	{
-		write(2, "minishell: unclosed single quote\n", 34);
-		return (q);
-	}
+		return (write(2, "minishell: unclosed single quote\n", 34), q);
 	else if (q == 2)
-	{
-		write(2, "minishell: unclosed double quote\n", 34);
-		return (q);
-	}
-	printf("%d\n", q);
+		return (write(2, "minishell: unclosed double quote\n", 34), q);
 	return (q);
 }

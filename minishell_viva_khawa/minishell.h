@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 04:57:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 05:32:30 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,14 @@ void				ft_lstadd_back(t_tokens **lst, t_tokens *new);
 void				ft_free_clctr(t_collector **lst);
 void				ft_make_nodes2(t_tokens **cmdline, t_token **lst, int *j);
 void				ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
+void				ft_expand(t_token *lst, t_node *env);
 void				ft_open_out_file(char *s, t_tokens *cmdline, int flag, \
 										int type);
 void				ft_make_nodes1(t_token **lst, int *i);
+void				ft_helper_expand1(t_token **head, t_token **lst, \
+										t_node *env);
+void				ft_change_q2(int *q);
+void				ft_change_q1(int *q);
 void				ft_heredoc(t_token *lst, t_tokens *cmdline);
 void				ft_in_file(t_tokens *cmdline, t_token *lst);
 void				ft_make_nodes(t_tokens *cmdline, t_token *lst);
@@ -183,18 +188,13 @@ int					ft_lstsize_token(t_tokens *lst);
 int					execcmd_red(t_node **my_list, t_tokens **parss);
 void				bipa(t_tokens **list, t_node **my_list, char **env);
 char				*get_path_cmand(char **path, char **command);
-void				cmd_in_pipe(t_tokens *list, t_node **my_list, int i_fd, \
-					int o_fd, char **env);
+void				cmd_in_pipe(t_tokens *list, t_node **my_list, 
+						int i_fd, int o_fd, char **env);
+					////////---------5args------////////
 void				bipa(t_tokens **list, t_node **my_list, char **env);
-
-
-
-
-
-
-
-int check_if_redirection(t_tokens *cmdline);
-int	build (char *cmd);
-void    excut_biltins (int cmd, t_node **my_list, t_tokens *cmdline);
+////////////
+int					check_if_redirection(t_tokens *cmdline);
+int					build(char *cmd);
+void				excut_biltins(int cmd, t_node **my_list, t_tokens *cmdline);
 
 #endif

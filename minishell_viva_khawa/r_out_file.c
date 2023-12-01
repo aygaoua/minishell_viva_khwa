@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 22:22:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 22:43:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 05:15:09 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ void	ft_out_file(t_tokens *cmdline, t_token *lst)
 	}
 }
 
+void	ft_print_error(char *s)
+{
+	write(2, "minishell-1$: ", 14);
+	write(2, s, ft_strlen(s));
+	write(2, ": ", 2);
+	perror("");
+}
+
 void	ft_open_out_file(char *s, t_tokens *cmdline, int flag, int type)
 {
 	int	fd;
@@ -56,10 +64,7 @@ void	ft_open_out_file(char *s, t_tokens *cmdline, int flag, int type)
 	}
 	if (fd < 0)
 	{
-		write(2, "minishell-1$: ", 14);
-		write(2, s, ft_strlen(s));
-		write(2, ": ", 2);
-		perror("");
+		ft_print_error(s);
 		cmdline->o_fd = -3;
 		return ;
 	}
