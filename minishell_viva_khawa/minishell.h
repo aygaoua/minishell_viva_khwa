@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 03:43:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 04:57:26 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_token				*ft_join_needed(t_token *lst);
 t_token				*ft_expand_and_quots(t_token *lst, t_node *env);
 t_token				*ft_split_lst(t_token *lst);
 char				**ft_split(char *s, char c);
+char				*ft_get_env(char *lst_key, t_node *env);
 char				*ft_get_spcs(char *line, int *i);
 char				*ft_strdup(const char *s1);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
@@ -94,9 +95,11 @@ void				ft_out_file(t_tokens *cmdline, t_token *lst);
 void				ft_lstadd_back2(t_token **lst, t_token *new);
 void				ft_lstadd_back(t_tokens **lst, t_tokens *new);
 void				ft_free_clctr(t_collector **lst);
+void				ft_make_nodes2(t_tokens **cmdline, t_token **lst, int *j);
 void				ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
 void				ft_open_out_file(char *s, t_tokens *cmdline, int flag, \
 										int type);
+void				ft_make_nodes1(t_token **lst, int *i);
 void				ft_heredoc(t_token *lst, t_tokens *cmdline);
 void				ft_in_file(t_tokens *cmdline, t_token *lst);
 void				ft_make_nodes(t_tokens *cmdline, t_token *lst);
@@ -107,6 +110,8 @@ int					ft_lstsize(t_token *lst);
 int					ft_open_in_file(char *s, t_tokens *cmdline, int flag);
 int					ft_len_var(char *s);
 int					ft_valid_to_search(t_token *lst);
+int					ft_condition(t_token *head);
+int					ft_condition_expand(t_token *lst, int q);
 
 //------------------------------EXECUTION------------------------------//
 t_node				*get_node(t_node **list, char *str);
@@ -122,7 +127,7 @@ void				print_list(t_node **list);
 void				unset_key(t_node **env, char *str);
 void				unset_command(t_node **env, char **str);
 void				unset_out_error(char *str);
-void	env_command(t_node **list);
+void				env_command(t_node **list);
 void				update_env(t_node **my_env);
 void				ft_free_list(t_node **list);
 void				ft_free_contnue(t_node **lst);

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 02:37:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 04:58:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@ void	ft_quote_hand(int *q, int type, char **inside, t_token **lst)
 		ft_lstadd_back2(lst, ft_lstnew2(*inside, WORD));
 		*inside = NULL;
 	}
-}
-
-char	*ft_get_env(char *lst_key, t_node *env)
-{
-	char	*key;
-	int		j;
-
-	j = ft_len_var(lst_key);
-	key = ft_substr(lst_key, 0, j);
-	while (env)
-	{
-		if (ft_strcmp(key, env->key) == 0)
-			return (env->value_of_the_key);
-		env = env->next;
-	}
-	return (NULL);
 }
 
 void	ft_expand(t_token *lst, t_node *env)
@@ -84,6 +68,16 @@ void	ft_invalid_exp(t_token *lst)
 	return ;
 }
 
+void	ft_helper_expand2(t_token **lst, char **inside, \
+							t_token **new_lst, int q)
+{
+	if (q && (*lst)->value != NULL)
+		*inside = ft_strjoin(*inside, (*lst)->value);
+	else 
+		ft_lstadd_back2(new_lst, ft_lstnew2(ft_strdup((*lst)->value), \
+			(*lst)->type));
+}
+
 t_token	*ft_expand_and_quots(t_token *lst, t_node *env)
 {
 	t_token	*new_lst;
@@ -101,27 +95,13 @@ t_token	*ft_expand_and_quots(t_token *lst, t_node *env)
 			ft_quote_hand(&q, 1, &inside, &new_lst);
 		else if (lst->type == D_QUOT && q != 1)
 			ft_quote_hand(&q, 2, &inside, &new_lst);
-		else if (lst->type == DOLLAR && ft_valid_to_search(lst->next) \
-				&& q != 1 && (!lst->prev || ((lst->prev && lst->prev->type != R_HERDOC) || (lst->prev->type == W_SPC && lst->prev->prev && lst->prev->prev->type != R_HERDOC))))
-		{
-			head = lst;
-			if (head->prev && head->prev->type == W_SPC)
-				head = head->prev;
-			if ((head->prev && head->prev->type != R_HERDOC) || lst->prev == NULL)
-			{
-				ft_expand(lst->next, env);
-			}
-		}
+		else if (ft_condition_expand(lst, q))
+			ft_helper_expand1(&head, &lst, env);
 		else if (lst->type == DOLLAR && ft_valid_to_search(lst->next) == 0 \
 					&& q != 1 && lst->next && lst->next->type != W_SPC)
-		{
 			ft_invalid_exp(lst->next);
-		}
-		else if (q && lst->value != NULL)
-			inside = ft_strjoin(inside, lst->value);
-		else 
-			ft_lstadd_back2(&new_lst, ft_lstnew2(ft_strdup(lst->value), \
-							lst->type));
+		else
+			ft_helper_expand2(&lst, &inside, &new_lst, q);
 		lst = lst->next;
 	}
 	return (new_lst);

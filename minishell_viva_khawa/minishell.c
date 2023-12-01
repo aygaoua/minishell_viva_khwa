@@ -6,11 +6,19 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 03:54:21 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 04:31:08 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_condition(t_token *head)
+{
+	if (head->type == R_APPEND || head->type == R_HERDOC \
+			|| head->type == R_IN || head->type == R_OUT)
+		return (1);
+	return (0);
+}
 
 char	**ft_lst_to_tab(t_token *head)
 {
@@ -24,8 +32,7 @@ char	**ft_lst_to_tab(t_token *head)
 	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(tab));
 	while (head)
 	{
-		if (head->type == R_APPEND || head->type == R_HERDOC \
-			|| head->type == R_IN || head->type == R_OUT)
+		if (ft_condition(head) == 1)
 		{
 			head = head->next;
 			if (head)
@@ -53,6 +60,42 @@ int	ft_heredoc_on(t_token *lst)
 	return (0);
 }
 
+void	ft_make_nodes2(t_tokens **cmdline, t_token **lst, int *j)
+{
+	while ((*lst) && (*lst)->type != PIP)
+	{
+		if ((*lst)->type != R_APPEND && (*lst)->type != R_HERDOC \
+			&& (*lst)->type != R_IN && (*lst)->type != R_OUT)
+		{
+			(*cmdline)->options[*j] = ft_strdup((*lst)->value);
+			(*j)++;
+		}
+		else
+			(*lst) = (*lst)->next;
+		if ((*lst))
+			(*lst) = (*lst)->next;
+	}
+	(*cmdline)->options[*j] = NULL;
+	if ((*lst))
+		(*lst) = (*lst)->next;
+}
+
+void	ft_make_nodes1(t_token **lst, int *i)
+{
+	if ((*lst)->type == PIP)
+		(*lst) = (*lst)->next;
+	while ((*lst) && (*lst)->type != PIP)
+	{
+		if ((*lst)->type != R_APPEND && (*lst)->type != R_HERDOC \
+			&& (*lst)->type != R_IN && (*lst)->type != R_OUT)
+			(*i)++;
+		else
+			(*lst) = (*lst)->next;
+		if ((*lst))
+			(*lst) = (*lst)->next;
+	}
+}
+
 void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 {
 	int			i;
@@ -66,39 +109,13 @@ void	ft_make_nodes(t_tokens *cmdline, t_token *lst)
 		i = 0;
 		ft_lstadd_back(&cmdline, ft_lstnew(lst->value));
 		cmdline = cmdline->next;
-		if (lst->type == PIP)
-			lst = lst->next;
-		while (lst && lst->type != PIP)
-		{
-			if (lst->type != R_APPEND && lst->type != R_HERDOC \
-				&& lst->type != R_IN && lst->type != R_OUT)
-				i++;
-			else
-				lst = lst->next;
-			if (lst)
-				lst = lst->next;
-		}
+		ft_make_nodes1(&lst, &i);
 		cmdline->options = malloc((i + 1) * 8);
 		if (!cmdline->options)
 			return ;
 		ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(cmdline->options));
 		lst = head;
-		while (lst && lst->type != PIP)
-		{
-			if (lst->type != R_APPEND && lst->type != R_HERDOC \
-				&& lst->type != R_IN && lst->type != R_OUT)
-			{
-				cmdline->options[j] = ft_strdup(lst->value);
-				j++;
-			}
-			else
-				lst = lst->next;
-			if (lst)
-				lst = lst->next;
-		}
-		cmdline->options[j] = NULL;
-		if (lst)
-			lst = lst->next;
+		ft_make_nodes2(&cmdline, &lst, &j);
 	}
 }
 
@@ -178,9 +195,6 @@ int	main(int ac, char **av, char **env)
 		ft_in_file(cmdline, lst);
 		ft_out_file(cmdline, lst);
 		ft_debug(cmdline);
-		// if (ft_lstsize_token(cmdline) == 2)
-		// {
-		// }
 		if (cmdline->next && cmdline->next->input && cmdline->next->input[0])
 		{
 			// if (cmdline->next && check_if_redirection(cmdline->next) == 1)

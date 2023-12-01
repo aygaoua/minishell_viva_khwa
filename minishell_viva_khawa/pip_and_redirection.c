@@ -6,35 +6,35 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 02:43:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 03:53:46 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 05:01:05 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    excut_biltins (int cmd, t_node **my_list, t_tokens *cmdline)
+void	excut_biltins (int cmd, t_node **my_list, t_tokens *cmdline)
 {
-    if (cmd == 1)
-        exit (0);
-    else if (cmd == 2)
-        my_pdw ();
-    else if (cmd == 3)
-        my_echo_n (cmdline->options + 1);
-    else if (cmd == 4)
-        export_command (my_list, cmdline->options + 1);
-    else if (cmd == 5)
-        cd_command (my_list, cmdline->options + 1);
-    else if (cmd == 6)
-        unset_command (my_list, cmdline->options + 1);
-    else if (cmd == 7)
-        env_command (my_list);
+	if (cmd == 1)
+		exit (0);
+	else if (cmd == 2)
+		my_pdw ();
+	else if (cmd == 3)
+		my_echo_n (cmdline->options + 1);
+	else if (cmd == 4)
+		export_command (my_list, cmdline->options + 1);
+	else if (cmd == 5)
+		cd_command (my_list, cmdline->options + 1);
+	else if (cmd == 6)
+		unset_command (my_list, cmdline->options + 1);
+	else if (cmd == 7)
+		env_command (my_list);
 }
 
-int check_if_redirection(t_tokens *cmdline)
+int	check_if_redirection(t_tokens *cmdline)
 {
-    if (cmdline->o_fd)
-        return (1);
-    return (0);
+	if (cmdline->o_fd)
+		return (1);
+	return (0);
 }
 
 int	build (char *cmd)
@@ -57,27 +57,22 @@ int	build (char *cmd)
 		return (0);
 }
 
-// int execcmd_red(int fd_in, int fd_out, char **env, char **options, char *in_file, char *out_file, char *main_cmd)
-int execcmd_red(t_node **my_list, t_tokens **parss)
+int	execcmd_red(t_node **my_list, t_tokens **parss)
 {
-	// t_node **my_list = take_env (÷);
-    pid_t pid;
+	pid_t pid;
 	char *slach;
 	char **path;
-    char **env;	// char *ptr = NULL;
+	char **env;
 	char *cmd_path = NULL;
 	int row = 0;
 
 	slach = add_slash ((*parss)->options[0]);
 	path = find_path (get_node (my_list, "PATH"));
-    env = make_list_arr (my_list);
+	env = make_list_arr (my_list);
 	row = 0;
 	while (path[row])
 	{
-		// if (ptr)
-		// 	free (ptr);
 		cmd_path = ft_strjoin (path[row], slach);
-		// ptr = cmd_path;
 		if (access (cmd_path, F_OK) == 0)
 		{
 			pid = fork ();
@@ -100,16 +95,11 @@ int execcmd_red(t_node **my_list, t_tokens **parss)
 		}
 		row++;
 	}
-    waitpid(pid, NULL, 0);
-	// ft_free_contnue (my_list);
-	// ft_free_list (my_list);
-	// ft_free_matrix_contnt (path);
-	// free (slach);
-	// free (ptr);
-    return 0;
+	waitpid(pid, NULL, 0);
+	return 0;
 }
 
-char    *get_path_cmand(char **path, char **command)
+char	*get_path_cmand(char **path, char **command)
 {
 	char	*slash;
 	char	*cmd_path;
@@ -174,12 +164,12 @@ void	cmd_in_pipe(t_tokens *list, t_node **my_list, int i_fd, int o_fd, char **en
 
 void    bipa(t_tokens **list, t_node **my_list, char **env)
 {
-    t_tokens	*ptr;
+	t_tokens	*ptr;
 	int			size;
 	int			pipat[ft_lstsize_token((*list)) - 1][2];
 	int			indx;
 
-    ptr = (*list);
+	ptr = (*list);
 	size = ft_lstsize_token ((*list));
 	indx = 0;
 	while (indx < size -1)
@@ -192,8 +182,8 @@ void    bipa(t_tokens **list, t_node **my_list, char **env)
 		(*list)->i_fd = STDIN_FILENO;
 	if ((*list)->o_fd == -2)
 		(*list)->o_fd =STDOUT_FILENO;
-    while (ptr && indx < size)
-    {
+	while (ptr && indx < size)
+	{
 		if (indx == 0)
 		{
 			if (ptr->o_fd == STDOUT_FILENO)
@@ -220,5 +210,5 @@ void    bipa(t_tokens **list, t_node **my_list, char **env)
 		}
 		indx++;
 		ptr = ptr->next;
-    }
+	}
 }
