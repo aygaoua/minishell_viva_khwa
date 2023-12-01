@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:46:00 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 23:41:22 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:25:48 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_collector	*ft_lstnew_clctr(void *lst)
 	new = malloc(sizeof(t_collector));
 	if (!new)
 		return (0);
+	ft_lstadd_back_clctr(ft_collector(), new);
 	new->ptr = lst;
 	new->next = NULL;
 	return (new);

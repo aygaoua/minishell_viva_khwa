@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 11:01:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:10:11 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,6 @@ void				print_oldpwd(t_node **my_env);
 void				make_out(t_node *node);
 void				my_pdw(void);
 void				intial(t_node *new, char *str);
-void				let_exec_command(char **path, char **command, \
-										char **envment);
 void				export_command(t_node **my_env, char **arg);
 void				error_export(char *key, char *val);
 void				swap_nodes(t_node **my_env);
@@ -200,5 +198,15 @@ void				bipa(t_tokens **list, t_node **my_list, char **env);
 int					check_if_redirection(t_tokens *cmdline);
 int					build(char *cmd);
 void				excut_biltins(int cmd, t_node **my_list, t_tokens *cmdline);
+
+
+void    			let_exec_command(char **path, char **command, char **envment);
+void				ft_execute_moha(t_tokens *cmdline, t_node **kmi);
+
+// void				cmd_in_pipe(t_tokens *list, t_node **my_list , char **env);
+void				redirections_in_one_cmd(t_tokens **parss);
+void				set_command_io(t_node **my_list, int i_fd, int o_fd);
+void				create_pipes(int pipes[][2], int size);
+
 
 #endif

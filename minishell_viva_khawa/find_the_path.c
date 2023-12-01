@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 09:46:01 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:04:52 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,3 +111,16 @@ void    let_exec_command(char **path, char **command, char **envment)
     free (cmd_path);
 }
 
+void redirections_in_one_cmd(t_tokens **parss)
+{
+	if ((*parss)->i_fd != -2)
+	{
+		dup2((*parss)->i_fd, STDIN_FILENO);
+		close((*parss)->i_fd);
+	}
+	if ((*parss)->o_fd != -2 )
+	{
+		dup2((*parss)->o_fd, STDOUT_FILENO);
+		close((*parss)->o_fd);
+	}
+}

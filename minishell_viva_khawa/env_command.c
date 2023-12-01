@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:46:13 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 03:39:53 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:11:34 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,8 @@ void	ft_free_list(t_node **list)
 	while (ptr0)
 	{
 		ptr1 = ptr0->next;
-		free (ptr0);
 		ptr0 = ptr1;
 	}
-	free (list);
 }
 
 void	env_command(t_node **list)

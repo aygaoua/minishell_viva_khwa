@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 09:42:41 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:19:08 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,6 @@ int	main(int ac, char **av, char **env)
 		ft_in_file(cmdline, lst);
 		ft_out_file(cmdline, lst);
 		ft_debug(cmdline);
-		if (cmdline->next && (cmdline->next->o_fd == 3 || cmdline->next->o_fd == 4))
-			execcmd_red (kmi, &cmdline);
 		if (cmdline->next && cmdline->next->input && cmdline->next->input[0])
 		{
 			if (build (cmdline->next->input) != 0)

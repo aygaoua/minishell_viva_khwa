@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:39:13 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 09:16:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:10:39 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,25 @@ int	ft_condition_expand(t_token *lst, int q)
 		return (printf("true\n"),1);
 	return (printf("false\n"),0);
 }
+
+// void	let_exec_command(char **path, char **command, char **envment, t_tokens **parss)
+// {
+// 	pid_t	pid;
+// 	char *cmd_path; 
+	
+// 	if (access(command[0], F_OK | X_OK) == 0)
+// 		cmd_path = command[0];
+// 	else
+// 		cmd_path = get_cmd_path(path, command);
+// 	if (!cmd_path)
+// 		printf ("minishell-1$: %s: command not found\n", command[0]);
+// 	pid = fork ();
+// 	if (pid == 0)
+// 	{
+// 		redirections_in_one_cmd(parss);
+// 		execve (cmd_path, command, envment);
+// 		exit(127);
+// 	}
+// 	wait(&pid);
+// 	free (cmd_path);
+// }
