@@ -6,35 +6,35 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 02:43:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 06:51:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 10:51:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	excut_biltins (int cmd, t_node **my_list, t_tokens *cmdline)
+void    excut_biltins (int cmd, t_node **my_list, t_tokens *cmdline)
 {
-	if (cmd == 1)
-		exit (0);
-	else if (cmd == 2)
-		my_pdw ();
-	else if (cmd == 3)
-		my_echo_n (cmdline->options + 1);
-	else if (cmd == 4)
-		export_command (my_list, cmdline->options + 1);
-	else if (cmd == 5)
-		cd_command (my_list, cmdline->options + 1);
-	else if (cmd == 6)
-		unset_command (my_list, cmdline->options + 1);
-	else if (cmd == 7)
-		env_command (my_list);
+    if (cmd == 1)
+        exit (0);
+    else if (cmd == 2)
+        my_pdw();
+    else if (cmd == 3)
+        my_echo_n (cmdline->options + 1);
+    else if (cmd == 4)
+        export_command (my_list, cmdline->options + 1);
+    else if (cmd == 5)
+        cd_command (my_list, cmdline->options + 1);
+    else if (cmd == 6)
+        unset_command (my_list, cmdline->options + 1);
+    else if (cmd == 7)
+        env_command (my_list);
 }
 
-int	check_if_redirection(t_tokens *cmdline)
+int check_if_redirection(t_tokens *cmdline)
 {
-	if (cmdline->o_fd)
-		return (1);
-	return (0);
+    if (cmdline->o_fd)
+        return (1);
+    return (0);
 }
 
 int	build (char *cmd)
@@ -57,75 +57,21 @@ int	build (char *cmd)
 		return (0);
 }
 
-int	execcmd_red(t_node **my_list, t_tokens **parss)
+void redirections_in_more_cmds(t_node **my_list)
 {
-	pid_t pid;
-	char *slach;
-	char **path;
-	char **env;
-	char *cmd_path = NULL;
-	int row = 0;
-
-	slach = add_slash ((*parss)->options[0]);
-	path = find_path (get_node (my_list, "PATH"));
-	env = make_list_arr (my_list);
-	row = 0;
-	while (path[row])
+	if ((*my_list)->cmd_in != STDIN_FILENO)
 	{
-		cmd_path = ft_strjoin (path[row], slach);
-		if (access (cmd_path, F_OK) == 0)
-		{
-			pid = fork ();
-			if (pid	== 0)
-			{
-				if ((*parss)->i_fd != -2)
-				{
-					dup2((*parss)->i_fd, STDIN_FILENO);
-					close((*parss)->i_fd);
-				}
-				if ((*parss)->o_fd != -2 )
-				{
-					dup2((*parss)->o_fd, STDOUT_FILENO);
-					close((*parss)->o_fd);
-				}
-				execve(cmd_path, (*parss)->options, env);
-				perror("execve");
-				exit(EXIT_FAILURE);
-			}
-		}
-		row++;
+		dup2 ((*my_list)->cmd_in, STDIN_FILENO);
+		close ((*my_list)->cmd_in);
 	}
-	waitpid(pid, NULL, 0);
-	return 0;
+	if ((*my_list)->cmd_out != STDOUT_FILENO)
+	{
+		dup2 ((*my_list)->cmd_out, STDOUT_FILENO);
+		close ((*my_list)->cmd_out);
+	}
 }
 
-char	*get_path_cmand(char **path, char **command)
-{
-	char	*slash;
-	char	*cmd_path;
-	int		row;
-
-	row = 0;
-	slash = add_slash (command[row]);
-	cmd_path = NULL;
-	while (path[row])
-	{
-		if (cmd_path)
-			free (cmd_path);
-		cmd_path = ft_strjoin (path[row], slash);
-		if (access (cmd_path, F_OK) == 0)
-		{
-			return (cmd_path);
-		}
-		row++;
-	}
-	free (cmd_path);
-	ft_free_matrix_contnt (path);
-	free (slash);
-	return (NULL);
-}
-
-void	cmd_in_pipe(t_tokens *list, t_node **my_list, int i_fd, int o_fd, char **env)
+void	cmd_in_pipe(t_tokens *list, t_node **my_list, char **env)
 {
 	pid_t	pid;
 	char	**matrix;
@@ -133,82 +79,93 @@ void	cmd_in_pipe(t_tokens *list, t_node **my_list, int i_fd, int o_fd, char **en
 
 	pid = fork ();
 	if (pid == -1)
-	{
-		perror ("fork");
 		exit (EXIT_FAILURE);
-	}
 	if (pid == 0)
 	{
-		if (i_fd != STDIN_FILENO)
+		redirections_in_more_cmds(my_list);
+		if (build(list->options[0]))
+			excut_biltins(build(list->options[0]), my_list, list);
+		else
 		{
-			dup2 (i_fd, STDIN_FILENO);
-			close (i_fd);
+			matrix = ft_split (get_node(my_list, "PATH")->value_of_the_key, ':');
+			cmd_path = get_cmd_path(matrix, list->options);
+			execve (cmd_path, list->options, env);
+			perror("execve :");
+			ft_free_matrix_contnt (matrix);
 		}
-		if (o_fd != STDOUT_FILENO)
-		{
-			dup2 (o_fd, STDOUT_FILENO);
-			close (o_fd);
-		}
-		matrix = ft_split (get_node (my_list, "PATH")->value_of_the_key, ':');
-		cmd_path = get_path_cmand(matrix,list->options);
-		if (!cmd_path)
-			printf (" command not found: %s\n", list->options[0]);
-		execve (cmd_path, list->options, env);
-		ft_free_matrix_contnt (matrix);
 		exit(EXIT_FAILURE);
 	}
 	else
 		waitpid (pid, NULL, 0);
 }
 
+void set_command_io(t_node **my_list, int i_fd, int o_fd)
+{
+    if (i_fd == -2)
+        (*my_list)->cmd_in = STDIN_FILENO;
+    else
+        (*my_list)->cmd_in = i_fd;
+    if (o_fd == -2)
+        (*my_list)->cmd_out = STDOUT_FILENO;
+    else
+        (*my_list)->cmd_out = o_fd;
+}
+
+void create_pipes(int pipes[][2], int size)
+{
+	int i = 0;
+	while (i < size - 1)
+	{
+        pipe(pipes[i]);
+		i++;
+	}
+}
 
 void    bipa(t_tokens **list, t_node **my_list, char **env)
 {
-	t_tokens	*ptr;
+    t_tokens	*ptr;
 	int			size;
 	int			pipat[ft_lstsize_token((*list)) - 1][2];
 	int			indx;
 
-	ptr = (*list);
+    ptr = (*list);
 	size = ft_lstsize_token ((*list));
 	indx = 0;
-	while (indx < size -1)
-	{
-		pipe(pipat[indx]);
-		indx++;
-	}
-	indx = 0;
-	if ((*list)->i_fd == -2)
-		(*list)->i_fd = STDIN_FILENO;
-	if ((*list)->o_fd == -2)
-		(*list)->o_fd =STDOUT_FILENO;
-	while (ptr && indx < size)
-	{
+	create_pipes(pipat, size);
+    while (ptr && indx < size)
+    {
+		set_command_io(my_list, ptr->i_fd, ptr->o_fd);
 		if (indx == 0)
 		{
-			if (ptr->o_fd == STDOUT_FILENO)
-				ptr->o_fd = pipat[indx][1];
-			cmd_in_pipe (ptr, my_list, 0, pipat[indx][1], env);
-			close (pipat[indx][1]);
+			if ((*my_list)->cmd_out == STDOUT_FILENO)
+				(*my_list)->cmd_out = pipat[indx][1];
+			cmd_in_pipe (ptr, my_list, env);
+			close ((*my_list)->cmd_out);
 		}
 		else if (indx > 0 && indx < size - 1)
 		{
-			if (ptr->o_fd == STDOUT_FILENO)
-				ptr->o_fd = pipat[indx][1];
-			if (ptr->i_fd == STDIN_FILENO)
-				ptr->i_fd = pipat[indx - 1][0];
-			cmd_in_pipe (ptr, my_list,pipat[indx - 1][0], pipat[indx][1], env);
-			close (pipat[indx - 1][0]);
-			close (pipat[indx][1]);
+			if ((*my_list)->cmd_out == STDOUT_FILENO)
+				(*my_list)->cmd_out = pipat[indx][1];
+			if ((*my_list)->cmd_in == STDIN_FILENO)
+			{
+				close(pipat[indx - 1][1]);
+				(*my_list)->cmd_in = pipat[indx - 1][0];
+			}
+			cmd_in_pipe (ptr, my_list, env);
+			close ((*my_list)->cmd_in);
+			close ((*my_list)->cmd_out);
 		}
 		else
 		{
-			if (ptr->i_fd == STDIN_FILENO)
-				ptr->i_fd = pipat[indx - 1][0];
-			cmd_in_pipe (ptr,my_list, pipat[indx - 1][0], 1, env);
-			close (pipat[indx - 1][0]);
+			if ((*my_list)->cmd_in == STDIN_FILENO)
+			{
+				close(pipat[indx - 1][1]);
+				(*my_list)->cmd_in = pipat[indx - 1][0];
+			}
+			cmd_in_pipe (ptr, my_list, env);
+			close ((*my_list)->cmd_in);
 		}
 		indx++;
 		ptr = ptr->next;
-	}
+    }
 }

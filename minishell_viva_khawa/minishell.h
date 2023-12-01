@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 10:46:49 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 11:01:57 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <libc.h>
+# include <signal.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include "./libft/libft.h"
@@ -37,6 +38,8 @@ typedef struct s_node
 	char			*value_of_the_key;
 	int				plus;
 	int				equl;
+	int				cmd_in;
+	int				cmd_out;
 	struct s_node	*next;
 }				t_node;
 
@@ -126,6 +129,7 @@ t_node				*ft_lstnew_k(char *env_val);
 t_node				*ft_lstlast_k(t_node **lst);
 t_node				*check_is_exist(t_node **list, char *var);
 t_node				*take_key_vlu(char *str);
+void				cmd_in_pipe(t_tokens *list, t_node **my_list, char **env);
 void				ft_lstadd_front_k(t_node **lst, t_node *new);
 void				my_echo_n(char **argum);
 void				ft_lstadd_back_k(t_node **lst, t_node *new);
@@ -189,13 +193,10 @@ int					ft_lstsize_token(t_tokens *lst);
 int					execcmd_red(t_node **my_list, t_tokens **parss);
 void				bipa(t_tokens **list, t_node **my_list, char **env);
 char				*get_path_cmand(char **path, char **command);
-void				cmd_in_pipe(t_tokens *list, t_node **my_list, 
-						int i_fd, int o_fd, char **env);
 void				catch_sig();
 void				handle_sigint(int sig);
-					////////---------5args------////////
+char				*get_cmd_path(char **path, char **command);
 void				bipa(t_tokens **list, t_node **my_list, char **env);
-////////////
 int					check_if_redirection(t_tokens *cmdline);
 int					build(char *cmd);
 void				excut_biltins(int cmd, t_node **my_list, t_tokens *cmdline);
