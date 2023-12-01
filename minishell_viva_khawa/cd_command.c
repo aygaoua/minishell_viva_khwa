@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:55:19 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 15:46:03 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:54:11 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	cd_command(t_node **env, char **arg)
 		}
 		else
 		{
-			printf (" cd: %s: No such file or directory\n", arg[0]);
+			printf ("minishell-1$: cd: %s: No such file or directory\n", arg[0]);
 			ft_exit_status(1);
 		}
 	}

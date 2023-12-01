@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:46:13 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 15:05:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:57:42 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	ft_free_contnue(t_node **lst)
 	ptr = (*lst);
 	while (ptr)
 	{
-		free (ptr->key);
-		free (ptr->value_of_the_key);
+		// free (ptr->key);
+		// free (ptr->value_of_the_key);
 		ptr = ptr->next;
 	}
 }

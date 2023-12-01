@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 02:43:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 19:43:21 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:23:00 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,17 @@ void	redirections_in_more_cmds(t_node **my_list)
 	}
 }
 
+void exit_comd_not_found(char *cmd_path, char *cmd)
+{
+	if (!cmd_path)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit (127);
+	}
+}
+
 void	cmd_in_pipe(t_tokens *list, t_node **my_list, char **env)
 {
 	pid_t	pid;
@@ -89,9 +100,8 @@ void	cmd_in_pipe(t_tokens *list, t_node **my_list, char **env)
 		{
 			matrix = ft_split(get_node(my_list, "PATH")->value_of_the_key, ':');
 			cmd_path = get_cmd_path(matrix, list->options);
+			exit_comd_not_found(cmd_path, list->options[0]);
 			execve (cmd_path, list->options, env);
-			perror("execve :");
-			ft_free_matrix_contnt (matrix);
 		}
 		exit(EXIT_FAILURE);
 	}

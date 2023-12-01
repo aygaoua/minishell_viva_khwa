@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 19:03:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:11:58 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,25 @@ void	ft_debug(t_tokens *nodes)
 	}
 }
 
+// void ft_execute_moha_2(t_tokens *cmdline, t_node **kmi)
+// {
+// 	char **env;
+
+// 	env = make_list_arr (kmi);
+// 	if (ft_lstsize_token(cmdline) == 2)
+// 	{
+// 		if (build(cmdline->next->input) != 0)
+// 			excut_biltins(build(cmdline->next->input), kmi, cmdline);
+// 		else
+// 			let_exec_command(find_path(get_node (kmi, "PATH")), cmdline->options, env, &cmdline->next);
+// 	}
+// 	else if (ft_lstsize_token(cmdline) > 2)
+// 	{
+// 		bipa(&cmdline->next, kmi, env);
+// 		ft_free_matrix_contnt (env);
+// 	}
+// }
+
 int	main(int ac, char **av, char **env)
 {
 	t_tokens	*cmdline;
@@ -113,7 +132,6 @@ int	main(int ac, char **av, char **env)
 		lst = ft_lexer(cmdline->input);
 		if (ft_check_syntax_error(lst))
 			continue ;
-		printf("tbon l3awda mnwd fawda\n");
 		lst = ft_expand_and_quots(lst, *kmi);
 		while (ft_join_if_need(lst))
 			lst = ft_join_needed(lst);
@@ -124,14 +142,19 @@ int	main(int ac, char **av, char **env)
 		ft_in_file(cmdline, lst);
 		ft_out_file(cmdline, lst);
 		ft_debug(cmdline);
+		//#########################################################################
+		// if (cmdline->next && cmdline->next->input && cmdline->next->input[0])
+		// {
+		// 	if (build (cmdline->next->input) != 0)
+		// 		excut_biltins(build(cmdline->next->input), kmi, cmdline);
+		// 	else
+		// 		let_exec_command(find_path(get_node (kmi, "PATH")), \
+		// 							cmdline->next->options, make_list_arr(kmi));
+		// }
+		// else
+		// 	continue ;
 		if (cmdline->next && cmdline->next->input && cmdline->next->input[0])
-		{
-			if (build (cmdline->next->input) != 0)
-				excut_biltins(build(cmdline->next->input), kmi, cmdline);
-			else
-				let_exec_command(find_path(get_node (kmi, "PATH")), \
-									cmdline->next->options, make_list_arr(kmi));
-		}
+			ft_execute_moha(cmdline, kmi);
 		else
 			continue ;
 	}

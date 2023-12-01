@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:30:22 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 19:16:47 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:09:58 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	ft_exit_status(int status)
 
 void    signal_name(int signal)
 {
-    if (signal == 2)
-        ft_putstr_fd("\n", STDERR_FILENO);
     if (signal == 3)
         ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
     if (signal == 6)

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 19:57:23 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:29:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ typedef enum token_type
 	R_HERDOC,
 	PIP
 }		t_token_type;
+
+typedef struct s_var
+{
+	int	indx;
+	int	tmpfd[2];
+	int	pipa;
+}			t_var;
 
 typedef struct s_token
 {
@@ -201,13 +208,26 @@ void				bipa(t_tokens **list, t_node **my_list, char **env);
 int					check_if_redirection(t_tokens *cmdline);
 int					build(char *cmd);
 void				excut_biltins(int cmd, t_node **my_list, t_tokens *cmdline);
-void				let_exec_command(char **path, char **command, \
-					char **envment);
+void				let_exec_command(char **path, char **command, char **envment, t_tokens **parss);
 void				ft_execute_moha(t_tokens *cmdline, t_node **kmi);
 void				redirections_in_one_cmd(t_tokens **parss);
 void				set_command_io(t_node **my_list, int i_fd, int o_fd);
 void				create_pipes(int pipes[][2], int size);
 void				ft_exit(char **matrix);
+
+
+
+
+
+
+
+
+
+
+
+void ft_execute_moha(t_tokens *cmdline, t_node **kmi);
+void exit_comd_not_found(char *cmd_path, char *cmd);
+
 
 
 #endif

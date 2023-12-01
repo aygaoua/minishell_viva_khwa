@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:51:57 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/20 21:06:43 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:58:32 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	export_remplass(t_node *list, t_node *one)
 
 	ptr = list->value_of_the_key;
 	list->value_of_the_key = one->value_of_the_key;
-	free (ptr);
-	free (one->key);
-	free (one);
+	// free (ptr);
+	// free (one->key);
+	// free (one);
 }

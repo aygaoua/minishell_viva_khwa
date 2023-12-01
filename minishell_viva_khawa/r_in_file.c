@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 22:23:27 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 18:44:48 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:00:10 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	ft_open_in_file(char *s, t_tokens *cmdline, int flag)
 	{
 		ft_print_error(s);
 		cmdline->i_fd = -3;
-		if (cmdline->options)
-			ft_free_matrix_contnt(cmdline->options);
+		// if (cmdline->options)
+		// 	ft_free_matrix_contnt(cmdline->options);
 		cmdline->options = NULL;
 		ft_exit_status(1);
 		return (1);

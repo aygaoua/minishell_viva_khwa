@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:52:00 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 03:51:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:58:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	remplace(t_node *list, t_node *one)
 {
 	if (one->equl == 1 && one->plus == 0)
 		export_remplass (list, one);
-	else
-	{
-		ft_free_contnue (&one);
-		free (one);
-	}
+	// else
+	// {
+	// 	// ft_free_contnue (&one);
+	// 	// free (one);
+	// }
 }
 
 void	export_conca(t_node *list, t_node *one)
@@ -30,9 +30,9 @@ void	export_conca(t_node *list, t_node *one)
 	ptr = list->value_of_the_key;
 	list->value_of_the_key = ft_strjoin
 		(list->value_of_the_key, one->value_of_the_key);
-	free (ptr);
-	ft_free_contnue (&one);
-	free (one);
+	// free (ptr);
+	// ft_free_contnue (&one);
+	// free (one);
 }
 
 void	take_last_link(t_node **env, t_node *new)
@@ -67,11 +67,11 @@ void	check_link(t_node **my_env, t_node *new)
 		else
 			take_last_link(my_env, new);
 	}
-	else
-	{
-		ft_free_contnue (&new);
-		free (new);
-	}
+	// else
+	// {
+	// 	ft_free_contnue (&new);
+	// 	free (new);
+	// }
 }
 
 int	check_nil(t_node **env, char **matrix)

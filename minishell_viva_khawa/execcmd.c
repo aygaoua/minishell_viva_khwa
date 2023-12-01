@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 22:24:57 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 14:51:53 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:57:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	execcmd_red(t_node **my_list, t_tokens **parss)
 	row = 0;
 	while (path[row])
 	{
-		if (ptr)
-			free (ptr);
+		// if (ptr)
+		// 	free (ptr);
 		cmd_path = ft_strjoin (path[row], slach);
 		ptr = cmd_path;
 		if (access (cmd_path, F_OK) == 0)
@@ -56,11 +56,11 @@ int	execcmd_red(t_node **my_list, t_tokens **parss)
 		row++;
 	}
 	waitpid(pid, NULL, 0);
-	ft_free_contnue (my_list);
-	ft_free_list (my_list);
-	ft_free_matrix_contnt (path);
-	free (slach);
-	free (ptr);
+	// ft_free_contnue (my_list);
+	// ft_free_list (my_list);
+	// ft_free_matrix_contnt (path);
+	// free (slach);
+	// free (ptr);
 	return (0);
 }
 

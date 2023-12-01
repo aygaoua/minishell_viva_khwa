@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:01:31 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 14:16:15 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 20:56:06 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	ft_execute_moha(t_tokens *cmdline, t_node **kmi)
 			excut_biltins(build(cmdline->next->input), kmi, cmdline);
 		else
 			let_exec_command(find_path(get_node (kmi, "PATH")), \
-								cmdline->options, env);
+								cmdline->options, env, &cmdline->next);
 	}
 	else if (ft_lstsize_token(cmdline) > 2)
 	{
 		bipa(&cmdline->next, kmi, env);
-		ft_free_matrix_contnt (env);
+		// ft_free_matrix_contnt (env);
 	}
 }
