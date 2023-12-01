@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:39:16 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 20:02:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 00:12:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ static void	exit_status(size_t num)
 {
 	if (num >= 0 && num <= 256)
 	{
-		printf ("exiss|||t\n");
+		printf ("exit\n");
 		ft_exit_status (num);
 	}
 	if (num > 256)
 	{
-		printf ("exidsdft\n");
-				ft_exit_status (num % 256);
+		printf ("exit\n");
+		ft_exit_status (num % 256);
 	}
+	exit (ft_exit_status(-1));
 }
 
 static int	num_arg_of_exit(char *str)

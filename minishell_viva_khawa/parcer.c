@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:01:31 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 20:56:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 23:39:28 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,14 @@ int	ft_len_var(char *s)
 	return (j);
 }
 
-void	ft_execute_moha(t_tokens *cmdline, t_node **kmi)
+void	ft_quote_hand(int *q, int type, char **inside, t_token **lst)
 {
-	char	**env;
-
-	env = make_list_arr (kmi);
-	if (ft_lstsize_token(cmdline) == 2)
+	if (*q == 0)
+		*q = type;
+	else if (*q == type)
 	{
-		if (build(cmdline->next->input) != 0)
-			excut_biltins(build(cmdline->next->input), kmi, cmdline);
-		else
-			let_exec_command(find_path(get_node (kmi, "PATH")), \
-								cmdline->options, env, &cmdline->next);
-	}
-	else if (ft_lstsize_token(cmdline) > 2)
-	{
-		bipa(&cmdline->next, kmi, env);
-		// ft_free_matrix_contnt (env);
+		*q = 0;
+		ft_lstadd_back2(lst, ft_lstnew2(*inside, WORD));
+		*inside = NULL;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:30:22 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 21:09:58 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 22:52:49 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ int	ft_exit_status(int status)
 	return (exit_status);
 }
 
-void    signal_name(int signal)
+void	signal_name(int signal)
 {
-    if (signal == 3)
-        ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
-    if (signal == 6)
-        ft_putstr_fd("Aborted\n", STDERR_FILENO);
-    if (signal == 7)
-        ft_putstr_fd("Bus error\n", STDERR_FILENO);
-    if (signal == 11)
-        ft_putstr_fd("Segmentation fault: 11\n", STDERR_FILENO);
-    if (signal == 15)
-        ft_putstr_fd("Terminated\n", STDERR_FILENO);
+	if (signal == 3)
+		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+	if (signal == 6)
+		ft_putstr_fd("Aborted\n", STDERR_FILENO);
+	if (signal == 7)
+		ft_putstr_fd("Bus error\n", STDERR_FILENO);
+	if (signal == 11)
+		ft_putstr_fd("Segmentation fault: 11\n", STDERR_FILENO);
+	if (signal == 15)
+		ft_putstr_fd("Terminated\n", STDERR_FILENO);
 }
 
-void    exitstatus(void)
+void	exitstatus(void)
 {
 	int		signal;
 	int		exit_status;

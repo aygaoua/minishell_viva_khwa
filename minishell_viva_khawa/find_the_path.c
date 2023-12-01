@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 21:06:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 22:53:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,16 @@ char	*get_cmd_path(char **path, char **command)
 	cmd_path = NULL;
 	while (path[row])
 	{
-		// if (cmd_path)
-		// 	free (cmd_path);
 		cmd_path = ft_strjoin (path[row], slash);
 		if (access (cmd_path, F_OK | X_OK) == 0)
-		{
-			// ft_free_matrix_contnt (path);
-			// free (slash);
 			return (cmd_path);
-		}
 		row++;
 	}
-	// ft_free_matrix_contnt (path);
-	// free (slash);
 	return (NULL);
 }
 
-void	let_exec_command(char **path, char **command, char **envment, t_tokens **parss)
+void	let_exec_command(char **path, char **command, \
+			char **envment, t_tokens **parss)
 {
 	pid_t	pid;
 	char	*cmd_path; 
@@ -108,35 +101,4 @@ void	let_exec_command(char **path, char **command, char **envment, t_tokens **pa
 	waitpid(pid, &status, 0);
 	ft_exit_status(status);
 	exitstatus();
-	// wait(&pid);
-	// free (cmd_path);
 }
-
-// void	let_exec_command(char **path, char **command, char **envment)
-// {
-// 	pid_t	pid;
-// 	int		status;
-// 	char	*cmd_path; 
-
-// 	if (access(command[0], F_OK | X_OK) == 0)
-// 		cmd_path = command[0];
-// 	else
-// 		cmd_path = get_cmd_path(path, command);
-// 	if (!cmd_path)
-// 	{
-// 		printf ("minishell %s: command not found\n", command[0]);
-// 		ft_exit_status(127);
-// 	}
-// 	pid = fork ();
-// 	if (pid == 0)
-// 	{
-// 		execve (cmd_path, command, envment);
-// 		exit(127);
-// 	}
-// 	waitpid(pid, &status, 0);
-// 	printf("------------->%d<-------------\n", ft_exit_status(-1));
-// 	ft_exit_status(status);
-// 	exitstatus();
-// 	printf("------------->%d<-------------\n", ft_exit_status(-1));
-// 	free (cmd_path);
-// }

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 02:43:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 21:23:00 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 00:02:07 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	excut_biltins(int cmd, t_node **my_list, t_tokens *cmdline)
 		unset_command (my_list, cmdline->options + 1);
 	else if (cmd == 7)
 		env_command (my_list);
+	ft_exit_status(0);
 }
 
 int	check_if_redirection(t_tokens *cmdline)
@@ -71,7 +72,7 @@ void	redirections_in_more_cmds(t_node **my_list)
 	}
 }
 
-void exit_comd_not_found(char *cmd_path, char *cmd)
+void	exit_comd_not_found(char *cmd_path, char *cmd)
 {
 	if (!cmd_path)
 	{
@@ -80,31 +81,4 @@ void exit_comd_not_found(char *cmd_path, char *cmd)
 		ft_putstr_fd(": command not found\n", 2);
 		exit (127);
 	}
-}
-
-void	cmd_in_pipe(t_tokens *list, t_node **my_list, char **env)
-{
-	pid_t	pid;
-	char	**matrix;
-	char	*cmd_path;
-
-	pid = fork ();
-	if (pid == -1)
-		exit (EXIT_FAILURE);
-	if (pid == 0)
-	{
-		redirections_in_more_cmds(my_list);
-		if (build(list->options[0]))
-			excut_biltins(build(list->options[0]), my_list, list);
-		else
-		{
-			matrix = ft_split(get_node(my_list, "PATH")->value_of_the_key, ':');
-			cmd_path = get_cmd_path(matrix, list->options);
-			exit_comd_not_found(cmd_path, list->options[0]);
-			execve (cmd_path, list->options, env);
-		}
-		exit(EXIT_FAILURE);
-	}
-	else
-		waitpid (pid, NULL, 0);
 }

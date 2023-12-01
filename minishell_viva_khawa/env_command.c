@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:46:13 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 20:57:42 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 22:59:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,6 @@ t_node	**take_env(char **env)
 	return (list);
 }
 
-// t_node	**take_env(char **env)
-// {
-// 	t_node	**list;
-// 	int		row;
-
-// 	list = malloc (sizeof (t_node *));
-// 	if (!list)
-// 		return (NULL);
-// 	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(list));
-// 	(*list) = NULL;
-// 	row = 0;
-// 	while (env[row] != NULL)
-// 	{
-// 		ft_lstadd_back_k (list, ft_lstnew_k (env[row]));
-// 		row++;
-// 	}
-// 	return (list);
-// }
-
 void	print_list(t_node **list)
 {
 	t_node	*ptr;
@@ -94,11 +75,7 @@ void	ft_free_contnue(t_node **lst)
 		return ;
 	ptr = (*lst);
 	while (ptr)
-	{
-		// free (ptr->key);
-		// free (ptr->value_of_the_key);
 		ptr = ptr->next;
-	}
 }
 
 void	ft_free_list(t_node **list)

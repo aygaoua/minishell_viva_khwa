@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 22:25:26 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 20:59:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 00:07:20 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_handle_error( void )
 	ft_exit_status(1);
 	perror("pip");
 }
+
 void	ft_open_herdoc(char *s, t_tokens *cmdline)
 {
 	char	*str;
@@ -46,13 +47,12 @@ void	ft_open_herdoc(char *s, t_tokens *cmdline)
 		if (ft_strcmp(s, str) == 0)
 		{
 			close(fd[1]);
+			free(str);
 			cmdline->i_fd = fd[0];
 			break ;
 		}
 		write(cmdline->i_fd, str, ft_strlen(str));
 		write(cmdline->i_fd, "\n", 1);
-		// free(str);
+		free(str);
 	}
-	// if (str)
-	// 	free(str);
 }

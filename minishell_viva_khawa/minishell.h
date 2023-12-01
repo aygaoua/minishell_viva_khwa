@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 21:29:40 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 00:19:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define OUT_FILE	3
 # define OUT_APPEND	4
 
-//----------------------------------STRUCTS----------------------------------//
+/*----------------------------------STRUCTS----------------------------------*/
 typedef struct s_collector
 {
 	void				*ptr;
@@ -85,7 +85,7 @@ typedef struct s_tokens
 	struct s_tokens	*next;
 }					t_tokens;
 
-//--------------------------NEW_PARSSING----------------------------//
+/*--------------------------NEW_PARSSING----------------------------*/
 t_token_type		ft_get_type(char *line, int *i);
 t_collector			**ft_collector(void);
 t_collector			*ft_lstnew_clctr(void *lst);
@@ -130,9 +130,12 @@ int					ft_condition(t_token *head);
 int					ft_condition_expand(t_token *lst, int q);
 int					ft_exit_status(int status);
 void				ft_print_error(char *s);
-void    			exitstatus(void);
+void				exitstatus(void);
+void				ft_quote_hand(int *q, int type, char **inside, \
+						t_token **lst);
+int					ft_last_part(t_token **lst, int q);
 
-//------------------------------EXECUTION------------------------------//
+/*------------------------------EXECUTION------------------------------*/
 t_node				*get_node(t_node **list, char *str);
 t_node				**take_env(char **env);
 t_node				*ft_lstnew_k(char *env_val);
@@ -208,26 +211,19 @@ void				bipa(t_tokens **list, t_node **my_list, char **env);
 int					check_if_redirection(t_tokens *cmdline);
 int					build(char *cmd);
 void				excut_biltins(int cmd, t_node **my_list, t_tokens *cmdline);
-void				let_exec_command(char **path, char **command, char **envment, t_tokens **parss);
+void				let_exec_command(char **path, char **command, \
+						char **envment, t_tokens **parss);
 void				ft_execute_moha(t_tokens *cmdline, t_node **kmi);
 void				redirections_in_one_cmd(t_tokens **parss);
 void				set_command_io(t_node **my_list, int i_fd, int o_fd);
-void				create_pipes(int pipes[][2], int size);
+void				create_pipes(int **pipes, int size);
 void				ft_exit(char **matrix);
-
-
-
-
-
-
-
-
-
-
-
-void ft_execute_moha(t_tokens *cmdline, t_node **kmi);
-void exit_comd_not_found(char *cmd_path, char *cmd);
-
-
+int					**allocate_pipes(int size);
+void				exit_comd_not_found(char *cmd_path, char *cmd);
+void				redirections_in_more_cmds(t_node **my_list);
+void				execute_first_cmd(t_tokens *list, t_node **my_list, \
+			char **env, int pipa);
+void				execute_last_cmd(t_tokens *list, t_node **my_list, \
+			char **env, int pipat[2]);
 
 #endif
