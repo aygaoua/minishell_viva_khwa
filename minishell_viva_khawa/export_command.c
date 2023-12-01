@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:22:37 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 06:44:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:49:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void	export_command(t_node **my_env, char **arg)
 		if (how_alpha (new->key) == 0)
 		{
 			ft_free_contnue (&new);
-			free (new);
+			// free (new);
 			break ;
 		}
 		if (arg[row][0] == '=')
 		{
 			printf (" export: `%s': not a valid identifier\n", arg[row]);
 			ft_exit_status (1);
-			free (new);
+			// free (new);
 			break ;
 		}
 		check_link (my_env, new);

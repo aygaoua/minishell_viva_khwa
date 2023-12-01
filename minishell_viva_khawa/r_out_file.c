@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 22:22:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 05:15:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:45:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_open_out_file(char *s, t_tokens *cmdline, int flag, int type)
 	{
 		ft_print_error(s);
 		cmdline->o_fd = -3;
+		ft_exit_status(1);
 		return ;
 	}
 	if (!flag)

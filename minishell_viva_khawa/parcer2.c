@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 08:04:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 14:13:30 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 18:24:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,10 @@ void	ft_helper_expand2(t_token **lst, char **inside, \
 	&& (*lst)->prev->prev->prev->type == R_HERDOC) \
 	|| (*lst)->prev->prev->type == R_HERDOC)))))
 	{
-		*inside = ft_strjoin(ft_strdup("$"), (*lst)->value);
-		printf("***************||%s||*****************\n", (*lst)->value);
-	}
+		*inside = ft_strjoin(ft_strdup("$"), (*lst)->value);	}
 	if (q && (*lst)->value != NULL)
 		*inside = ft_strjoin(*inside, (*lst)->value);
-	else 
+	else
 		ft_lstadd_back2(new_lst, ft_lstnew2(ft_strdup((*lst)->value), \
 			(*lst)->type));
 }

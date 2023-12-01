@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 20:42:57 by azgaoua           #+#    #+#              #
-#    Updated: 2023/12/01 15:18:13 by azgaoua          ###   ########.fr        #
+#    Updated: 2023/12/01 19:43:56 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJS = minishell.o ft_lst_tools.o \
 		parcer2.o join_and_split.o pipa.o ft_split.o ft_strdup.o ft_substr.o \
 		r_out_file.o r_in_file.o r_heredoc.o parcer.o ft_garbege_clctr.o \
 		pip_and_redirection.o syntax_error1.o signal.o execcmd.o pip_and_red2.o \
-		find_the_path1.o minishell1.o
+		find_the_path1.o minishell1.o exit_command.o
 
 FILES = minishell.c ft_lst_tools.c \
 		echo_command.c cd_cmmand1.c cd_command.c \
@@ -32,7 +32,7 @@ FILES = minishell.c ft_lst_tools.c \
 		parcer2.c join_and_split.c pipa.c ft_split.c ft_strdup.c ft_substr.c \
 		r_out_file.c r_in_file.c r_heredoc.c parcer.c ft_garbege_clctr.c \
 		pip_and_redirection.c syntax_error1.c signal.c execcmd.c pip_and_red2.c \
-		find_the_path1.c minishell1.c
+		find_the_path1.c minishell1.c exit_command.c
 
 CC = cc
 

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 02:43:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 14:06:51 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:43:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	excut_biltins(int cmd, t_node **my_list, t_tokens *cmdline)
 {
 	if (cmd == 1)
-		exit (0);
+		ft_exit(cmdline->options + 1);
 	else if (cmd == 2)
 		my_pdw();
 	else if (cmd == 3)

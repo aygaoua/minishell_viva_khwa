@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 14:43:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:03:26 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,19 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(cmdline));
 	cmdline->next = NULL;
+	catch_sig();
 	while (0 == 0)
 	{
-		ft_exit_status(0);
+		// ft_exit_status(0);
 		cmdline->input = readline("minishell-1$ ");
+		if (!cmdline->input)
+			exit(0); // TODO: add free and "exit\n" message in the STDOUT_FILENO;
 		add_history(cmdline->input);
 		cmdline = ft_lstnew(cmdline->input);
 		lst = ft_lexer(cmdline->input);
 		if (ft_check_syntax_error(lst))
 			continue ;
+		printf("tbon l3awda mnwd fawda\n");
 		lst = ft_expand_and_quots(lst, *kmi);
 		while (ft_join_if_need(lst))
 			lst = ft_join_needed(lst);
@@ -126,7 +130,7 @@ int	main(int ac, char **av, char **env)
 				excut_biltins(build(cmdline->next->input), kmi, cmdline);
 			else
 				let_exec_command(find_path(get_node (kmi, "PATH")), \
-									cmdline->options, make_list_arr(kmi));
+									cmdline->next->options, make_list_arr(kmi));
 		}
 		else
 			continue ;

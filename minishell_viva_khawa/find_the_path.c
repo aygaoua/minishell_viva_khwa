@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 14:45:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:12:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ void	let_exec_command(char **path, char **command, char **envment)
 		exit(127);
 	}
 	waitpid(pid, &status, 0);
+	printf("------------->%d<-------------\n", ft_exit_status(-1));
 	ft_exit_status(status);
+	exitstatus();
+	printf("------------->%d<-------------\n", ft_exit_status(-1));
 	free (cmd_path);
 }

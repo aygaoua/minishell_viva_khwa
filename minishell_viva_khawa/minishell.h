@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:06:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 14:27:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:57:23 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include "./libft/libft.h"
+# include <limits.h>
 
 # define ERROR		-2
 # define IN_FILE	1
@@ -121,6 +122,8 @@ int					ft_valid_to_search(t_token *lst);
 int					ft_condition(t_token *head);
 int					ft_condition_expand(t_token *lst, int q);
 int					ft_exit_status(int status);
+void				ft_print_error(char *s);
+void    			exitstatus(void);
 
 //------------------------------EXECUTION------------------------------//
 t_node				*get_node(t_node **list, char *str);
@@ -204,5 +207,7 @@ void				ft_execute_moha(t_tokens *cmdline, t_node **kmi);
 void				redirections_in_one_cmd(t_tokens **parss);
 void				set_command_io(t_node **my_list, int i_fd, int o_fd);
 void				create_pipes(int pipes[][2], int size);
+void				ft_exit(char **matrix);
+
 
 #endif
