@@ -6,11 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 20:42:57 by azgaoua           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/12/02 00:17:18 by azgaoua          ###   ########.fr        #
-=======
-#    Updated: 2023/11/29 23:14:35 by azgaoua          ###   ########.fr        #
->>>>>>> main
+#    Updated: 2023/12/02 18:48:06 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +16,6 @@ OBJS = minishell.o ft_lst_tools.o \
 		echo_command.o cd_cmmand1.o cd_command.o \
 		env_command.o env_command1.o ft_linked_list.o tools.o pwd_command.o \
 		export_command.o export_command1.o export_command2.o export_command3.o \
-<<<<<<< HEAD
 		export_command4.o unset.o unset1.o find_the_path.o execve.o  \
 		lexer.o ft_list_token.o syntax_error.o \
 		parcer2.o join_and_split.o pipa.o ft_split.o ft_strdup.o ft_substr.o \
@@ -38,19 +33,6 @@ FILES = minishell.c ft_lst_tools.c \
 		r_out_file.c r_in_file.c r_heredoc.c parcer.c ft_garbege_clctr.c \
 		pip_and_redirection.c syntax_error1.c signal.c pip_and_red2.c \
 		find_the_path1.c minishell1.c exit_command.c builting_error.c
-=======
-		export_command4.o unset.o unset1.o find_the_path.o execve.o split_p.o \
-		parssing3.o lexer.o ft_list_token.o syntax_error.o \
-		parcer2.o join_and_split.o
-
-FILES = minishell.c ft_lst_tools.c parssing.c parssing1.c \
-		quots.c expand.c parssing2.c echo_command.c cd_cmmand1.c cd_command.c \
-		env_command.c env_command1.c ft_linked_list.c tools.c pwd_command.c \
-		export_command.c export_command1.c export_command2.c export_command3.c \
-		export_command4.c unset.c unset1.c find_the_path.c execve.c split_p.c \
-		parssing3.c lexer.c ft_list_token.c syntax_error.c \
-		parcer2.c join_and_split.c
->>>>>>> main
 
 CC = cc
 

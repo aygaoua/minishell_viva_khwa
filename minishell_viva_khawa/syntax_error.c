@@ -6,11 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 05:03:54 by azgaoua           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/12/02 00:14:24 by azgaoua          ###   ########.fr       */
-=======
-/*   Updated: 2023/11/29 23:10:15 by azgaoua          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2023/12/02 18:48:43 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +64,6 @@ int	ft_check_syntax_error(t_token *lst)
 	t_token	*head;
 	int		q;
 
-<<<<<<< HEAD
 	lst = spcless(lst);
 	head = lst;
 	q = 0;
@@ -90,34 +85,3 @@ int	ft_check_syntax_error(t_token *lst)
 		return (write(2, "minishell: unclosed double quote\n", 34), q);
 	return (q);
 }
-=======
-    lst = spcless(lst);
-    while(lst)
-    {
-        if(lst->type == S_QUOT)
-        {
-            if(q == 0)
-                q = 1;
-            else if (q == 1)
-                q = 0;
-        }
-        else if(lst->type == D_QUOT)
-        {
-            if(q == 0)
-                q = 2;
-            else if (q == 2)
-                q = 0;
-        }
-        else if(((lst->type == R_APPEND ||
-                lst->type == R_HERDOC || lst->type == R_IN || lst->type == R_OUT)) \
-                && ((!lst->next) || ((lst->next) && (lst->next->type != WORD \
-                && lst->next->type != DOLLAR) && !q)))
-            return 1;
-        else if((lst->type == PIP) && ((!lst->next || !lst->prev) || ((lst->next && lst->prev) && \
-                (lst->next->type == PIP || lst->prev->type == PIP) && !q)))
-            return 1;
-        lst = lst->next;
-    }
-    return q;
-}
->>>>>>> main

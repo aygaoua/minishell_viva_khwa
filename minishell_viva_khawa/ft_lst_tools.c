@@ -6,11 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/11/30 23:40:28 by azgaoua          ###   ########.fr       */
-=======
-/*   Updated: 2023/11/30 00:19:49 by azgaoua          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2023/12/02 18:49:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +73,7 @@ t_tokens	*ft_lstlast(t_tokens *lst)
 
 int	ft_lstsize(t_token *lst)
 {
-<<<<<<< HEAD
 	t_token		*j;
-=======
-	t_token	*j;
->>>>>>> main
 	int			i;
 
 	if (!lst)
