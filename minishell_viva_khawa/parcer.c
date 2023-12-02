@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:01:31 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/01 23:39:28 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 01:15:46 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,14 @@ void	ft_quote_hand(int *q, int type, char **inside, t_token **lst)
 		ft_lstadd_back2(lst, ft_lstnew2(*inside, WORD));
 		*inside = NULL;
 	}
+}
+
+char	**find_path(t_node *an_node)
+{
+	char	**paths;
+
+	if (!an_node || !an_node->value_of_the_key)
+		return (NULL);
+	paths = ft_split (an_node->value_of_the_key, ':');
+	return (paths);
 }

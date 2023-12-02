@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:08:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/02 00:04:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 00:25:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int	main(int ac, char **av, char **env)
 	{
 		cmdline->input = readline("minishell-1$ ");
 		if (!cmdline->input)
-			return (write(1, "exit\n", 5), \
-			exit(0), 0);
-		add_history(cmdline->input);
+			return (write(1, "exit\n", 5), exit(0), 0);
+		if (cmdline->input[0])
+			add_history(cmdline->input);
 		cmdline = ft_lstnew(cmdline->input);
 		if (ft_minishell1(&cmdline, &lst, kmi))
 			continue ;

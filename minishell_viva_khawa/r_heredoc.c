@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 22:25:26 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/12/02 00:07:20 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 01:13:52 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_open_herdoc(char *s, t_tokens *cmdline)
 	while (0 == 0)
 	{
 		str = readline(">");
-		if (ft_strcmp(s, str) == 0)
+		if (ft_strcmp(s, str) == 0 || str == NULL)
 		{
 			close(fd[1]);
 			free(str);

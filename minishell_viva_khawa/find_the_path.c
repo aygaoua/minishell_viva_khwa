@@ -6,21 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:22:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/12/01 22:53:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 01:15:33 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**find_path(t_node *an_node)
-{
-	char	**paths;
-
-	if (!an_node || !an_node->value_of_the_key)
-		return (NULL);
-	paths = ft_split (an_node->value_of_the_key, ':');
-	return (paths);
-}
 
 char	*add_slash(char *str)
 {
@@ -78,27 +68,42 @@ char	*get_cmd_path(char **path, char **command)
 	return (NULL);
 }
 
+void	clear_exec(pid_t pid, t_tokens **parss)
+{
+	int		status;
+
+	if ((*parss)->i_fd > 0)
+		close((*parss)->i_fd);
+	if ((*parss)->o_fd > 0)
+		close((*parss)->o_fd);
+	waitpid(pid, &status, 0);
+	ft_exit_status(status);
+	exitstatus();
+}
+
 void	let_exec_command(char **path, char **command, \
 			char **envment, t_tokens **parss)
 {
 	pid_t	pid;
 	char	*cmd_path; 
-	int		status;
 
 	if (access(command[0], F_OK | X_OK) == 0)
 		cmd_path = command[0];
 	else
 		cmd_path = get_cmd_path(path, command);
-	if (!cmd_path)
+	if (!cmd_path && command[0])
 		printf ("minishell-1$: %s: command not found\n", command[0]);
 	pid = fork ();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		redirections_in_one_cmd(parss);
-		execve (cmd_path, command, envment);
+		if (command[0])
+			execve (cmd_path, command, envment);
+		else
+			exit(0);
 		exit(127);
 	}
-	waitpid(pid, &status, 0);
-	ft_exit_status(status);
-	exitstatus();
+	clear_exec(pid, parss);
 }
