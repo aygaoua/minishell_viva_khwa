@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:57:35 by azgaoua           #+#    #+#             */
-/*   Updated: 2022/11/17 16:13:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:09:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

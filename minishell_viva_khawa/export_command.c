@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 21:22:37 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/22 19:17:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 22:56:01 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ void	export_command(t_node **my_env, char **arg)
 	int		row;
 
 	row = -1;
-// ---------------aygaoua protection----------------------- //
-	//<<----------still not  working------------>>     
-//      (test "---->>export var='ll kk''<<----")
-// ---------------aygaoua protection----------------------- //
 	if (check_nil (my_env, arg) == 1)
 		return ;
 	while (arg[++row])
@@ -39,13 +35,12 @@ void	export_command(t_node **my_env, char **arg)
 		if (how_alpha (new->key) == 0)
 		{
 			ft_free_contnue (&new);
-			free (new);
 			break ;
 		}
 		if (arg[row][0] == '=')
 		{
 			printf (" export: `%s': not a valid identifier\n", arg[row]);
-			free (new);
+			ft_exit_status (1);
 			break ;
 		}
 		check_link (my_env, new);

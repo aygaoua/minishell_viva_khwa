@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 12:43:33 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/10/25 21:58:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:09:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 void	ft_bzero(void *s, size_t n)
 {

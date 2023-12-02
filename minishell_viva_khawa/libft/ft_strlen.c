@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 11:58:53 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/09/23 00:26:55 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:09:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 size_t	ft_strlen(const char *str)
 {

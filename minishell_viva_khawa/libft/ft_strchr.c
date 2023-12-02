@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 05:22:26 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/14 15:07:13 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:09:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 char	*ft_strchr(const char *s, int c)
 {

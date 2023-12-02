@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   find_the_path1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 04:46:27 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/27 05:33:55 by azgaoua          ###   ########.fr       */
+/*   Created: 2023/12/01 14:35:28 by azgaoua           #+#    #+#             */
+/*   Updated: 2023/12/01 14:36:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+void	redirections_in_one_cmd(t_tokens **parss)
 {
-	size_t	len;
-	size_t	i;
-	char	*p;
-
-	i = 0;
-	if(!s1)
-		return NULL;
-	len = ft_strlen(s1);
-	p = (char *)malloc(len + 1);
-	if (!p)
-		return (0);
-	while (i < len)
+	if ((*parss)->i_fd != -2)
 	{
-		p[i] = s1[i];
-		i++;
+		dup2((*parss)->i_fd, STDIN_FILENO);
+		close((*parss)->i_fd);
 	}
-	p[i] = '\0';
-	return (p);
+	if ((*parss)->o_fd != -2)
+	{
+		dup2((*parss)->o_fd, STDOUT_FILENO);
+		close((*parss)->o_fd);
+	}
 }

@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:35:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2022/11/17 16:12:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:09:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

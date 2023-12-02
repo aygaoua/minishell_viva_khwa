@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 03:58:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 13:34:09 by azgaoua          ###   ########.fr       */
+/*   Created: 2022/10/21 04:46:27 by azgaoua           #+#    #+#             */
+/*   Updated: 2023/11/30 23:39:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	*ft_calloc(size_t count, size_t size)
+char	*ft_strdup(const char *s1)
 {
-	void	*i;
+	size_t	len;
+	size_t	i;
+	char	*p;
 
-	i = malloc(count * size);
-	if (i)
+	i = 0;
+	if (!s1)
+		return (NULL);
+	len = ft_strlen(s1);
+	p = (char *)malloc(len + 1);
+	if (!p)
+		return (0);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(p));
+	while (i < len)
 	{
-		ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(i));
-		ft_bzero(i, count * size);
-		return (i);
+		p[i] = s1[i];
+		i++;
 	}
-	return (0);
+	p[i] = '\0';
+	return (p);
 }

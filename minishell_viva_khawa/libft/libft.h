@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:45:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/22 17:08:23 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 00:19:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ char							*ft_strmapi(char const *s,
 char							*ft_itoa(int n);
 char							*ft_strtrim(char const *s1, char const *set);
 char							*ft_strjoin(char const *s1, char const *s2);
-char							*ft_substr(char const *s, unsigned int start,
-									size_t len);
-char							*ft_strdup(const char *s1);
 void							*ft_calloc(size_t count, size_t size);
 int								ft_memcmp(const void *s1, const void *s2,
 									size_t n);
@@ -72,7 +69,6 @@ char							*ft_strchr(const char *s, int c);
 char							*ft_strrchr(const char *s, int c);
 char							*ft_strnstr(const char *haystack,
 									const char *needle, size_t len);
-char							**ft_split(char *s, char c);
 size_t							lignes(const char *s, char c);
 void							ft_lstadd_front(t_list **lst, t_list *new);
 char							*get_next_line(int fd);

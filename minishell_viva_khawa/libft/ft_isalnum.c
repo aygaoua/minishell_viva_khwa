@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 18:11:43 by azgaoua           #+#    #+#             */
-/*   Updated: 2022/10/13 14:25:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:11:39 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../minishell.h"
 
 int	ft_isalnum(int c)
 {

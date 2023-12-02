@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:34:58 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/21 18:28:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:32:57 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -26,6 +26,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	p = malloc(len + 1);
 	if (!p)
 		return (0);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(p));
 	i = 0;
 	while (i < len)
 	{

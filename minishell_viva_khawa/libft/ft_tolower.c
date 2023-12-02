@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:23:44 by azgaoua           #+#    #+#             */
-/*   Updated: 2022/10/13 14:30:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:13:42 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../minishell.h"
 
 int	ft_tolower(int c)
 {

@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa1.c                                         :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 23:14:46 by azgaoua           #+#    #+#             */
-/*   Updated: 2022/11/12 13:57:10 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:26:57 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../minishell.h"
 
 static char	*f_rev(char *str)
 {
@@ -73,6 +74,7 @@ char	*ft_itoa(int n)
 	s = malloc(i);
 	if (!s)
 		return (0);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(s));
 	i = n;
 	if (i < 0)
 	{

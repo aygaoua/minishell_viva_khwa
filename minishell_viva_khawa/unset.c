@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 16:04:50 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/20 21:35:20 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:25:50 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	uneset_head(t_node **env, char *str)
 	{
 		rm = ptr;
 		(*env) = ptr->next;
-		ft_free_only_one_node (rm);
 		return (0);
 	}
 	return (1);
@@ -60,11 +59,9 @@ void	unset_key(t_node **env, char *str)
 			if (rm->next == NULL)
 			{
 				ptr->next = NULL;
-				ft_free_only_one_node (rm);
 				break ;
 			}
 			ptr->next = ptr->next->next;
-			ft_free_only_one_node (rm);
 		}
 		ptr = ptr->next;
 	}
@@ -76,6 +73,8 @@ void	unset_command(t_node **env, char **str)
 	int		row;
 
 	row = 0;
+	if (!env || !(*env))
+		return ;
 	while (str[row])
 	{
 		if (uneset_head(env, str[row]) == 0)
@@ -87,6 +86,4 @@ void	unset_command(t_node **env, char **str)
 		}
 		row++;
 	}
-	if (empty_list (env) == 1)
-		free (env);
 }

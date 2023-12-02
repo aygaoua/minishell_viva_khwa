@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command4.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:52:00 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/20 21:12:55 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:54:48 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ void	remplace(t_node *list, t_node *one)
 {
 	if (one->equl == 1 && one->plus == 0)
 		export_remplass (list, one);
-	else
-	{
-		ft_free_contnue (&one);
-		free (one);
-	}
 }
 
 void	export_conca(t_node *list, t_node *one)
@@ -30,9 +25,6 @@ void	export_conca(t_node *list, t_node *one)
 	ptr = list->value_of_the_key;
 	list->value_of_the_key = ft_strjoin
 		(list->value_of_the_key, one->value_of_the_key);
-	free (ptr);
-	ft_free_contnue (&one);
-	free (one);
 }
 
 void	take_last_link(t_node **env, t_node *new)
@@ -40,14 +32,17 @@ void	take_last_link(t_node **env, t_node *new)
 	t_node	*last;
 
 	last = ft_lstlast_k (env);
-	last->next = new;
+	if (!last)
+		ft_lstadd_front_k (env, new);
+	else
+		last->next = new;
 }
 
 void	check_link(t_node **my_env, t_node *new)
 {
 	t_node	*an_node;
 
-	if (!my_env || !new)
+	if (!new)
 		return ;
 	if (key_error (new) == 0)
 	{
@@ -64,17 +59,14 @@ void	check_link(t_node **my_env, t_node *new)
 		else
 			take_last_link(my_env, new);
 	}
-	else
-	{
-		ft_free_contnue (&new);
-		free (new);
-	}
 }
 
 int	check_nil(t_node **env, char **matrix)
 {
-	if (!matrix)
+	if (!matrix[0])
 	{
+		if (empty_list (env) == 1)
+			return (1);
 		swap_nodes (env);
 		print_export (env);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:20:03 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 00:19:49 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/02 18:49:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ t_tokens	*ft_lstnew(char *str)
 	new = malloc(sizeof(t_tokens));
 	if (!new)
 		return (0);
-	new->cmd = str;
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(new));
 	new->input = str;
-	new->i_file = NULL;
-	new->o_file = NULL;
 	new->options = NULL;
-	new->dlmtr = NULL;
 	new->i_fd = -2;
 	new->o_fd = -2;
 	new->type_i = -2;
@@ -33,13 +30,14 @@ t_tokens	*ft_lstnew(char *str)
 	return (new);
 }
 
-t_token	*ft_lstnew2(char *v, token_type t)
+t_token	*ft_lstnew2(char *v, t_token_type t)
 {
 	t_token	*new;
 
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (0);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(new));
 	new->type = t;
 	new->value = v;
 	new->prev = NULL;
@@ -64,15 +62,6 @@ void	ft_lstadd_back(t_tokens **lst, t_tokens *new)
 	}
 }
 
-void	ft_lstdelone(t_token *lst, void (*del)(void *))
-{
-	if (lst && del)
-	{
-		del(lst->value);
-		free(lst);
-	}
-}
-
 t_tokens	*ft_lstlast(t_tokens *lst)
 {
 	if (!lst)
@@ -84,7 +73,7 @@ t_tokens	*ft_lstlast(t_tokens *lst)
 
 int	ft_lstsize(t_token *lst)
 {
-	t_token	*j;
+	t_token		*j;
 	int			i;
 
 	if (!lst)
@@ -93,7 +82,7 @@ int	ft_lstsize(t_token *lst)
 	i = 0;
 	while (j != NULL)
 	{
-		j = lst -> next;
+		j = lst->next;
 		lst = j;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:45:30 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/19 18:11:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:33:24 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ t_node	*ft_lstnew_k(char *env_val)
 	t_node	*head;
 
 	head = malloc (sizeof (t_node));
+	if (!head)
+		return (NULL);
+	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(head));
 	head->key = NULL;
 	head->value_of_the_key = NULL;
 	head->key = ft_frontcpy (head->key, env_val, '=');

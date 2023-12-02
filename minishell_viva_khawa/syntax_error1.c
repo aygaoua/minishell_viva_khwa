@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   syntax_error1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 03:58:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 13:34:09 by azgaoua          ###   ########.fr       */
+/*   Created: 2023/12/01 05:25:26 by azgaoua           #+#    #+#             */
+/*   Updated: 2023/12/01 05:26:46 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	ft_change_q1(int *q)
 {
-	void	*i;
+	if ((*q) == 0)
+		(*q) = 1;
+	else if ((*q) == 1)
+		(*q) = 0;
+}
 
-	i = malloc(count * size);
-	if (i)
-	{
-		ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(i));
-		ft_bzero(i, count * size);
-		return (i);
-	}
-	return (0);
+void	ft_change_q2(int *q)
+{
+	if ((*q) == 0)
+		(*q) = 2;
+	else if ((*q) == 2)
+		(*q) = 0;
 }

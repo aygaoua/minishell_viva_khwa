@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 08:06:59 by azgaoua           #+#    #+#              #
-#    Updated: 2023/10/25 21:56:32 by azgaoua          ###   ########.fr        #
+#    Updated: 2023/11/30 12:14:44 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,8 @@ SRCS = get_next_line_utils.c	\
 		ft_strnstr.c		\
 		ft_atoi.c			\
 		ft_calloc.c			\
-		ft_strdup.c			\
-		ft_substr.c			\
 		ft_strjoin.c		\
 		ft_strtrim.c		\
-		ft_split.c			\
 		ft_itoa.c			\
 		ft_strmapi.c		\
 		ft_striteri.c		\

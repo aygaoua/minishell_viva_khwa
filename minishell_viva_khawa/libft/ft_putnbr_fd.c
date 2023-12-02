@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 12:39:18 by azgaoua           #+#    #+#             */
-/*   Updated: 2022/11/13 13:10:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/11/30 12:13:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../minishell.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {

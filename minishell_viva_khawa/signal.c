@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 03:58:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2023/11/30 13:34:09 by azgaoua          ###   ########.fr       */
+/*   Created: 2023/12/01 08:53:52 by momihamm          #+#    #+#             */
+/*   Updated: 2023/12/01 21:14:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	handle_sigint(int sig)
 {
-	void	*i;
-
-	i = malloc(count * size);
-	if (i)
+	if (sig == SIGINT)
 	{
-		ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(i));
-		ft_bzero(i, count * size);
-		return (i);
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		ft_exit_status(1);
 	}
-	return (0);
+}
+
+void	catch_sig(void)
+{
+	rl_catch_signals = 0;
+	signal(SIGINT, &handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
 }

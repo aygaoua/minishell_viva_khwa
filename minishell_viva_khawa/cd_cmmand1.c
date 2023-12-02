@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 21:13:29 by momihamm          #+#    #+#             */
-/*   Updated: 2023/11/20 00:09:54 by azgaoua          ###   ########.fr       */
+/*   Updated: 2023/12/01 06:41:37 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_node	*get_node(t_node **list, char *str)
 {
 	t_node	*ptr;
 
+	if (!list || !(*list))
+		return (NULL);
 	ptr = (*list);
 	while (ptr)
 	{
@@ -30,8 +32,6 @@ int	arg_path(char *str)
 {
 	if (str[0] != '-' && str[0] != '~')
 		return (0);
-	// else if (str[0] == '-')
-	// 	return (1);
 	return (-1);
 }
 
