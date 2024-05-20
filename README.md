@@ -5,9 +5,8 @@ This repository contains a simple shell implementation written in C. It aims to 
 ## Features
 
 * **Basic command execution:**  The shell can execute simple commands like `ls`, `pwd`, `date`, etc.
-* **Command chaining:**  Commands can be chained together using semicolons (`;`).
 * **Redirection:**  Standard input and output can be redirected using `<` and `>`.
-* **Built-in commands:**  Includes basic built-in commands like `exit`, `cd`, and `env`.
+* **Built-in commands:**  Includes basic built-in commands like `exit`, `cd`, `export`, `echo`and `env`.
 
 ## Usage
 
