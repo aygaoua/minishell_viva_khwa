@@ -13,22 +13,22 @@ This repository contains a simple shell implementation written in C. It aims to 
 1. **Compile:**
    ```bash
    make
-Run:
-bash
-./minishell
-Example Usage
-apache
-$ ./minishell
-minishell> ls -l
-total 4
-drwxr-xr-x 2 aygaoua staff 68 Oct 26 16:26 .
-drwxr-xr-x 3 aygaoua staff 102 Oct 26 16:26 ..
--rw-r--r-- 1 aygaoua staff 0 Oct 26 16:26 test.txt
-minishell> echo "Hello, world!" > test.txt
-minishell> cat test.txt
-Hello, world!
-minishell> exit
-$ 
+2. **Run:**
+   ```bash
+   ./minishell
+   Example Usage
+   apache
+   $ ./minishell
+   minishell> ls -l
+   total 4
+   drwxr-xr-x 2 aygaoua staff 68 Oct 26 16:26 .
+   drwxr-xr-x 3 aygaoua staff 102 Oct 26 16:26 ..
+   -rw-r--r-- 1 aygaoua staff 0 Oct 26 16:26 test.txt
+   minishell> echo "Hello, world!" > test.txt
+   minishell> cat test.txt
+   Hello, world!
+   minishell> exit
+   $
 Notes
 This is a simple shell implementation and may not support all the features of a full-fledged shell.
 The shell is currently under development and may have bugs.
