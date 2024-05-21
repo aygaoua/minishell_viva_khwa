@@ -40,7 +40,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 gams
 
-```**Explanation:**
+**Explanation:**
 
 **Clear Title:**  The README starts with a clear title "minishell_viva_khwa".
 **Project Description:**  A brief description of what the project is and its purpose.
