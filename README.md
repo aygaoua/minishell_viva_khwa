@@ -38,8 +38,6 @@ Contributions are welcome! Please feel free to open issues or submit pull reques
 License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-```gams
-
 **Explanation:**
 
 **Clear Title:**  The README starts with a clear title "minishell_viva_khwa".
