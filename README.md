@@ -42,13 +42,13 @@ gams
 
 ```**Explanation:**
 
-* **Clear Title:**  The README starts with a clear title "minishell_viva_khwa".
-* **Project Description:**  A brief description of what the project is and its purpose.
-* **Features:**  A list of the main features implemented in the shell.
-* **Usage:**  Instructions on how to compile and run the shell.
-* **Example Usage:**  A demonstration of the shell's functionality with a simple example.
-* **Notes:**  Important notes about the shell's limitations and development status.
-* **Contributing:**  Information on how to contribute to the project.
-* **License:**  The license under which the project is released.
+**Clear Title:**  The README starts with a clear title "minishell_viva_khwa".
+**Project Description:**  A brief description of what the project is and its purpose.
+**Features:**  A list of the main features implemented in the shell.
+**Usage:**  Instructions on how to compile and run the shell.
+**Example Usage:**  A demonstration of the shell's functionality with a simple example.
+**Notes:**  Important notes about the shell's limitations and development status.
+**Contributing:**  Information on how to contribute to the project.
+**License:**  The license under which the project is released.
 
 **Remember to replace the placeholders with your actual project information.**
